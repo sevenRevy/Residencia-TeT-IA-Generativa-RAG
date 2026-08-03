@@ -1,8 +1,4 @@
-# 📚 Residência Trilhas em Tecnologias - IA e RAG - Introdução à IA - Aula 01
-
-Este projeto contém o código inicial para interagir com a API da OpenAI utilizando Python. 
-
-Para garantir a eficiência de recursos e o isolamento das dependências, recomendamos fortemente o uso de um Ambiente Virtual Python (Virtual Environment ou `venv`).
+# 📚 Residência Trilhas em Tecnologias - IA e RAG - Introdução à IA 
 
 ## Aluno: João Pedro Félix Reis
 
@@ -53,7 +49,7 @@ Certifique-se de que o arquivo `.env` exista dentro da pasta `AULA_01` (ou na ra
 
 ```env
 OPENAI_API_KEY=sua_chave_de_api_aqui
-OPENAI_MODEL=gpt-4o-mini
+OPENAI_MODEL=gpt-5.4-mini
 ```
 *(Importante: adicione o arquivo `.env` ao seu `.gitignore` para não enviá-lo para o GitHub).*
 
@@ -65,7 +61,7 @@ Agora que o ambiente está isolado e as bibliotecas estão instaladas, você pod
 cd AULA_01
 
 # Execute o script Python
-python hello_llm.py
+python hello_llm_OR.py
 ```
 
 ---
