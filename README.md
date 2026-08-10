@@ -17,6 +17,8 @@ O resultado é salvo na própria pasta `Aula02_arquivos_output`, gerando um arqu
 ### 07/08/2026 - AULA 3
 Nessa aula, explorei embeddings e comparação semântica entre termos. O script `Aula03_embedding_output/test_embeddings.py` gera embeddings para palavras como `gato`, `felino`, `carro` e `banana`, salvando cada vetor em arquivos `.json` dentro de `Aula03_embedding_output`.
 
+Também adicionei o script `Aula03_embedding_output/busca_semantica_manual.py`, que gera o teste com `frase_ancora` e `frases_comparacao` e produz um relatório de busca semântica manual sobre os arquivos `.md` da aula 2, comparando trechos por linha, parágrafo e capítulo.
+
 Depois, o script `Aula03_embedding_output/fun_distancia.py` calcula distâncias euclidiana e cosseno entre todos os pares de termos e grava o resultado consolidado em `Aula03_distancias.json`. Para visualizar a distribuição dos vetores, o script `Aula03_graficos/visualizar_embeddings.py` aplica PCA em 2D e 3D e exporta os gráficos em `Aula03_graficos/embeddings_pca_2d.png` e `Aula03_graficos/embeddings_pca_3d.html`.
 
 ## 🚀 Passo a Passo para Configuração e Execução

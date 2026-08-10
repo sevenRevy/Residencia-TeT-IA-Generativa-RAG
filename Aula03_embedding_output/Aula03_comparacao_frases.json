@@ -1,0 +1,25 @@
+{
+  "frase_ancora": "O cachorro correu no parque e brincou com a bola.",
+  "comparacoes": [
+    {
+      "rotulo": "Similar (mesmo sentido, palavras diferentes)",
+      "frase": "Um cão estava correndo no jardim e brincando com seu brinquedo.",
+      "similaridade_cosseno": 0.6417093074525723
+    },
+    {
+      "rotulo": "Oposto/Negação",
+      "frase": "Nenhum animal esteve no parque e o cão permaneceu preso em casa.",
+      "similaridade_cosseno": 0.5299081171393477
+    },
+    {
+      "rotulo": "Relacionado (mesmo contexto de animais)",
+      "frase": "O gato dormiu na almofada da sala durante toda a tarde.",
+      "similaridade_cosseno": 0.2449069242410103
+    },
+    {
+      "rotulo": "Diferente (outro domínio - economia)",
+      "frase": "A taxa de juros do banco central subiu dois pontos percentuais.",
+      "similaridade_cosseno": 0.06966588673150166
+    }
+  ]
+}
