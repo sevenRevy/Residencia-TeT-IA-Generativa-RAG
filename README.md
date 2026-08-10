@@ -9,6 +9,15 @@ Para realizar a comunicação com o modelo de linguagem, utilizei o SDK da OpenA
 
 Durante os testes, também realizei ajustes relacionados ao gerenciamento de tokens da requisição, limitando o tamanho das respostas para adequar o consumo de recursos e evitar erros relacionados aos limites disponíveis da API. Com essa configuração inicial, estabeleci a base necessária para evoluir o projeto para aplicações envolvendo IA Generativa, RAG (Retrieval-Augmented Generation) e processamento de documentos.
 
+### 05/08/2026 - AULA 2
+Nessa aula, trabalhei com extração estruturada de informações a partir de arquivos `.md`. O script `Aula02_arquivos_output/test_json_extractor.py` lê o conteúdo de um documento de entrada, envia o texto para um modelo via OpenRouter/OpenAI e solicita a geração de um JSON seguindo um schema fixo com os campos `titulo`, `autores` e `ano`.
+
+O resultado é salvo na própria pasta `Aula02_arquivos_output`, gerando um arquivo `.json` para cada documento processado. A proposta da atividade foi transformar texto livre em dados estruturados, facilitando o uso posterior em pipelines de RAG, análise de conteúdo e organização automática de documentos.
+
+### 07/08/2026 - AULA 3
+Nessa aula, explorei embeddings e comparação semântica entre termos. O script `Aula03_embedding_output/test_embeddings.py` gera embeddings para palavras como `gato`, `felino`, `carro` e `banana`, salvando cada vetor em arquivos `.json` dentro de `Aula03_embedding_output`.
+
+Depois, o script `Aula03_embedding_output/fun_distancia.py` calcula distâncias euclidiana e cosseno entre todos os pares de termos e grava o resultado consolidado em `Aula03_distancias.json`. Para visualizar a distribuição dos vetores, o script `Aula03_graficos/visualizar_embeddings.py` aplica PCA em 2D e 3D e exporta os gráficos em `Aula03_graficos/embeddings_pca_2d.png` e `Aula03_graficos/embeddings_pca_3d.html`.
 
 ## 🚀 Passo a Passo para Configuração e Execução
 

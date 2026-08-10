@@ -1,0 +1,218 @@
+[
+  {
+    "termo_a": "cachorro",
+    "termo_b": "carro",
+    "distancia_euclidiana": 1.024453383145389,
+    "distancia_cosseno": 0.5247522200044219
+  },
+  {
+    "termo_a": "carro",
+    "termo_b": "caminhão",
+    "distancia_euclidiana": 1.0526381123861572,
+    "distancia_cosseno": 0.5540236249602257
+  },
+  {
+    "termo_a": "gato",
+    "termo_b": "moto",
+    "distancia_euclidiana": 1.0781969018790813,
+    "distancia_cosseno": 0.5812541956688746
+  },
+  {
+    "termo_a": "gato",
+    "termo_b": "cachorro",
+    "distancia_euclidiana": 1.0930984759771096,
+    "distancia_cosseno": 0.5974320689539037
+  },
+  {
+    "termo_a": "banana",
+    "termo_b": "maçã",
+    "distancia_euclidiana": 1.1020725188827543,
+    "distancia_cosseno": 0.6072817377581631
+  },
+  {
+    "termo_a": "gato",
+    "termo_b": "felino",
+    "distancia_euclidiana": 1.1178857586422306,
+    "distancia_cosseno": 0.6248343508959355
+  },
+  {
+    "termo_a": "carro",
+    "termo_b": "moto",
+    "distancia_euclidiana": 1.1199981650052049,
+    "distancia_cosseno": 0.6271977520276502
+  },
+  {
+    "termo_a": "cachorro",
+    "termo_b": "caminhão",
+    "distancia_euclidiana": 1.1372332312070912,
+    "distancia_cosseno": 0.6466499612656904
+  },
+  {
+    "termo_a": "gato",
+    "termo_b": "carro",
+    "distancia_euclidiana": 1.1397154004485757,
+    "distancia_cosseno": 0.6494754185246204
+  },
+  {
+    "termo_a": "felino",
+    "termo_b": "cachorro",
+    "distancia_euclidiana": 1.1406218921414457,
+    "distancia_cosseno": 0.6505092157437644
+  },
+  {
+    "termo_a": "banana",
+    "termo_b": "goiaba",
+    "distancia_euclidiana": 1.15838665989496,
+    "distancia_cosseno": 0.6709294079957866
+  },
+  {
+    "termo_a": "felino",
+    "termo_b": "moto",
+    "distancia_euclidiana": 1.1729091633689006,
+    "distancia_cosseno": 0.6878580032523018
+  },
+  {
+    "termo_a": "felino",
+    "termo_b": "carro",
+    "distancia_euclidiana": 1.1773476508253198,
+    "distancia_cosseno": 0.6930737059535007
+  },
+  {
+    "termo_a": "maçã",
+    "termo_b": "goiaba",
+    "distancia_euclidiana": 1.187046113335629,
+    "distancia_cosseno": 0.7045390399239781
+  },
+  {
+    "termo_a": "cachorro",
+    "termo_b": "moto",
+    "distancia_euclidiana": 1.2008131057563596,
+    "distancia_cosseno": 0.7209759493667738
+  },
+  {
+    "termo_a": "caminhão",
+    "termo_b": "maçã",
+    "distancia_euclidiana": 1.2028657486769685,
+    "distancia_cosseno": 0.7234433457795504
+  },
+  {
+    "termo_a": "cachorro",
+    "termo_b": "maçã",
+    "distancia_euclidiana": 1.2172709424348274,
+    "distancia_cosseno": 0.7408742452573167
+  },
+  {
+    "termo_a": "gato",
+    "termo_b": "caminhão",
+    "distancia_euclidiana": 1.218871469238448,
+    "distancia_cosseno": 0.7428241207681756
+  },
+  {
+    "termo_a": "gato",
+    "termo_b": "goiaba",
+    "distancia_euclidiana": 1.2192536854389344,
+    "distancia_cosseno": 0.7432895074095769
+  },
+  {
+    "termo_a": "caminhão",
+    "termo_b": "moto",
+    "distancia_euclidiana": 1.2357631073719146,
+    "distancia_cosseno": 0.7635555035571222
+  },
+  {
+    "termo_a": "carro",
+    "termo_b": "banana",
+    "distancia_euclidiana": 1.2390532676372978,
+    "distancia_cosseno": 0.7676260858466469
+  },
+  {
+    "termo_a": "carro",
+    "termo_b": "maçã",
+    "distancia_euclidiana": 1.2464919797164613,
+    "distancia_cosseno": 0.776870975686955
+  },
+  {
+    "termo_a": "gato",
+    "termo_b": "banana",
+    "distancia_euclidiana": 1.2583784778043696,
+    "distancia_cosseno": 0.7917578985238642
+  },
+  {
+    "termo_a": "caminhão",
+    "termo_b": "banana",
+    "distancia_euclidiana": 1.260870854532948,
+    "distancia_cosseno": 0.7948977574071543
+  },
+  {
+    "termo_a": "gato",
+    "termo_b": "maçã",
+    "distancia_euclidiana": 1.261375246000209,
+    "distancia_cosseno": 0.795533729529894
+  },
+  {
+    "termo_a": "moto",
+    "termo_b": "banana",
+    "distancia_euclidiana": 1.2622052610358063,
+    "distancia_cosseno": 0.7965807345694709
+  },
+  {
+    "termo_a": "felino",
+    "termo_b": "banana",
+    "distancia_euclidiana": 1.277798957953524,
+    "distancia_cosseno": 0.8163849588506001
+  },
+  {
+    "termo_a": "felino",
+    "termo_b": "caminhão",
+    "distancia_euclidiana": 1.2792923141300043,
+    "distancia_cosseno": 0.8182949118639287
+  },
+  {
+    "termo_a": "cachorro",
+    "termo_b": "banana",
+    "distancia_euclidiana": 1.2794172916645141,
+    "distancia_cosseno": 0.818453990343456
+  },
+  {
+    "termo_a": "moto",
+    "termo_b": "maçã",
+    "distancia_euclidiana": 1.2866762640685336,
+    "distancia_cosseno": 0.827767850174805
+  },
+  {
+    "termo_a": "moto",
+    "termo_b": "goiaba",
+    "distancia_euclidiana": 1.3159529272598085,
+    "distancia_cosseno": 0.8658657137934369
+  },
+  {
+    "termo_a": "felino",
+    "termo_b": "goiaba",
+    "distancia_euclidiana": 1.3162385386980358,
+    "distancia_cosseno": 0.8662418225278461
+  },
+  {
+    "termo_a": "carro",
+    "termo_b": "goiaba",
+    "distancia_euclidiana": 1.3214965652606463,
+    "distancia_cosseno": 0.8731761296808821
+  },
+  {
+    "termo_a": "felino",
+    "termo_b": "maçã",
+    "distancia_euclidiana": 1.3258117576413955,
+    "distancia_cosseno": 0.8788885709793728
+  },
+  {
+    "termo_a": "caminhão",
+    "termo_b": "goiaba",
+    "distancia_euclidiana": 1.328606613339524,
+    "distancia_cosseno": 0.8825978941725047
+  },
+  {
+    "termo_a": "cachorro",
+    "termo_b": "goiaba",
+    "distancia_euclidiana": 1.335176637029127,
+    "distancia_cosseno": 0.891348000532769
+  }
+]
