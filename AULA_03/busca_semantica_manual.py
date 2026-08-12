@@ -3,7 +3,7 @@ import json
 import os
 import re
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from dotenv import load_dotenv
 from langchain_text_splitters import (
@@ -37,7 +37,7 @@ ESTRATEGIAS = {
 }
 
 
-def ler_documentos_markdown(diretorio: str = "AULA_04/aula04_arquivos_output") -> List[Dict[str, str]]:
+def ler_documentos_markdown(diretorio: str = "Aula02_arquivos_output") -> List[Dict[str, str]]:
     """Lê todos os arquivos .md presentes na pasta informada."""
     documentos = []
     padrao = os.path.join(diretorio, "*.md")
@@ -140,7 +140,6 @@ def montar_trechos_markdown(documentos: List[Dict[str, str]]) -> List[Dict[str, 
             })
     return trechos
 
-
 def gerar_embeddings_em_lote(textos: List[str], lote_tamanho: int = 64) -> Dict[str, List[float]]:
     """Gera embeddings em lote utilizando a API do OpenRouter."""
     embeddings = {}
@@ -180,12 +179,13 @@ def similaridade_cosseno(embedding_a: List[float], embedding_b: List[float]) -> 
     return produto_escalar / ((norma_a ** 0.5) * (norma_b ** 0.5))
 
 
-def buscar_por_similaridade(
+def buscar_top_k(
     query: str,
     trechos: List[Dict[str, Any]],
-    embeddings: Dict[str, List[float]]
+    embeddings: Dict[str, List[float]],
+    k: Optional[int] = None
 ) -> List[Dict[str, Any]]:
-    """Calcula a similaridade de todos os trechos com a query e ordena do maior para o menor (sem limitar Top-K)."""
+    """Ordena os trechos por similaridade de cosseno com a query."""
     query_key = query.strip()
     query_embedding = embeddings[query_key]
     resultados = []
@@ -212,13 +212,14 @@ def buscar_por_similaridade(
         resultados.append(item_resultado)
 
     resultados.sort(key=lambda x: x["score_similaridade"], reverse=True)
-    return resultados
+    return resultados[:k] if k is not None else resultados
 
 
 def gerar_relatorio_busca_semantica(
-    queries: List[str]
+    queries: List[str],
+    k: Optional[int] = None
 ) -> List[Dict[str, Any]]:
-    """Gera o relatório executando os 10 experimentos para todas as queries sem limitação de Top-K."""
+    """Gera o relatório executando os 10 experimentos para todas as queries."""
     documentos = ler_documentos_markdown()
     relatorio = []
 
@@ -251,10 +252,11 @@ def gerar_relatorio_busca_semantica(
                 }
                 relatorio.append(resultado_query)
 
-            resultado_query["resultados"][nome_estrategia] = buscar_por_similaridade(
+            resultado_query["resultados"][nome_estrategia] = buscar_top_k(
                 query,
                 trechos,
-                embeddings
+                embeddings,
+                k=k
             )
 
     return relatorio
@@ -269,8 +271,8 @@ if __name__ == "__main__":
         "Quais são os principais problemas éticos em modelos de linguagem?"
     ]
 
-    print("Gerando embeddings reais via API (avaliando todos os trechos sem limitação de Top-K)...")
-    relatorio_completo = gerar_relatorio_busca_semantica(queries_teste)
+    print("Gerando embeddings reais via API...")
+    relatorio_completo = gerar_relatorio_busca_semantica(queries_teste, k=None)
 
     LIMIAR = 0.6
     relatorio_maiores = []

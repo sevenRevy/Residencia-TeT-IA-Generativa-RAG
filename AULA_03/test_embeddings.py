@@ -12,7 +12,7 @@ client = OpenAI(
 )
 
 
-output_folder = Path("Aula03_embedding_output")
+output_folder = Path("AULA_03")
 output_folder.mkdir(exist_ok=True)
 
 

@@ -3,7 +3,7 @@ import math
 from pathlib import Path
 from itertools import combinations
 
-embedding_folder = Path("Aula03_embedding_output")
+embedding_folder = Path("AULA_03")
 
 
 def carregar_embedding(nome):

@@ -4,7 +4,7 @@ from docling.document_converter import DocumentConverter
 
 
 ## INPUT
-input_file = Path("Aula02_arquivos/twitter_algoritmo.pdf")
+input_file = Path("AULA_02/twitter_algoritmo.pdf")
 
 ## ENV
 output_folder = Path("Aula02_arquivos_output")

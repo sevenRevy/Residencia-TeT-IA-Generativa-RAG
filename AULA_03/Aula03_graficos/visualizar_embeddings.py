@@ -11,7 +11,7 @@ from sklearn.decomposition import PCA
 # Configurações
 # ==========================
 
-embedding_folder = Path("Aula03_embedding_output")
+embedding_folder = Path("AULA_03")
 output_folder = Path("Aula03_graficos")
 
 output_folder.mkdir(exist_ok=True)

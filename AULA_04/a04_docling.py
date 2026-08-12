@@ -16,11 +16,10 @@ os.environ["TORCH_COMPILE_DISABLE"] = "1"
 
 CHUNK_SIZE = 10  
 
-## 1. PIPELINE DE ALTA PERFORMANCE
 pipeline_options = PdfPipelineOptions()
-pipeline_options.do_table_structure = True     # Desativa IA pesada de tabelas
-pipeline_options.do_ocr = False                  # Desativa OCR
-pipeline_options.generate_page_images = False    # Desativa imagens
+pipeline_options.do_table_structure = True   
+pipeline_options.do_ocr = False                  
+pipeline_options.generate_page_images = False    
 pipeline_options.generate_picture_images = False
 
 format_options = {
@@ -44,7 +43,6 @@ def process_pdf_in_chunks(pdf_path: Path, chunk_size: int) -> str:
         end_page = min(start_page + chunk_size, total_pages)
         print(f"  -> Processando páginas {start_page + 1} até {end_page} de {total_pages}...")
 
-        # 1. Extrai o bloco de páginas atual
         writer = PdfWriter()
         for page_num in range(start_page, end_page):
             writer.add_page(reader.pages[page_num])
@@ -54,20 +52,17 @@ def process_pdf_in_chunks(pdf_path: Path, chunk_size: int) -> str:
             writer.write(f)
 
         try:
-            # 2. Converte apenas o lote atual
             result = converter.convert(temp_chunk_path)
             md_part = result.document.export_to_markdown()
             full_markdown_parts.append(md_part)
 
         finally:
-            # 3. Limpa o arquivo temporário e força a liberação de memória
             if temp_chunk_path.exists():
                 temp_chunk_path.unlink()
             if 'result' in locals():
                 del result
             gc.collect()
 
-    # Junta todas as partes com uma separação visual
     return "\n\n---\n\n".join(full_markdown_parts)
 
 
@@ -97,7 +92,6 @@ for input_file in pdf_files:
     try:
         print(f"Iniciando conversão completa em lotes de: {input_file.name}")
         
-        # Converte o documento por inteiro em lotes sem estourar a RAM
         markdown_completo = process_pdf_in_chunks(input_file, CHUNK_SIZE)
 
         output_file.write_text(markdown_completo, encoding="utf-8")
