@@ -21,6 +21,13 @@ Também adicionei o script `Aula03_embedding_output/busca_semantica_manual.py`, 
 
 Depois, o script `Aula03_embedding_output/fun_distancia.py` calcula distâncias euclidiana e cosseno entre todos os pares de termos e grava o resultado consolidado em `Aula03_distancias.json`. Para visualizar a distribuição dos vetores, o script `Aula03_graficos/visualizar_embeddings.py` aplica PCA em 2D e 3D e exporta os gráficos em `Aula03_graficos/embeddings_pca_2d.png` e `Aula03_graficos/embeddings_pca_3d.html`.
 
+### 10/08/2026 - AULA 4
+Nessa aula, avancei na implementação da busca semântica utilizando LangChain e embeddings gerados através da API da OpenAI. O projeto passou a trabalhar diretamente com os documentos em formato .md, realizando a leitura e divisão dos textos em diferentes estratégias de chunking, permitindo comparar formas distintas de segmentação dos documentos.
+
+Também implementei a geração de embeddings em lotes e o cálculo de similaridade por cosseno entre os vetores. A partir desses recursos, foi criada uma função de busca semântica capaz de receber uma consulta e recuperar os trechos mais semelhantes dentro do corpus de documentos.
+
+Por fim, desenvolvi a geração de relatórios para múltiplas consultas, salvando os resultados da busca em arquivos .json. Durante a implementação, também foram adicionados tratamentos para erros relacionados à chave da API e à dimensão dos embeddings. Além da implementação da busca semântica, ampliei o corpus utilizado nos testes com novos documentos, permitindo avaliar o funcionamento da recuperação semântica em uma base maior e mais diversificada.
+
 ## 🚀 Passo a Passo para Configuração e Execução
 
 ### 1. Criar o Ambiente Virtual (venv)
