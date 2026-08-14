@@ -18,7 +18,7 @@ load_dotenv()
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key=os.getenv("OPENAI_API_KEY"),
+    api_key=os.getenv("OPENROUTER_API_KEY"),
 )
 
 embedding_model = os.getenv("OPENAI_EMBEDDING_MODEL", "nvidia/nemotron-3-embed-1b:free")
@@ -266,8 +266,8 @@ def gerar_relatorio_busca_semantica(
 
 
 if __name__ == "__main__":
-    if not os.getenv("OPENAI_API_KEY"):
-        raise RuntimeError("Defina OPENAI_API_KEY no .env ou no ambiente antes de executar este script.")
+    if not os.getenv("OPENROUTER_API_KEY"):
+        raise RuntimeError("Defina OPENROUTER_API_KEY no .env ou no ambiente antes de executar este script.")
 
     queries_teste = [
         "O que é autonomia e opacidade algorítmica?",

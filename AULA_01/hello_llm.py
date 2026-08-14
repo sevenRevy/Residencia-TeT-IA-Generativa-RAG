@@ -6,7 +6,7 @@ from openai import OpenAI
 load_dotenv()
 
 client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY")
+    api_key=os.getenv("OPENROUTER_API_KEY")
 )
 
 # Usa o modelo definido no .env ou um valor padrão
