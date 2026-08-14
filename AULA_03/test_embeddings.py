@@ -12,7 +12,8 @@ client = OpenAI(
 )
 
 
-output_folder = Path("AULA_03")
+REPO_DIR = Path(__file__).resolve().parents[1]
+output_folder = REPO_DIR / "corpus" / "embeddings" / "aula03"
 output_folder.mkdir(exist_ok=True)
 
 

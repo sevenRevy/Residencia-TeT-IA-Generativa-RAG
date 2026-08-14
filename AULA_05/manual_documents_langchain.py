@@ -4,7 +4,7 @@ from langchain_core.documents import Document
 
 
 REPO_DIR = Path(__file__).resolve().parents[1]
-CORPUS_DIR = REPO_DIR / "Corpus"
+CORPUS_DIR = REPO_DIR / "corpus" / "processed" / "aula04"
 
 
 documentos = [
@@ -105,7 +105,7 @@ def testar_document_sem_metadata():
 if __name__ == "__main__":
     arquivos_corpus = sorted(caminho.name for caminho in CORPUS_DIR.glob("*.md"))
 
-    print("=== Corpus Markdown copiado ===")
+    print("=== Markdown processado da Aula 04 ===")
     print(f"pasta: {CORPUS_DIR}")
     print(f"total_arquivos_md: {len(arquivos_corpus)}")
     for arquivo in arquivos_corpus:

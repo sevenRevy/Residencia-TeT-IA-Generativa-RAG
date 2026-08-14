@@ -3,7 +3,8 @@ import math
 from pathlib import Path
 from itertools import combinations
 
-embedding_folder = Path("AULA_03")
+REPO_DIR = Path(__file__).resolve().parents[1]
+embedding_folder = REPO_DIR / "corpus" / "embeddings" / "aula03"
 
 
 def carregar_embedding(nome):

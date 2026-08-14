@@ -2,15 +2,27 @@
 
 ## Exercicio 1 - Documents na mao
 
+## Onde procurar
+
+| Item | Caminho |
+| --- | --- |
+| Script com dados reais | `AULA_05/documents_langchain.py` |
+| Exemplo manual | `AULA_05/manual_documents_langchain.py` |
+| Relatorio de entrada | `corpus/reports/aula04/completo_fixo_1000.json` |
+| Fontes Markdown da Aula 04 | `corpus/processed/aula04/` |
+| Fontes Markdown herdadas da Aula 02 | `corpus/processed/aula02/` |
+
 ### Explicacao do output
 
-O primeiro bloco mostra que a pasta `Corpus`, localizada na raiz do projeto, foi encontrada corretamente:
+O script `documents_langchain.py` usa dados reais da Aula 04. Ele le o relatorio `corpus/reports/aula04/completo_fixo_1000.json` e resolve as fontes Markdown em `corpus/processed/aula04/`, usando `corpus/processed/aula02/` quando o relatorio referencia documentos herdados das aulas anteriores.
+
+No exemplo manual, o primeiro bloco mostra que a pasta `corpus/processed/aula04/` foi encontrada corretamente:
 
 ```text
 total_arquivos_md: 9
 ```
 
-Isso significa que o script localizou 9 arquivos Markdown copiados da Aula 04. A lista logo abaixo mostra os nomes desses arquivos, como `attention_is_all_you_need.md`, `bert_pretraining.md` e `retrieval_augmented_generation.md`.
+Isso significa que o script localizou os arquivos Markdown processados da Aula 04. A lista logo abaixo mostra os nomes desses arquivos, como `attention_is_all_you_need.md`, `bert_pretraining.md` e `retrieval_augmented_generation.md`.
 
 O bloco `Lista completa de Document` mostra os 5 objetos `Document` criados manualmente no script. Cada documento tem dois campos principais:
 

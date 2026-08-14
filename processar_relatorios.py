@@ -2,11 +2,12 @@ import json
 import os
 from pathlib import Path
 
-pasta_relatorios = Path("relatorios_completos")
-arquivo_maiores_fixo = "relatorio_maiores_ou_igual_06.json"
-arquivo_menores_fixo = "relatorio_menores_06.json"
-arquivo_maiores_top20 = "relatorio_maiores_top20.json"
-arquivo_menores_top20 = "relatorio_menores_top20.json"
+REPO_DIR = Path(__file__).resolve().parent
+pasta_relatorios = REPO_DIR / "corpus" / "reports" / "aula04"
+arquivo_maiores_fixo = pasta_relatorios / "relatorio_maiores_ou_igual_06.json"
+arquivo_menores_fixo = pasta_relatorios / "relatorio_menores_06.json"
+arquivo_maiores_top20 = pasta_relatorios / "relatorio_maiores_top20.json"
+arquivo_menores_top20 = pasta_relatorios / "relatorio_menores_top20.json"
 
 PERCENTIL_CORTE = 0.80  # Mantém os 20% melhores scores de cada grupo
 LIMIAR_FIXO = 0.06  # Corte fixo compatível com a escala real dos scores do dataset

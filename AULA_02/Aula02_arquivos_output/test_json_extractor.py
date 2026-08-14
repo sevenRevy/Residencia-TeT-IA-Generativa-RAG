@@ -15,7 +15,8 @@ client = OpenAI(
 model = os.getenv("OPENAI_MODEL")
 
 
-input_file = Path("Aula02_arquivos_output/twitter_algoritmo.md")
+REPO_DIR = Path(__file__).resolve().parents[2]
+input_file = REPO_DIR / "corpus" / "processed" / "aula02" / "twitter_algoritmo.md"
 
 text = input_file.read_text(encoding="utf-8")
 
@@ -71,7 +72,7 @@ response = client.chat.completions.create(
 
 data = json.loads(response.choices[0].message.content)
 
-output_folder = Path("Aula02_arquivos_output")
+output_folder = REPO_DIR / "corpus" / "metadata" / "aula02"
 output_folder.mkdir(exist_ok=True)
 
 output_file = output_folder / f"{input_file.stem}.json"

@@ -7,9 +7,42 @@
 | Pasta | Título | Conteúdo | README |
 | --- | --- | --- | --- |
 | `AULA_01/` | Setup inicial  | Primeiros testes com LLMs, OpenRouter/OpenAI e variáveis de ambiente. | [Ler README](AULA_01/README.md) |
-| `AULA_02/` | Extração estruturada de informações | Extração de documentos PDFs. | [Ler README](AULA_02/README.md) |
-| `AULA_03/` | Embeddings, distâncias e busca semântica manual | Scripts e resultados de embeddings, distâncias e busca semântica manual. | [Ler README](AULA_03/README.md) |
-| `AULA_04/` | Busca semântica com LangChain e RAG | PDFs, conversão com Docling e arquivos Markdown da atividade de chunking/RAG. | [Ler README](AULA_04/README.md) |
+| `AULA_02/` | Extração estruturada de informações | Scripts de conversão e extração de metadados. | [Ler README](AULA_02/README.md) |
+| `AULA_03/` | Embeddings, distâncias e busca semântica manual | Scripts de embeddings, distâncias, busca semântica manual e gráficos. | [Ler README](AULA_03/README.md) |
+| `AULA_04/` | Busca semântica com LangChain e RAG | Script de conversão com Docling e experimentos de chunking/RAG. | [Ler README](AULA_04/README.md) |
+| `AULA_05/` | Documents com LangChain | Exemplos de `Document` com metadados a partir dos dados reais da Aula 04. | [Ler README](AULA_05/README.md) |
+
+## Organização do Corpus
+
+Os dados ficam centralizados em `corpus/`, separados pelo estágio do pipeline. As pastas `AULA_*` guardam a progressão das aulas, scripts e explicações; o corpus guarda os artefatos de entrada e saída.
+
+```text
+corpus/
+├── raw/
+│   ├── aula02/      # PDFs usados na Aula 02
+│   └── aula04/      # PDFs usados na Aula 04
+├── processed/
+│   ├── aula02/      # Markdown gerado a partir dos PDFs da Aula 02
+│   └── aula04/      # Markdown gerado a partir dos PDFs da Aula 04
+├── metadata/
+│   └── aula02/      # JSONs de metadados extraídos na Aula 02
+├── embeddings/
+│   └── aula03/      # JSONs de embeddings, distâncias e busca semântica manual
+└── reports/
+    └── aula04/      # Relatórios completos e filtrados dos experimentos de RAG
+```
+
+## Onde Procurar
+
+| Artefato | Caminho |
+| --- | --- |
+| PDFs originais da Aula 02 | `corpus/raw/aula02/` |
+| PDFs originais da Aula 04 | `corpus/raw/aula04/` |
+| Markdown processado da Aula 02 | `corpus/processed/aula02/` |
+| Markdown processado da Aula 04 | `corpus/processed/aula04/` |
+| Metadados extraídos da Aula 02 | `corpus/metadata/aula02/` |
+| Embeddings e resultados da Aula 03 | `corpus/embeddings/aula03/` |
+| Relatórios de busca/chunking da Aula 04 | `corpus/reports/aula04/` |
 
 ## 🚀 Passo a Passo para Configuração e Execução
 

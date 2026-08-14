@@ -8,8 +8,9 @@ from docling.datamodel.pipeline_options import PdfPipelineOptions
 from docling.datamodel.base_models import InputFormat
 from docling.backend.pypdfium2_backend import PyPdfiumDocumentBackend
 
-input_folder = Path(".")
-output_folder = Path("./aula04_arquivos_output")
+REPO_DIR = Path(__file__).resolve().parents[1]
+input_folder = REPO_DIR / "corpus" / "raw" / "aula04"
+output_folder = REPO_DIR / "corpus" / "processed" / "aula04"
 output_folder.mkdir(parents=True, exist_ok=True)
 
 os.environ["TORCH_COMPILE_DISABLE"] = "1"

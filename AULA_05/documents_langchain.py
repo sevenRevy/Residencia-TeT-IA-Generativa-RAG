@@ -7,11 +7,11 @@ from langchain_core.documents import Document
 
 
 REPO_DIR = Path(__file__).resolve().parents[1]
-AULA_04_DIR = REPO_DIR / "AULA_04"
-DOCUMENTOS_DIR = AULA_04_DIR / "aula04_arquivos_output"
-RELATORIOS_DIR = AULA_04_DIR / "relatorios_completos04"
+CORPUS_DIR = REPO_DIR / "corpus"
+DOCUMENTOS_DIR = CORPUS_DIR / "processed" / "aula04"
+DOCUMENTOS_FALLBACK_DIR = CORPUS_DIR / "processed" / "aula02"
+RELATORIOS_DIR = CORPUS_DIR / "reports" / "aula04"
 RELATORIO_ENTRADA = RELATORIOS_DIR / "completo_fixo_1000.json"
-CORPUS_DIR = REPO_DIR / "Corpus"
 NUMERO_EMBEDDINGS = 5
 
 ESTRATEGIAS_CONFIG = {
@@ -57,7 +57,7 @@ def extrair_titulo_secao(texto_ate_chunk: str) -> str | None:
 
 
 def resolver_caminho_fonte(nome_arquivo: str) -> Path | None:
-    for pasta in (DOCUMENTOS_DIR, CORPUS_DIR):
+    for pasta in (DOCUMENTOS_DIR, DOCUMENTOS_FALLBACK_DIR):
         caminho = pasta / nome_arquivo
         if caminho.exists():
             return caminho

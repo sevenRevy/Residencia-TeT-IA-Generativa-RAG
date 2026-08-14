@@ -22,6 +22,9 @@ client = OpenAI(
 )
 
 embedding_model = os.getenv("OPENAI_EMBEDDING_MODEL", "nvidia/nemotron-3-embed-1b:free")
+REPO_DIR = Path(__file__).resolve().parents[1]
+DOCUMENTOS_DIR = REPO_DIR / "corpus" / "processed" / "aula02"
+EMBEDDINGS_DIR = REPO_DIR / "corpus" / "embeddings" / "aula03"
 
 ESTRATEGIAS = {
     1: "fixo_200",
@@ -37,10 +40,10 @@ ESTRATEGIAS = {
 }
 
 
-def ler_documentos_markdown(diretorio: str = "Aula02_arquivos_output") -> List[Dict[str, str]]:
+def ler_documentos_markdown(diretorio: Path = DOCUMENTOS_DIR) -> List[Dict[str, str]]:
     """Lê todos os arquivos .md presentes na pasta informada."""
     documentos = []
-    padrao = os.path.join(diretorio, "*.md")
+    padrao = os.path.join(str(diretorio), "*.md")
     arquivos = glob.glob(padrao)
 
     for caminho in sorted(arquivos):
@@ -298,8 +301,9 @@ if __name__ == "__main__":
             "resultados": res_menores
         })
 
-    arquivo_maiores = "relatorio_maiores_ou_igual_06.json"
-    arquivo_menores = "relatorio_menores_06.json"
+    EMBEDDINGS_DIR.mkdir(parents=True, exist_ok=True)
+    arquivo_maiores = EMBEDDINGS_DIR / "relatorio_maiores_ou_igual_06.json"
+    arquivo_menores = EMBEDDINGS_DIR / "relatorio_menores_06.json"
 
     with open(arquivo_maiores, "w", encoding="utf-8") as f:
         json.dump(relatorio_maiores, f, indent=2, ensure_ascii=False)

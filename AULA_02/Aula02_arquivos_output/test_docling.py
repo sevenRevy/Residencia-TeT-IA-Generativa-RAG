@@ -4,10 +4,11 @@ from docling.document_converter import DocumentConverter
 
 
 ## INPUT
-input_file = Path("AULA_02/twitter_algoritmo.pdf")
+REPO_DIR = Path(__file__).resolve().parents[2]
+input_file = REPO_DIR / "corpus" / "raw" / "aula02" / "twitter_algoritmo.pdf"
 
 ## ENV
-output_folder = Path("Aula02_arquivos_output")
+output_folder = REPO_DIR / "corpus" / "processed" / "aula02"
 output_folder.mkdir(parents=True, exist_ok=True)
 os.environ["TORCH_COMPILE_DISABLE"] = "1"
 
