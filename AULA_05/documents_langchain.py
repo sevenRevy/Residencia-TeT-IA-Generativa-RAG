@@ -11,6 +11,7 @@ CORPUS_DIR = REPO_DIR / "corpus"
 DOCUMENTOS_DIR = CORPUS_DIR / "processed" / "aula04"
 DOCUMENTOS_FALLBACK_DIR = CORPUS_DIR / "processed" / "aula02"
 RELATORIOS_DIR = CORPUS_DIR / "reports"
+SAIDA_DOCUMENTS_DIR = CORPUS_DIR / "metadata" / "aula05"
 AULA_RELATORIOS = "aula04"
 NUMERO_EXEMPLOS_JSON = 1
 
@@ -337,9 +338,29 @@ def document_para_json(documento: Document) -> Dict[str, Any]:
     }
 
 
+def caminho_saida_documents(aula: str) -> Path:
+    return SAIDA_DOCUMENTS_DIR / f"documents_langchain_{aula}.json"
+
+
+def salvar_documents(aula: str, documentos: List[Document]) -> Path:
+    SAIDA_DOCUMENTS_DIR.mkdir(parents=True, exist_ok=True)
+    caminho_saida = caminho_saida_documents(aula)
+    payload = {
+        "aula": aula,
+        "total_documents": len(documentos),
+        "documents": [document_para_json(documento) for documento in documentos],
+    }
+    caminho_saida.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return caminho_saida
+
+
 def executar_exercicio(aula: str = AULA_RELATORIOS) -> None:
     relatorios = listar_relatorios(aula)
     documentos = montar_documents_do_relatorio(aula)
+    caminho_saida = salvar_documents(aula, documentos)
 
     print("=== 1. Schema final ===")
     imprimir_tabela_schema(SCHEMA_METADATA)
@@ -353,6 +374,7 @@ def executar_exercicio(aula: str = AULA_RELATORIOS) -> None:
     print(f"aula: {aula}")
     print(f"relatorios_carregados: {len(relatorios)}")
     print(f"documents_carregados: {len(documentos)}")
+    print(f"arquivo_saida: {caminho_saida.relative_to(REPO_DIR)}")
     print(json.dumps(
         [document_para_json(documento) for documento in documentos[:NUMERO_EXEMPLOS_JSON]],
         ensure_ascii=False,

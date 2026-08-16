@@ -10,6 +10,8 @@
 | Script com dados reais da Aula 02 | `AULA_05/documents_langchain_aula02.py` |
 | Exemplo manual | `AULA_05/manual_documents_langchain.py` |
 | Relatorios de entrada | `corpus/reports/completo_corpus_processed_aula*_*.json` |
+| Output completo Aula 04 | `corpus/metadata/aula05/documents_langchain_aula04.json` |
+| Output completo Aula 02 | `corpus/metadata/aula05/documents_langchain_aula02.json` |
 | Resumo dos experimentos | `corpus/reports/summary.json` |
 | Fontes Markdown da Aula 04 | `corpus/processed/aula04/` |
 | Fontes Markdown herdadas da Aula 02 | `corpus/processed/aula02/` |
@@ -119,7 +121,7 @@ Isso significa que, quando `metadata` nao e informado, o LangChain nao deixa o c
 
 ## Exercicio 2 - Projetando o schema de metadados
 
-O script `documents_langchain.py` usa todos os relatorios da Aula 04 em `corpus/reports/`, sem limitar a quantidade de chunks carregados. Na execucao validada, ele carregou 90 relatorios da Aula 04 e criou 26.490 objetos `Document`. O script `documents_langchain_aula02.py` reaproveita o mesmo schema para a Aula 02; na execucao validada, ele carregou 30 relatorios e criou 2.874 objetos `Document`.
+O script `documents_langchain.py` usa todos os relatorios da Aula 04 em `corpus/reports/`, sem limitar a quantidade de chunks carregados. Na execucao validada, ele carregou 90 relatorios da Aula 04 e criou 26.490 objetos `Document`, salvos em `corpus/metadata/aula05/documents_langchain_aula04.json`. O script `documents_langchain_aula02.py` reaproveita o mesmo schema para a Aula 02; na execucao validada, ele carregou 30 relatorios e criou 2.874 objetos `Document`, salvos em `corpus/metadata/aula05/documents_langchain_aula02.json`.
 
 ### Schema final
 
