@@ -8,6 +8,8 @@ Pasta com os primeiros testes de comunicação com modelos de linguagem.
 - `hello_llm_OR.py`: teste usando OpenRouter com interface compatível com OpenAI.
 - `hello_llm.ipynb`: versão em notebook da atividade.
 
+Esta aula não gera relatórios em `corpus/reports/`; ela documenta a configuração inicial usada pelas etapas posteriores do projeto.
+
 ## Relatório
 
 ### 03/08/2026 - AULA 1

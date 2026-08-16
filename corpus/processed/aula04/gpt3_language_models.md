@@ -1,4 +1,7 @@
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 1, "page_start": 1, "page_end": 1, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=1", "section": "Abstract", "subsection": null, "heading_path": ["Abstract"]} -->
+
 ## Language Models are Few-Shot Learners
+<!-- section_metadata: {"section": "Language Models are Few-Shot Learners", "subsection": null, "heading_path": ["Language Models are Few-Shot Learners"]} -->
 
 | Tom B. Brown ∗                                                    | Tom B. Brown ∗                                                                  | Benjamin Mann ∗  Nick Ryder                                                     | Melanie Subbiah ∗   | Melanie Subbiah ∗   |        |
 |-------------------------------------------------------------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------|---------------------|---------------------|--------|
@@ -11,6 +14,7 @@
 | OpenAI                                                            | OpenAI                                                                          | OpenAI                                                                          | OpenAI              | OpenAI              | OpenAI |
 
 ## Abstract
+<!-- section_metadata: {"section": "Abstract", "subsection": null, "heading_path": ["Abstract"]} -->
 
 Recent work has demonstrated substantial gains on many NLP tasks and benchmarks by pre-training on a large corpus of text followed by fine-tuning on a specific task. While typically task-agnostic in architecture, this method still requires task-specific fine-tuning datasets of thousands or tens of thousands of examples. By contrast, humans can generally perform a new language task from only a few examples or from simple instructions – something which current NLP systems still largely struggle to do. Here we show that scaling up language models greatly improves task-agnostic, few-shot performance, sometimes even reaching competitiveness with prior state-of-the-art finetuning approaches. Specifically, we train GPT-3, an autoregressive language model with 175 billion parameters, 10x more than any previous non-sparse language model, and test its performance in the few-shot setting. For all tasks, GPT-3 is applied without any gradient updates or fine-tuning, with tasks and few-shot demonstrations specified purely via text interaction with the model. GPT-3 achieves strong performance on many NLP datasets, including translation, question-answering, and cloze tasks, as well as several tasks that require on-the-fly reasoning or domain adaptation, such as unscrambling words, using a novel word in a sentence, or performing 3-digit arithmetic. At the same time, we also identify some datasets where GPT-3's few-shot learning still struggles, as well as some datasets where GPT-3 faces methodological issues related to training on large web corpora. Finally, we find that GPT-3 can generate samples of news articles which human evaluators have difficulty distinguishing from articles written by humans. We discuss broader societal impacts of this finding and of GPT-3 in general.
 
@@ -18,7 +22,12 @@ Recent work has demonstrated substantial gains on many NLP tasks and benchmarks 
 
 † Johns Hopkins University, OpenAI
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 2, "page_start": 2, "page_end": 2, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=2", "section": "Contents", "subsection": null, "heading_path": ["Contents"]} -->
+
 ## Contents
+<!-- section_metadata: {"section": "Contents", "subsection": null, "heading_path": ["Contents"]} -->
 
 |                                                       | 1 Introduction                                                                                                   |   3 |
 |-------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|-----|
@@ -54,7 +63,12 @@ Recent work has demonstrated substantial gains on many NLP tasks and benchmarks 
 | G Details of Task Phrasing and Specifications         | G Details of Task Phrasing and Specifications                                                                    |  50 |
 | H Results on All Tasks for All Model Sizes            | H Results on All Tasks for All Model Sizes                                                                       |  63 |
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 3, "page_start": 3, "page_end": 3, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=3", "section": "1 Introduction", "subsection": null, "heading_path": ["1 Introduction"]} -->
+
 ## 1 Introduction
+<!-- section_metadata: {"section": "1 Introduction", "subsection": null, "heading_path": ["1 Introduction"]} -->
 
 Recent years have featured a trend towards pre-trained language representations in NLP systems, applied in increasingly flexible and task-agnostic ways for downstream transfer. First, single-layer representations were learned using word vectors [MCCD13 , PSM14] and fed to task-specific architectures, then RNNs with multiple layers of representations and contextual state were used to form stronger representations [DL15 , MBXS17 , PNZtY18] (though still applied to task-specific architectures), and more recently pre-trained recurrent or transformer language models [VSP + 17] have been directly fine-tuned, entirely removing the need for task-specific architectures [RNSS18 , DCLT18 , HR18].
 
@@ -68,11 +82,15 @@ Third, humans do not require large supervised datasets to learn most language ta
 
 Figure 1.1: Language model meta-learning. During unsupervised pre-training, a language model develops a broad set of skills and pattern recognition abilities. It then uses these abilities at inference time to rapidly adapt to or recognize the desired task. We use the term "in-context learning" to describe the inner loop of this process, which occurs within the forward-pass upon each sequence. The sequences in this diagram are not intended to be representative of the data a model would see during pre-training, but are intended to show that there are sometimes repeated sub-tasks embedded within a single sequence.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page003_image001", "document_name": "gpt3_language_models.pdf", "page": 3, "section": "1 Introduction", "subsection": null, "heading_path": ["1 Introduction"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=3", "bbox": {"l": 71.05913543701172, "t": 344.60906982421875, "r": 473.43865966796875, "b": 147.8935546875}, "image_description": "Esta figura ilustra um tipo de aprendizado de representante (ou aprendizado de auto-representação), que pode ser utilizado em processamento de linguagem natural. Ela mostra um esquema do treino de codificador usando uma auto-eficácia contrastiva onde é preparado um tripleto de embutimentos com exemplos positivos e negativos e se aplicam perda de similaridade — L1 e L2 — para atrair representações positivas e afastar negativas. A sequência é composta por etapas de pré-treinamento sem supervisão que utilizam operadores de aumento de dado ao processar a entrada de texto.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 4, "page_start": 4, "page_end": 4, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=4", "section": "1 Introduction", "subsection": null, "heading_path": ["1 Introduction"]} -->
 
 Figure 1.2: Larger models make increasingly efficient use of in-context information. We show in-context learning performance on a simple task requiring the model to remove random symbols from a word, both with and without a natural language task description (see Sec. 3.9.2). The steeper "in-context learning curves" for large models demonstrate improved ability to learn a task from contextual information. We see qualitatively similar behavior across a wide range of tasks.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page004_image002", "document_name": "gpt3_language_models.pdf", "page": 4, "section": "1 Introduction", "subsection": null, "heading_path": ["1 Introduction"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=4", "bbox": {"l": 116.8773422241211, "t": 720.5215835571289, "r": 492.8315734863281, "b": 517.6252746582031}, "image_description": "1. A figura apresentada é um gráfico de linha que compara a precisão de modelos de linguagem com diferentes números de parâmetros (1,3B, 13B e 175B) em tarefas de zero-shot, one-shot e few-shot.\n2. Os dados indicam que, à medida que o número de exemplos no contexto aumenta, a precisão dos modelos costuma subir, com modelos maiores (maior número de parâmetros) geralmente apresentando melhor desempenho.\n3. Essa imagem provavelmente faz parte de uma publicação acadêmica discutindo a eficácia de diferentes escalas de modelos de linguagem em tarefas específicas, fornecendo uma análise visual dos resultados experimentais.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 One potential route towards addressing these issues is meta-learning 1 – which in the context of language models means the model develops a broad set of skills and pattern recognition abilities at training time, and then uses those abilities at inference time to rapidly adapt to or recognize the desired task (illustrated in Figure 1.1). Recent work [RWC + 19] attempts to do this via what we call "in-context learning", using the text input of a pretrained language model as a form of task specification: the model is conditioned on a natural language instruction and/or a few demonstrations of the task and is then expected to complete further instances of the task simply by predicting what comes next.
 
@@ -82,9 +100,13 @@ Another recent trend in language modeling may offer a way forward. In recent yea
 
 1 In the context of language models this has sometimes been called "zero-shot transfer", but this term is potentially ambiguous: the method is "zero-shot" in the sense that no gradient updates are performed, but it often involves providing inference-time demonstrations to the model, so is not truly learning from zero examples. To avoid this confusion, we use the term "meta-learning" to capture the inner-loop / outer-loop structure of the general method, and the term "in context-learning" to refer to the inner loop of meta-learning. We further specialize the description to "zero-shot", "one-shot", or "few-shot" depending on how many demonstrations are provided at inference time. These terms are intended to remain agnostic on the question of whether the model learns new tasks from scratch at inference time or simply recognizes patterns seen during training – this is an important issue which we discuss later in the paper, but "meta-learning" is intended to encompass both possibilities, and simply describes the inner-outer loop structure.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 5, "page_start": 5, "page_end": 5, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=5", "section": "1 Introduction", "subsection": null, "heading_path": ["1 Introduction"]} -->
+
 Figure 1.3: Aggregate performance for all 42 accuracy-denominated benchmarks While zero-shot performance improves steadily with model size, few-shot performance increases more rapidly, demonstrating that larger models are more proficient at in-context learning. See Figure 3.8 for a more detailed analysis on SuperGLUE, a standard NLP benchmark suite.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page005_image003", "document_name": "gpt3_language_models.pdf", "page": 5, "section": "1 Introduction", "subsection": null, "heading_path": ["1 Introduction"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=5", "bbox": {"l": 140.9691619873047, "t": 720.4972076416016, "r": 469.5551452636719, "b": 518.6055908203125}, "image_description": "Esta imagem é um gráfico de linhas titled \"Aggregate Performance Across Benchmarks\", exibindo a precisão em função do número de parâmetros em LLMs (em bilhões) no eixo x e a precisão no eixo y. Três linhas representam as modalidades Few Shot (laranja), One Shot (verde) e Zero Shot (azul), com tendência de crescimento conforme os parâmetros aumentam. O fundo contém múltiplas linhas tênues, possivelmente indicando variações individuais ou benchmarks específicos utilizados na avaliação.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 In this paper, we test this hypothesis by training a 175 billion parameter autoregressive language model, which we call GPT-3, and measuring its in-context learning abilities. Specifically, we evaluate GPT-3 on over two dozen NLP datasets, as well as several novel tasks designed to test rapid adaptation to tasks unlikely to be directly contained in the training set. For each task, we evaluate GPT-3 under 3 conditions: (a) "few-shot learning", or in-context learning where we allow as many demonstrations as will fit into the model's context window (typically 10 to 100), (b) "one-shot learning", where we allow only one demonstration, and (c) "zero-shot" learning, where no demonstrations are allowed and only an instruction in natural language is given to the model. GPT-3 could also in principle be evaluated in the traditional fine-tuning setting, but we leave this to future work.
 
@@ -98,6 +120,10 @@ At the same time, we also find some tasks on which few-shot performance struggle
 
 A heuristic sense of the overall results can be seen in Figure 1.3, which aggregates the various tasks (though it should not be seen as a rigorous or meaningful benchmark in itself).
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 6, "page_start": 6, "page_end": 6, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=6", "section": "2 Approach", "subsection": null, "heading_path": ["2 Approach"]} -->
+
 We also undertake a systematic study of "data contamination" – a growing problem when training high capacity models on datasets such as Common Crawl, which can potentially include content from test datasets simply because such content often exists on the web. In this paper we develop systematic tools to measure data contamination and quantify its distorting effects. Although we find that data contamination has a minimal effect on GPT-3's performance on most datasets, we do identify a few datasets where it could be inflating results, and we either do not report results on these datasets or we note them with an asterisk, depending on the severity.
 
 In addition to all the above, we also train a series of smaller models (ranging from 125 million parameters to 13 billion parameters) in order to compare their performance to GPT-3 in the zero, one and few-shot settings. Broadly, for most tasks we find relatively smooth scaling with model capacity in all three settings; one notable pattern is that the gap between zero-, one-, and few-shot performance often grows with model capacity, perhaps suggesting that larger models are more proficient meta-learners.
@@ -107,6 +133,7 @@ Finally, given the broad spectrum of capabilities displayed by GPT-3, we discuss
 The remainder of this paper is organized as follows. In Section 2, we describe our approach and methods for training GPT-3 and evaluating it. Section 3 presents results on the full range of tasks in the zero-, one- and few-shot settings. Section 4 addresses questions of data contamination (train-test overlap). Section 5 discusses limitations of GPT-3. Section 6 discusses broader impacts. Section 7 reviews related work and Section 8 concludes.
 
 ## 2 Approach
+<!-- section_metadata: {"section": "2 Approach", "subsection": null, "heading_path": ["2 Approach"]} -->
 
 Our basic pre-training approach, including model, data, and training, is similar to the process described in [RWC + 19], with relatively straightforward scaling up of the model size, dataset size and diversity, and length of training. Our use of in-context learning is also similar to [RWC + 19], but in this work we systematically explore different settings for learning within the context. Therefore, we start this section by explicitly defining and contrasting the different settings that we will be evaluating GPT-3 on or could in principle evaluate GPT-3 on. These settings can be seen as lying on a spectrum of how much task-specific data they tend to rely on. Specifically, we can identify at least four points on this spectrum (see Figure 2.1 for an illustration):
 
@@ -114,15 +141,23 @@ Our basic pre-training approach, including model, data, and training, is similar
 - Few-Shot (FS) is the term we will use in this work to refer to the setting where the model is given a few demonstrations of the task at inference time as conditioning [RWC + 19], but no weight updates are allowed. As shown in Figure 2.1, for a typical dataset an example has a context and a desired completion (for example an English sentence and the French translation), and few-shot works by giving K examples of context and completion, and then one final example of context, with the model expected to provide the completion. We typically set K in the range of 10 to 100 as this is how many examples can fit in the model's context window (nctx = 2048). The main advantages of few-shot are a major reduction in the need for task-specific data and reduced potential to learn an overly narrow distribution from a large but narrow fine-tuning dataset. The main disadvantage is that results from this method have so far been much worse than state-of-the-art fine-tuned models. Also, a small amount of task specific data is still required. As indicated by the name, few-shot learning as described here for language models is related to few-shot learning as used in other contexts in ML [HYC01 , VBL+16] – both involve learning based on a broad distribution of tasks (in this case implicit in the pre-training data) and then rapidly adapting to a new task.
 - One-Shot (1S) is the same as few-shot except that only one demonstration is allowed, in addition to a natural language description of the task, as shown in Figure 1. The reason to distinguish one-shot from few-shot and zero-shot (below) is that it most closely matches the way in which some tasks are communicated to humans. For example, when asking humans to generate a dataset on a human worker service (for example Mechanical Turk), it is common to give one demonstration of the task. By contrast it is sometimes difficult to communicate the content or format of a task if no examples are given.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 7, "page_start": 7, "page_end": 7, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=7", "section": "2 Approach", "subsection": null, "heading_path": ["2 Approach"]} -->
+
 Figure 2.1: Zero-shot, one-shot and few-shot, contrasted with traditional fine-tuning. The panels above show four methods for performing a task with a language model – fine-tuning is the traditional method, whereas zero-, one-, and few-shot, which we study in this work, require the model to perform the task with only forward passes at test time. We typically present the model with a few dozen examples in the few shot setting. Exact phrasings for all task descriptions, examples and prompts can be found in Appendix G .
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page007_image001", "document_name": "gpt3_language_models.pdf", "page": 7, "section": "2 Approach", "subsection": null, "heading_path": ["2 Approach"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=7", "bbox": {"l": 116.72879028320312, "t": 721.025520324707, "r": 494.302734375, "b": 391.1412658691406}, "image_description": "A imagem pretende comparar os métodos de pré-treinamento para modelos de linguagem utilizados no GPT-3, destacando as diferenças entre zero-shot, one-shot e few-shot. Esses métodos são mostrados em duas colunas, onde a coluna de \"Traditional fine-tuning (not used for GPT-3)\" ilustra os passos de actualização do modelo com base em exemplos, enquanto as colunas à esquerda explicam como cada método contextual de aprendizagem interage com um prompt de tradução. A cor e a organização visual servem para distinguir os diferentes tipos de actualizações e entradas que o modelo pode receber.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 - Zero-Shot (0S) is the same as one-shot except that no demonstrations are allowed, and the model is only given a natural language instruction describing the task. This method provides maximum convenience, potential for robustness, and avoidance of spurious correlations (unless they occur very broadly across the large corpus of pre-training data), but is also the most challenging setting. In some cases it may even be difficult for humans to understand the format of the task without prior examples, so this setting is in some cases "unfairly hard". For example, if someone is asked to "make a table of world records for the 200m dash", this request can be ambiguous, as it may not be clear exactly what format the table should have or what should be included (and even with careful clarification, understanding precisely what is desired can be difficult). Nevertheless, for at least some settings zero-shot is closest to how humans perform tasks – for example, in the translation example in Figure 2.1, a human would likely know what to do from just the text instruction.
 
 Figure 2.1 shows the four methods using the example of translating English to French. In this paper we focus on zero-shot, one-shot and few-shot, with the aim of comparing them not as competing alternatives, but as different problem settings which offer a varying trade-off between performance on specific benchmarks and sample efficiency. We especially highlight the few-shot results as many of them are only slightly behind state-of-the-art fine-tuned models. Ultimately, however, one-shot, or even sometimes zero-shot, seem like the fairest comparisons to human performance, and are important targets for future work.
 
 Sections 2.1 -2.3 below give details on our models, training data, and training process respectively. Section 2.4 discusses the details of how we do few-shot, one-shot, and zero-shot evaluations.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 8, "page_start": 8, "page_end": 8, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=8", "section": "2.2 Training Dataset", "subsection": null, "heading_path": ["2.2 Training Dataset"]} -->
 
 Table 2.1: Sizes, architectures, and learning hyper-parameters (batch size in tokens and learning rate) of the models which we trained. All models were trained for a total of 300 billion tokens.
 
@@ -138,12 +173,14 @@ Table 2.1: Sizes, architectures, and learning hyper-parameters (batch size in to
 | GPT-3 175B or “GPT-3” 175.0B 96 12288 96 128 3.2M |                                  |          | 0 . 6 × 10 − 4             |
 
 ## 2.1 Model and Architectures
+<!-- section_metadata: {"section": "2.1 Model and Architectures", "subsection": null, "heading_path": ["2.1 Model and Architectures"]} -->
 
 We use the same model and architecture as GPT-2 [RWC + 19], including the modified initialization, pre-normalization, and reversible tokenization described therein, with the exception that we use alternating dense and locally banded sparse attention patterns in the layers of the transformer, similar to the Sparse Transformer [CGRS19]. To study the dependence of ML performance on model size, we train 8 different sizes of model, ranging over three orders of magnitude from 125 million parameters to 175 billion parameters, with the last being the model we call GPT-3. Previous work [KMH + 20] suggests that with enough training data, scaling of validation loss should be approximately a smooth power law as a function of size; training models of many different sizes allows us to test this hypothesis both for validation loss and for downstream language tasks.
 
 Table 2.1 shows the sizes and architectures of our 8 models. Here n params is the total number of trainable parameters, n layers is the total number of layers, dmodel is the number of units in each bottleneck layer (we always have the feedforward layer four times the size of the bottleneck layer, dff = 4 ∗ dmodel), and dhead is the dimension of each attention head. All models use a context window of n ctx = 2048 tokens. We partition the model across GPUs along both the depth and width dimension in order to minimize data-transfer between nodes. The precise architectural parameters for each model are chosen based on computational efficiency and load-balancing in the layout of models across GPU's. Previous work [KMH + 20] suggests that validation loss is not strongly sensitive to these parameters within a reasonably broad range.
 
 ## 2.2 Training Dataset
+<!-- section_metadata: {"section": "2.2 Training Dataset", "subsection": null, "heading_path": ["2.2 Training Dataset"]} -->
 
 Datasets for language models have rapidly expanded, culminating in the Common Crawl dataset 2 [RSR + 19] constituting nearly a trillion words. This size of dataset is sufficient to train our largest models without ever updating on the same sequence twice. However, we have found that unfiltered or lightly filtered versions of Common Crawl tend to have lower quality than more curated datasets. Therefore, we took 3 steps to improve the average quality of our datasets: (1) we downloaded and filtered a version of CommonCrawl based on similarity to a range of high-quality reference corpora, (2) we performed fuzzy deduplication at the document level, within and across datasets, to prevent redundancy and preserve the integrity of our held-out validation set as an accurate measure of overfitting, and (3) we also added known high-quality reference corpora to the training mix to augment CommonCrawl and increase its diversity.
 
@@ -153,9 +190,18 @@ Table 2.2 shows the final mixture of datasets that we used in training. The Comm
 
 2 https://commoncrawl.org/the-data/
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 9, "page_start": 9, "page_end": 9, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=9", "section": "2.3 Training Process", "subsection": null, "heading_path": ["2.3 Training Process"]} -->
+
+10000
+
+## Total Compute Used During Training
+<!-- section_metadata: {"section": "Total Compute Used During Training", "subsection": null, "heading_path": ["Total Compute Used During Training"]} -->
+
 Figure 2.2: Total compute used during training. Based on the analysis in Scaling Laws For Neural Language Models [KMH + 20] we train much larger models on many fewer tokens than is typical. As a consequence, although GPT-3 3B is almost 10x larger than RoBERTa-Large (355M params), both models took roughly 50 petaflop/s-days of compute during pre-training. Methodology for these calculations can be found in Appendix D .
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page009_image002", "document_name": "gpt3_language_models.pdf", "page": 9, "section": "2.3 Training Process", "subsection": null, "heading_path": ["2.3 Training Process"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=9", "bbox": {"l": 95.19439697265625, "t": 695.4150695800781, "r": 518.0029907226562, "b": 488.91778564453125}, "image_description": "Esta imagem é um gráfico de barras que compara o \"Training Petaflops/days\" de diversos modelos de linguagem, como BERT, T5 e GPT. O eixo horizontal lista os nomes dos modelos, enquanto o eixo vertical apresenta uma escala logarítmica que vai de 1 a 10000. A visualização mostra que o GPT-3 175B possui o valor mais alto, indicando um custo de treinamento significativamente maior que modelos menores como o BERT Base.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Table 2.2: Datasets used to train GPT-3. "Weight in training mix" refers to the fraction of examples during training that are drawn from a given dataset, which we intentionally do not make proportional to the size of the dataset. As a result, when we train for 300 billion tokens, some datasets are seen up to 3.4 times during training while other datasets are seen less than once.
 
@@ -170,10 +216,16 @@ Table 2.2: Datasets used to train GPT-3. "Weight in training mix" refers to the 
 A major methodological concern with language models pretrained on a broad swath of internet data, particularly large models with the capacity to memorize vast amounts of content, is potential contamination of downstream tasks by having their test or development sets inadvertently seen during pre-training. To reduce such contamination, we searched for and attempted to remove any overlaps with the development and test sets of all benchmarks studied in this paper. Unfortunately, a bug in the filtering caused us to ignore some overlaps, and due to the cost of training it was not feasible to retrain the model. In Section 4 we characterize the impact of the remaining overlaps, and in future work we will more aggressively remove data contamination.
 
 ## 2.3 Training Process
+<!-- section_metadata: {"section": "2.3 Training Process", "subsection": null, "heading_path": ["2.3 Training Process"]} -->
 
 As found in [KMH + 20 , MKAT18], larger models can typically use a larger batch size, but require a smaller learning rate. We measure the gradient noise scale during training and use it to guide our choice of batch size [MKAT18]. Table 2.1 shows the parameter settings we used. To train the larger models without running out of memory, we use a mixture of model parallelism within each matrix multiply and model parallelism across the layers of the network. All models were trained on V100 GPU's on part of a high-bandwidth cluster provided by Microsoft. Details of the training process and hyperparameter settings are described in Appendix B .
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 10, "page_start": 10, "page_end": 10, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=10", "section": "3 Results", "subsection": null, "heading_path": ["3 Results"]} -->
+
 ## 2.4 Evaluation
+<!-- section_metadata: {"section": "2.4 Evaluation", "subsection": null, "heading_path": ["2.4 Evaluation"]} -->
 
 For few-shot learning, we evaluate each example in the evaluation set by randomly drawing K examples from that task's training set as conditioning, delimited by 1 or 2 newlines depending on the task. For LAMBADA and Storycloze there is no supervised training set available so we draw conditioning examples from the development set and evaluate on the test set. For Winograd (the original, not SuperGLUE version) there is only one dataset, so we draw conditioning examples directly from it.
 
@@ -188,6 +240,7 @@ On tasks with free-form completion, we use beam search with the same parameters 
 Final results are reported on the test set when publicly available, for each model size and learning setting (zero-, one-, and few-shot). When the test set is private, our model is often too large to fit on the test server, so we report results on the development set. We do submit to the test server on a small number of datasets (SuperGLUE, TriviaQA, PiQa) where we were able to make submission work, and we submit only the 200B few-shot results, and report development set results for everything else.
 
 ## 3 Results
+<!-- section_metadata: {"section": "3 Results", "subsection": null, "heading_path": ["3 Results"]} -->
 
 In Figure 3.1 we display training curves for the 8 models described in Section 2. For this graph we also include 6 additional extra-small models with as few as 100,000 parameters. As observed in [KMH + 20], language modeling performance follows a power-law when making efficient use of training compute. After extending this trend by two more orders of magnitude, we observe only a slight (if any) departure from the power-law. One might worry that these improvements in cross-entropy loss come only from modeling spurious details of our training corpus. However, we will see in the following sections that improvements in cross-entropy loss lead to consistent performance gains across a broad spectrum of natural language tasks.
 
@@ -195,9 +248,13 @@ Below, we evaluate the 8 models described in Section 2 (the 175 billion paramete
 
 In Section 3.1 we evaluate on traditional language modeling tasks and tasks that are similar to language modeling, such as Cloze tasks and sentence/paragraph completion tasks. In Section 3.2 we evaluate on "closed book" question answering tasks: tasks which require using the information stored in the model's parameters to answer general knowledge questions. In Section 3.3 we evaluate the model's ability to translate between languages (especially one-shot and few-shot). In Section 3.4 we evaluate the model's performance on Winograd Schema-like tasks. In Section 3.5 we evaluate on datasets that involve commonsense reasoning or question answering. In Section 3.6 we evaluate on reading comprehension tasks, in Section 3.7 we evaluate on the SuperGLUE benchmark suite, and in 3.8 we briefly explore NLI. Finally, in Section 3.9, we invent some additional tasks designed especially to probe in-context learning abilities – these tasks focus on on-the-fly reasoning, adaptation skills, or open-ended text synthesis. We evaluate all tasks in the few-shot, one-shot, and zero-shot settings.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 11, "page_start": 11, "page_end": 11, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=11", "section": "3.1.2 LAMBADA", "subsection": null, "heading_path": ["3.1.2 LAMBADA"]} -->
+
 Figure 3.1: Smooth scaling of performance with compute. Performance (measured in terms of cross-entropy validation loss) follows a power-law trend with the amount of compute used for training. The power-law behavior observed in [KMH + 20] continues for an additional two orders of magnitude with only small deviations from the predicted curve. For this figure, we exclude embedding parameters from compute and parameter counts.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page011_image001", "document_name": "gpt3_language_models.pdf", "page": 11, "section": "3.1.2 LAMBADA", "subsection": null, "heading_path": ["3.1.2 LAMBADA"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=11", "bbox": {"l": 164.80722045898438, "t": 708.8809509277344, "r": 458.420654296875, "b": 484.8097839355469}, "image_description": "Essa figura, retirada de um documento academico, descreve o custo de computacao de PetaFLOP/segundo, associado a uma perdida de validacao. As linhas angulares ilustram modelos selecionados com base na performencia computacional, demoras de treinamento e em termos cerca de otimizados. O eixo vertical e horizontal abrangem de 10^(-6) a 6 unidades, parcela na perde de validacao e do custo de computacao respectivamente.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Table 3.1: Zero-shot results on PTB language modeling dataset. Many other common language modeling datasets are omitted because they are derived from Wikipedia or other sources which are included in GPT-3's training data. a [RWC + 19]
 
@@ -207,16 +264,23 @@ Table 3.1: Zero-shot results on PTB language modeling dataset. Many other common
 | GPT-3 Zero-Shot  20.5   |
 
 ## 3.1 Language Modeling, Cloze, and Completion Tasks
+<!-- section_metadata: {"section": "3.1 Language Modeling, Cloze, and Completion Tasks", "subsection": null, "heading_path": ["3.1 Language Modeling, Cloze, and Completion Tasks"]} -->
 
 In this section we test GPT-3's performance on the traditional task of language modeling, as well as related tasks that involve predicting a single word of interest, completing a sentence or paragraph, or choosing between possible completions of a piece of text.
 
 ## 3.1.1 Language Modeling
+<!-- section_metadata: {"section": "3.1.1 Language Modeling", "subsection": null, "heading_path": ["3.1.1 Language Modeling"]} -->
 
 We calculate zero-shot perplexity on the Penn Tree Bank (PTB) [MKM + 94] dataset measured in [RWC + 19]. We omit the 4 Wikipedia-related tasks in that work because they are entirely contained in our training data, and we also omit the one-billion word benchmark due to a high fraction of the dataset being contained in our training set. PTB escapes these issues due to predating the modern internet. Our largest model sets a new SOTA on PTB by a substantial margin of 15 points, achieving a perplexity of 20.50. Note that since PTB is a traditional language modeling dataset it does not have a clear separation of examples to define one-shot or few-shot evaluation around, so we measure only zero-shot.
 
 ## 3.1.2 LAMBADA
+<!-- section_metadata: {"section": "3.1.2 LAMBADA", "subsection": null, "heading_path": ["3.1.2 LAMBADA"]} -->
 
 The LAMBADA dataset [PKL + 16] tests the modeling of long-range dependencies in text – the model is asked to predict the last word of sentences which require reading a paragraph of context. It has recently been suggested that the continued scaling of language models is yielding diminishing returns on this difficult benchmark. [BHT + 20] reflect on the small 1.5% improvement achieved by a doubling of model size between two recent state of the art results ([SPP + 19]
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 12, "page_start": 12, "page_end": 12, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=12", "section": "3.1.2 LAMBADA", "subsection": null, "heading_path": ["3.1.2 LAMBADA"]} -->
 
 Table 3.2: Performance on cloze and completion tasks. GPT-3 significantly improves SOTA on LAMBADA while achieving respectable performance on two difficult completion prediction datasets. a [Tur20] b [RWC + 19] c [LDL19] d [LCH + 20]
 
@@ -229,7 +293,7 @@ Table 3.2: Performance on cloze and completion tasks. GPT-3 significantly improv
 
 Figure 3.2: On LAMBADA, the few-shot capability of language models results in a strong boost to accuracy. GPT-3 2.7B outperforms the SOTA 17B parameter Turing-NLG [Tur20] in this setting, and GPT-3 175B advances the state of the art by 18%. Note zero-shot uses a different format from one-shot and few-shot as described in the text.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page012_image002", "document_name": "gpt3_language_models.pdf", "page": 12, "section": "3.1.2 LAMBADA", "subsection": null, "heading_path": ["3.1.2 LAMBADA"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=12", "bbox": {"l": 138.84613037109375, "t": 559.8842010498047, "r": 463.4932861328125, "b": 349.6341552734375}, "image_description": "Esta imagem é um gráfico de linhas que ilustra a relação entre o número de parâmetros (em bilhões) e a acurácia de diferentes métodos de *prompting* (Zero-Shot, One-Shot e Few-Shot, K=15) em um modelo Lambda. O eixo y representa a acurácia, enquanto o eixo x mostra a escala de parâmetros, com destaque para a linha \"Human\" (acurácia máxima) e \"Zero-Shot SOTA\" (ponto de referência). O gráfico demonstra que o método Few-Shot supera os demais à medida que os parâmetros aumentam, aproximando-se da acurácia humana, especialmente em escalas maiores de parâmetros.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 and [Tur20]) and argue that "continuing to expand hardware and data sizes by orders of magnitude is not the path forward". We find that path is still promising and in a zero-shot setting GPT-3 achieves 76% on LAMBADA, a gain of 8% over the previous state of the art.
 
@@ -240,6 +304,10 @@ Alice was friends with Bob. Alice went to visit her friend . → Bob
 George bought some baseball equipment, a ball, a glove, and a . →
 
 When presented with examples formatted this way, GPT-3 achieves 86.4% accuracy in the few-shot setting, an increase of over 18% from the previous state-of-the-art. We observe that few-shot performance improves strongly with model size. While this setting decreases the performance of the smallest model by almost 20%, for GPT-3 it improves accuracy by 10%. Finally, the fill-in-blank method is not effective one-shot, where it always performs worse than the zero-shot setting. Perhaps this is because all models still require several examples to recognize the pattern.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 13, "page_start": 13, "page_end": 13, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=13", "section": "3.2 Closed Book Question Answering", "subsection": null, "heading_path": ["3.2 Closed Book Question Answering"]} -->
 
 Table 3.3: Results on three Open-Domain QA tasks. GPT-3 is shown in the few-, one-, and zero-shot settings, as compared to prior SOTA results for closed book and open domain settings. TriviaQA few-shot result is evaluated on the wiki split test server.
 
@@ -255,14 +323,17 @@ Table 3.3: Results on three Open-Domain QA tasks. GPT-3 is shown in the few-, on
 One note of caution is that an analysis of test set contamination identified that a significant minority of the LAMBADA dataset appears to be present in our training data – however analysis performed in Section 4 suggests negligible impact on performance.
 
 ## 3.1.3 HellaSwag
+<!-- section_metadata: {"section": "3.1.3 HellaSwag", "subsection": null, "heading_path": ["3.1.3 HellaSwag"]} -->
 
 The HellaSwag dataset [ZHB + 19] involves picking the best ending to a story or set of instructions. The examples were adversarially mined to be difficult for language models while remaining easy for humans (who achieve 95.6% accuracy). GPT-3 achieves 78.1% accuracy in the one-shot setting and 79.3% accuracy in the few-shot setting, outperforming the 75.4% accuracy of a fine-tuned 1.5B parameter language model [ZHR + 19] but still a fair amount lower than the overall SOTA of 85.6% achieved by the fine-tuned multi-task model ALUM.
 
 ## 3.1.4 StoryCloze
+<!-- section_metadata: {"section": "3.1.4 StoryCloze", "subsection": null, "heading_path": ["3.1.4 StoryCloze"]} -->
 
 We next evaluate GPT-3 on the StoryCloze 2016 dataset [MCH + 16], which involves selecting the correct ending sentence for five-sentence long stories. Here GPT-3 achieves 83.2% in the zero-shot setting and 87.7% in the few-shot setting (with K = 70). This is still 4.1% lower than the fine-tuned SOTA using a BERT based model [LDL19] but improves over previous zero-shot results by roughly 10%.
 
 ## 3.2 Closed Book Question Answering
+<!-- section_metadata: {"section": "3.2 Closed Book Question Answering", "subsection": null, "heading_path": ["3.2 Closed Book Question Answering"]} -->
 
 In this section we measure GPT-3's ability to answer questions about broad factual knowledge. Due to the immense amount of possible queries, this task has normally been approached by using an information retrieval system to find relevant text in combination with a model which learns to generate an answer given the question and the retrieved text. Since this setting allows a system to search for and condition on text which potentially contains the answer it is denoted "open-book". [RRS20] recently demonstrated that a large language model can perform surprisingly well directly answering the questions without conditioning on auxilliary information. They denote this more restrictive evaluation setting as "closed-book". Their work suggests that even higher-capacity models could perform even better and we test this hypothesis with GPT-3. We evaluate GPT-3 on the 3 datasets in [RRS20]: Natural Questions [KPR + 19], WebQuestions [BCFL13], and TriviaQA [JCWZ17], using the same splits. Note that in addition to all results being in the closed-book setting, our use of few-shot, one-shot, and zero-shot evaluations represent an even stricter setting than previous closed-book QA work: in addition to external content not being allowed, fine-tuning on the Q&amp;A dataset itself is also not permitted.
 
@@ -270,24 +341,33 @@ The results for GPT-3 are shown in Table 3.3. On TriviaQA, we achieve 64.3% in t
 
 On WebQuestions (WebQs), GPT-3 achieves 14.4% in the zero-shot setting, 25.3% in the one-shot setting, and 41.5% in the few-shot setting. This compares to 37.4% for fine-tuned T5-11B, and 44.7% for fine-tuned T5-11B+SSM, which uses a Q&amp;A-specific pre-training procedure. GPT-3 in the few-shot setting approaches the performance of state-of-the-art fine-tuned models. Notably, compared to TriviaQA, WebQS shows a much larger gain from zero-shot to few-shot (and indeed its zero-shot and one-shot performance are poor), perhaps suggesting that the WebQs questions and/or the style of their answers are out-of-distribution for GPT-3. Nevertheless, GPT-3 appears able to adapt to this distribution, recovering strong performance in the few-shot setting.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 14, "page_start": 14, "page_end": 14, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=14", "section": "3.3 Translation", "subsection": null, "heading_path": ["3.3 Translation"]} -->
+
 Figure 3.3: On TriviaQA GPT3's performance grows smoothly with model size, suggesting that language models continue to absorb knowledge as their capacity increases. One-shot and few-shot performance make significant gains over zero-shot behavior, matching and exceeding the performance of the SOTA fine-tuned open-domain model, RAG [LPP + 20]
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page014_image003", "document_name": "gpt3_language_models.pdf", "page": 14, "section": "3.3 Translation", "subsection": null, "heading_path": ["3.3 Translation"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=14", "bbox": {"l": 138.7836151123047, "t": 713.7129821777344, "r": 464.1708984375, "b": 503.2917175292969}, "image_description": "Esta imagem é um gráfico de linhas do TriviaQA que ilustra a relação entre a precisão e o número de parâmetros em bilhões de LMs, com três métodos: Zero-Shot, One-Shot e Few-Shot (K=64). Observa-se que a precisão aumenta proporcionalmente ao crescimento dos parâmetros, sendo o Few-Shot o mais eficaz, enquanto a linha pontilhada indica o SOTA alcançado com fine-tuning. O gráfico provavelmente analisa o impacto do tamanho do modelo e da técnica de prompting na performance em tarefas de resposta a perguntas.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 On Natural Questions (NQs) GPT-3 achieves 14.6% in the zero-shot setting, 23.0% in the one-shot setting, and 29.9% in the few-shot setting, compared to 36.6% for fine-tuned T5 11B+SSM. Similar to WebQS, the large gain from zero-shot to few-shot may suggest a distribution shift, and may also explain the less competitive performance compared to TriviaQA and WebQS. In particular, the questions in NQs tend towards very fine-grained knowledge on Wikipedia specifically which could be testing the limits of GPT-3's capacity and broad pretraining distribution.
 
 Overall, on one of the three datasets GPT-3's one-shot matches the open-domain fine-tuning SOTA. On the other two datasets it approaches the performance of the closed-book SOTA despite not using fine-tuning. On all 3 datasets, we find that performance scales very smoothly with model size (Figure 3.3 and Appendix H Figure H.7), possibly reflecting the idea that model capacity translates directly to more 'knowledge' absorbed in the parameters of the model.
 
 ## 3.3 Translation
+<!-- section_metadata: {"section": "3.3 Translation", "subsection": null, "heading_path": ["3.3 Translation"]} -->
 
 For GPT-2 a filter was used on a multilingual collection of documents to produce an English only dataset due to capacity concerns. Even with this filtering GPT-2 showed some evidence of multilingual capability and performed non-trivially when translating between French and English despite only training on 10 megabytes of remaining French text. Since we increase the capacity by over two orders of magnitude from GPT-2 to GPT-3, we also expand the scope of the training dataset to include more representation of other languages, though this remains an area for further improvement. As discussed in 2.2 the majority of our data is derived from raw Common Crawl with only quality-based filtering. Although GPT-3's training data is still primarily English (93% by word count), it also includes 7% of text in other languages. These languages are documented in the supplemental material. In order to better understand translation capability, we also expand our analysis to include two additional commonly studied languages, German and Romanian.
 
 Existing unsupervised machine translation approaches often combine pretraining on a pair of monolingual datasets with back-translation [SHB15] to bridge the two languages in a controlled way. By contrast, GPT-3 learns from a blend of training data that mixes many languages together in a natural way, combining them on a word, sentence, and document level. GPT-3 also uses a single training objective which is not customized or designed for any task in particular. However, our one / few-shot settings aren't strictly comparable to prior unsupervised work since they make use of a small amount of paired examples (1 or 64). This corresponds to up to a page or two of in-context training data.
 
-Results are shown in Table 3.4. Zero-shot GPT-3, which only receives on a natural language description of the task, still underperforms recent unsupervised NMT results. However, providing only a single example demonstration for each translation task improves performance by over 7 BLEU and nears competitive performance with prior work. GPT-3 in the full few-shot setting further improves another 4 BLEU resulting in similar average performance to prior unsupervised NMT work. GPT-3 has a noticeable skew in its performance depending on language direction. For the three input languages studied, GPT-3 significantly outperforms prior unsupervised NMT work when translating into English but underperforms when translating in the other direction. Performance on En-Ro is a noticeable outlier at over 10 BLEU worse than prior unsupervised NMT work. This could be a weakness due to reusing the byte-level BPE tokenizer of GPT-2 which was developed for an almost entirely English training dataset. For both Fr-En and De-En, few shot GPT-3 outperforms the best supervised result we could find but due to our unfamiliarity with the literature and the appearance that these are un-competitive benchmarks we do not suspect those results represent true state of the art. For Ro-En, few shot GPT-3 performs within 0.5 BLEU of the overall SOTA which is achieved by a combination of unsupervised pretraining, supervised finetuning on 608K labeled examples, and backtranslation [LHCG19b].
+Results are shown in Table 3.4. Zero-shot GPT-3, which only receives on a natural language description of the task, still underperforms recent unsupervised NMT results. However, providing only a single example demonstration for
 
-Table 3.4: Few-shot GPT-3 outperforms previous unsupervised NMT work by 5 BLEU when translating into English reflecting its strength as an English LM. We report BLEU scores on the WMT'14 Fr↔En, WMT'16 De↔En, and WMT'16 Ro↔En datasets as measured by multi-bleu.perl with XLM's tokenization in order to compare most closely with prior unsupervised NMT work. SacreBLEUf[Pos18] results reported in Appendix H. Underline indicates an unsupervised or few-shot SOTA, bold indicates supervised SOTA with relative confidence. a [EOAG18] b [DHKH14] c [WXH + 18] d [oR16] e [LGG + 20]
-f
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 15, "page_start": 15, "page_end": 15, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=15", "section": "3.3 Translation", "subsection": null, "heading_path": ["3.3 Translation"]} -->
+
+Table 3.4: Few-shot GPT-3 outperforms previous unsupervised NMT work by 5 BLEU when translating into English reflecting its strength as an English LM. We report BLEU scores on the WMT'14 Fr↔En, WMT'16 De↔En, and WMT'16 Ro↔En datasets as measured by multi-bleu.perl with XLM's tokenization in order to compare most closely with prior unsupervised NMT work. SacreBLEUf[Pos18] results reported in Appendix H. Underline indicates an unsupervised or few-shot SOTA, bold indicates supervised SOTA with relative confidence. a [EOAG18] b [DHKH14] c [WXH + 18] d [oR16] e [LGG + 20]
+f
 [SacreBLEU signature: BLEU+case.mixed+numrefs.1+smooth.exp+tok.intl+version.1.2.20]
 
 |                                               |          | Setting En→Fr Fr→En En→De De→En En→Ro Ro→En   |                |
@@ -302,7 +382,11 @@ f
 
 Figure 3.4: Few-shot translation performance on 6 language pairs as model capacity increases. There is a consistent trend of improvement across all datasets as the model scales, and as well as tendency for translation into English to be stronger than translation from English.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page015_image004", "document_name": "gpt3_language_models.pdf", "page": 15, "section": "3.3 Translation", "subsection": null, "heading_path": ["3.3 Translation"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=15", "bbox": {"l": 139.37840270996094, "t": 366.58331298828125, "r": 463.82421875, "b": 155.71160888671875}, "image_description": "A figura representa um gráfico de linha que ilustra os resultados de um sistema de tradução neural (Multi-BLEU), medidos pela pontuação BLEU, em várias línguas. Os eixos mostram o aumento na BLEU pontuação com a adição de parâmetros ao modelo de linguagem, variando de 0,1 a 175 bilhões de parâmetros. Três pares de línguas foram comparados, sendo German para Inglês, Francês para Inglês e Romaniano para Inglês, e suas respectivas pontuações de BLEU aumentaram monotonicamente com o incremento de parâmetros, sugerindo que modelos maiores resultam em traduções de melhor qualidade.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 16, "page_start": 16, "page_end": 16, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=16", "section": "3.4 Winograd-Style Tasks", "subsection": null, "heading_path": ["3.4 Winograd-Style Tasks"]} -->
 
 Table 3.5: Results on the WSC273 version of Winograd schemas and the adversarial Winogrande dataset. See Section 4 for details on potential contamination of the Winograd test set. a [SBBC19] b [LYN + 20]
 
@@ -315,13 +399,20 @@ Table 3.5: Results on the WSC273 version of Winograd schemas and the adversarial
 
 Figure 3.5: Zero-, one-, and few-shot performance on the adversarial Winogrande dataset as model capacity scales. Scaling is relatively smooth with the gains to few-shot learning increasing with model size, and few-shot GPT-3 175B is competitive with a fine-tuned RoBERTA-large.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page016_image001", "document_name": "gpt3_language_models.pdf", "page": 16, "section": "3.4 Winograd-Style Tasks", "subsection": null, "heading_path": ["3.4 Winograd-Style Tasks"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=16", "bbox": {"l": 138.87030029296875, "t": 577.64990234375, "r": 463.0747375488281, "b": 368.150634765625}, "image_description": "Esta imagem é um gráfico de linhas que ilustra a relação entre o número de parâmetros em bilhões (eixo X) e a acurácia (eixo Y) em modelos de linguagem em uma tarefa de Winogrande. Mostra que a acurácia aumenta com o aumento dos parâmetros para todos os métodos, com \"Few-Shot (K=50)\" (linha laranja) alcançando o melhor desempenho entre os métodos não fine-tuned, enquanto a \"Human\" (linha superior) representa o limite superior de desempenho. O gráfico compara diferentes abordagens, incluindo \"Zero-Shot\", \"One-Shot\", \"Fine-tuned SOTA\" e \"Fine-tuned RoBERTa-Large\", demonstrando a eficiência de técnicas como Few-Shot em escalar com o tamanho do modelo.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
+
+each translation task improves performance by over 7 BLEU and nears competitive performance with prior work. GPT-3 in the full few-shot setting further improves another 4 BLEU resulting in similar average performance to prior unsupervised NMT work. GPT-3 has a noticeable skew in its performance depending on language direction. For the three input languages studied, GPT-3 significantly outperforms prior unsupervised NMT work when translating into English but underperforms when translating in the other direction. Performance on En-Ro is a noticeable outlier at over 10 BLEU worse than prior unsupervised NMT work. This could be a weakness due to reusing the byte-level BPE tokenizer of GPT-2 which was developed for an almost entirely English training dataset. For both Fr-En and De-En, few shot GPT-3 outperforms the best supervised result we could find but due to our unfamiliarity with the literature and the appearance that these are un-competitive benchmarks we do not suspect those results represent true state of the art. For Ro-En, few shot GPT-3 performs within 0.5 BLEU of the overall SOTA which is achieved by a combination of unsupervised pretraining, supervised finetuning on 608K labeled examples, and backtranslation [LHCG19b].
 
 Finally, across all language pairs and across all three settings (zero-, one-, and few-shot), there is a smooth trend of improvement with model capacity. This is shown in Figure 3.4 in the case of few-shot results, and scaling for all three settings is shown in Appendix H .
 
 ## 3.4 Winograd-Style Tasks
+<!-- section_metadata: {"section": "3.4 Winograd-Style Tasks", "subsection": null, "heading_path": ["3.4 Winograd-Style Tasks"]} -->
 
 The Winograd Schemas Challenge [LDM12] is a classical task in NLP that involves determining which word a pronoun refers to, when the pronoun is grammatically ambiguous but semantically unambiguous to a human. Recently fine-tuned language models have achieved near-human performance on the original Winograd dataset, but more difficult versions such as the adversarially-mined Winogrande dataset [SBBC19] still significantly lag human performance. We test GPT-3's performance on both Winograd and Winogrande, as usual in the zero-, one-, and few-shot setting.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 17, "page_start": 17, "page_end": 17, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=17", "section": "3.5 Common Sense Reasoning", "subsection": null, "heading_path": ["3.5 Common Sense Reasoning"]} -->
 
 Table 3.6: GPT-3 results on three commonsense reasoning tasks, PIQA, ARC, and OpenBookQA. GPT-3 Few-Shot PIQA result is evaluated on the test server. See Section 4 for details on potential contamination issues on the PIQA test set.
 
@@ -334,15 +425,20 @@ Table 3.6: GPT-3 results on three commonsense reasoning tasks, PIQA, ARC, and Op
 
 Figure 3.6: GPT-3 results on PIQA in the zero-shot, one-shot, and few-shot settings. The largest model achieves a score on the development set in all three conditions that exceeds the best recorded score on the task.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page017_image002", "document_name": "gpt3_language_models.pdf", "page": 17, "section": "3.5 Common Sense Reasoning", "subsection": null, "heading_path": ["3.5 Common Sense Reasoning"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=17", "bbox": {"l": 138.7386932373047, "t": 575.5330963134766, "r": 463.2290954589844, "b": 364.4249267578125}, "image_description": "Essa figura ilustra a evolução da precisão de modelos de linguagem grande (LLM) na abordagem de questões físicas, logo PhysicalQA. Ela compara diferentes abordagens, incluindo \"Zero-Shot\" (sem exemplos fornecidos), \"One-Shot\" (com um exemplo), e \"Few-Shot\" (com cinquenta exemplos), em relação ao número de parâmetros no modelo (em bilhões). O gráfico mostra a precisão variando de cerca de 50% para \"Random Guessing\" até quase 90% para \"Human\", com modelos maiores obtendo resultados superiores em todas as abordagens.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 On Winograd we test GPT-3 on the original set of 273 Winograd schemas, using the same "partial evaluation" method described in [RWC + 19]. Note that this setting differs slightly from the WSC task in the SuperGLUE benchmark, which is presented as binary classification and requires entity extraction to convert to the form described in this section. On Winograd GPT-3 achieves 88.3%, 89.7%, and 88.6% in the zero-shot, one-shot, and few-shot settings, showing no clear in-context learning but in all cases achieving strong results just a few points below state-of-the-art and estimated human performance. We note that contamination analysis found some Winograd schemas in the training data but this appears to have only a small effect on results (see Section 4).
 
 On the more difficult Winogrande dataset, we do find gains to in-context learning: GPT-3 achieves 70.2% in the zero-shot setting, 73.2% in the one-shot setting, and 77.7% in the few-shot setting. For comparison a fine-tuned RoBERTA model achieves 79%, state-of-the-art is 84.6% achieved with a fine-tuned high capacity model (T5), and human performance on the task as reported by [SBBC19] is 94.0%.
 
 ## 3.5 Common Sense Reasoning
+<!-- section_metadata: {"section": "3.5 Common Sense Reasoning", "subsection": null, "heading_path": ["3.5 Common Sense Reasoning"]} -->
 
 Next we consider three datasets which attempt to capture physical or scientific reasoning, as distinct from sentence completion, reading comprehension, or broad knowledge question answering. The first, PhysicalQA (PIQA) [BZB + 19], asks common sense questions about how the physical world works and is intended as a probe of grounded understanding of the world. GPT-3 achieves 81.0% accuracy zero-shot, 80.5% accuracy one-shot, and 82.8% accuracy few-shot (the last measured on PIQA's test server). This compares favorably to the 79.4% accuracy prior state-of-the-art of a fine-tuned RoBERTa. PIQA shows relatively shallow scaling with model size and is still over 10% worse than human performance, but GPT-3's few-shot and even zero-shot result outperform the current state-of-the-art. Our analysis flagged PIQA for a potential data contamination issue (despite hidden test labels), and we therefore conservatively mark the result with an asterisk. See Section 4 for details.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 18, "page_start": 18, "page_end": 18, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=18", "section": "3.7 SuperGLUE", "subsection": null, "heading_path": ["3.7 SuperGLUE"]} -->
 
 Table 3.7: Results on reading comprehension tasks. All scores are F1 except results for RACE which report accuracy. a [JZC + 19] b [JN20] c [AI19] d [QIA20] e [SPP + 19]
 
@@ -360,18 +456,24 @@ On OpenBookQA [MCKS18], GPT-3 improves significantly from zero to few shot setti
 Overall, in-context learning with GPT-3 shows mixed results on commonsense reasoning tasks, with only small and inconsistent gains observed in the one and few-shot learning settings for both PIQA and ARC, but a significant improvement is observed on OpenBookQA. GPT-3 sets SOTA on the new PIQA dataset in all evaluation settings.
 
 ## 3.6 Reading Comprehension
+<!-- section_metadata: {"section": "3.6 Reading Comprehension", "subsection": null, "heading_path": ["3.6 Reading Comprehension"]} -->
 
 Next we evaluate GPT-3 on the task of reading comprehension. We use a suite of 5 datasets including abstractive, multiple choice, and span based answer formats in both dialog and single question settings. We observe a wide spread in GPT-3's performance across these datasets suggestive of varying capability with different answer formats. In general we observe GPT-3 is on par with initial baselines and early results trained using contextual representations on each respective dataset.
 
 GPT-3 performs best (within 3 points of the human baseline) on CoQA [RCM19] a free-form conversational dataset and performs worst (13 F1 below an ELMo baseline) on QuAC [CHI + 18] a dataset which requires modeling structured dialog acts and answer span selections of teacher-student interactions. On DROP [DWD + 19], a dataset testing discrete reasoning and numeracy in the context of reading comprehension, GPT-3 in a few-shot setting outperforms the fine-tuned BERT baseline from the original paper but is still well below both human performance and state-of-the-art approaches which augment neural networks with symbolic systems [RLL + 19]. On SQuAD 2.0 [RJL18], GPT-3 demonstrates its few-shot learning capabilities, improving by almost 10 F1 (to 69.8) compared to a zero-shot setting. This allows it to slightly outperform the best fine-tuned result in the original paper. On RACE [LXL + 17], a multiple choice dataset of middle school and high school english examinations, GPT-3 performs relatively weakly and is only competitive with the earliest work utilizing contextual representations and is still 45% behind SOTA.
 
 ## 3.7 SuperGLUE
+<!-- section_metadata: {"section": "3.7 SuperGLUE", "subsection": null, "heading_path": ["3.7 SuperGLUE"]} -->
 
 In order to better aggregate results on NLP tasks and compare to popular models such as BERT and RoBERTa in a more systematic way, we also evaluate GPT-3 on a standardized collection of datasets, the SuperGLUE benchmark [WPN + 19] [WPN + 19] [CLC + 19] [DMST19] [RBG11] [KCR + 18] [ZLL + 18] [DGM06] [BHDD + 06] [GMDD07] [BDD + 09] [PCC18] [PHR + 18]. GPT-3's test-set performance on the SuperGLUE dataset is shown in Table 3.8. In the few-shot setting, we used 32 examples for all tasks, sampled randomly from the training set. For all tasks except WSC
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 19, "page_start": 19, "page_end": 19, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=19", "section": "3.7 SuperGLUE", "subsection": null, "heading_path": ["3.7 SuperGLUE"]} -->
+
 Figure 3.7: GPT-3 results on CoQA reading comprehension task. GPT-3 175B achieves 85 F1 in the few-shot setting, only a few points behind measured human performance and state-of-the-art fine-tuned models. Zero-shot and one-shot performance is a few points behind, with the gains to few-shot being largest for bigger models.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page019_image003", "document_name": "gpt3_language_models.pdf", "page": 19, "section": "3.7 SuperGLUE", "subsection": null, "heading_path": ["3.7 SuperGLUE"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=19", "bbox": {"l": 139.0535125732422, "t": 657.2051696777344, "r": 462.7645263671875, "b": 448.4815979003906}, "image_description": "Esta imagem exibe um gráfico de linhas intitulado \"CoQA\" que ilustra a relação entre o número de parâmetros de um modelo de linguagem (em bilhões) e a acurácia. O eixo X representa \"Parameters in LM (Billions)\" variando de 0.1B a 175B, enquanto o eixo Y mostra \"Accuracy\" de 30 a 90, com uma legenda para Zero-Shot, One-Shot e Few-Shot (K=5). As curvas demonstram um aumento de acurácia com o crescimento dos parâmetros, sendo o Few-Shot o método com melhor desempenho, próximo de uma linha de referência \"Fine-tuned SOTA Human\".", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Table 3.8: Performance of GPT-3 on SuperGLUE compared to fine-tuned baselines and SOTA. All results are reported on the test set. GPT-3 few-shot is given a total of 32 examples within the context of each task and performs no gradient updates.
 
@@ -385,9 +487,15 @@ Table 3.8: Performance of GPT-3 on SuperGLUE compared to fine-tuned baselines an
 | Fine-tuned BERT-Large 69.6 64.6 24.1 70.0 71.3 72.0 |                                                                                 |                                                                                  |
 | GPT-3 Few-Shot 49.4 80.1 30.5 75.4 90.2 91.1        |                                                                                 |                                                                                  |
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 20, "page_start": 20, "page_end": 20, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=20", "section": "3.8 NLI", "subsection": null, "heading_path": ["3.8 NLI"]} -->
+
+32
+
 Figure 3.8: Performance on SuperGLUE increases with model size and number of examples in context. A value of K = 32 means that our model was shown 32 examples per task, for 256 examples total divided across the 8 tasks in SuperGLUE. We report GPT-3 values on the dev set, so our numbers are not directly comparable to the dotted reference lines (our test set results are in Table 3.8). The BERT-Large reference model was fine-tuned on the SuperGLUE training set (125K examples), whereas BERT++ was first fine-tuned on MultiNLI (392K examples) and SWAG (113K examples) before further fine-tuning on the SuperGLUE training set (for a total of 630K fine-tuning examples). We find the difference in performance between the BERT-Large and BERT++ to be roughly equivalent to the difference between GPT-3 with one example per context versus eight examples per context.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page020_image004", "document_name": "gpt3_language_models.pdf", "page": 20, "section": "3.8 NLI", "subsection": null, "heading_path": ["3.8 NLI"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=20", "bbox": {"l": 73.00985717773438, "t": 717.1258316040039, "r": 534.4573364257812, "b": 509.11956787109375}, "image_description": "Essas figuras apresentam resultados de um experimento acadêmico sobre um modelo de aprendizado de linguagem. Em particular, a figura da esquerda compara o desempenho do SuperGLUE em relação ao número de parâmetros no modelo de linguagem, destacando as diferentes configurações de ajuste fino e o desempenho superior de um modelo fine-tuned chamado \"SOFT\". A figura da direita ilustra o desempenho de um modelo \"GPT-3 175B\" no SuperGLUE com base no número de exemplos contidos no contexto para o aprendizado, mostrando uma curva ascendente e seu rendimento próximo ao de um ser humano.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 and MultiRC, we sampled a new set of examples to use in the context for each problem. For WSC and MultiRC, we used the same set of randomly drawn examples from the training set as context for all of the problems we evaluated.
 
@@ -398,18 +506,27 @@ WiC is a notable weak spot with few-shot performance at 49.4% (at random chance)
 Finally, we note that the few-shot SuperGLUE score steadily improves with both model size and with number of examples in the context showing increasing benefits from in-context learning (Figure 3.8). We scale K up to 32 examples per task, after which point additional examples will not reliably fit into our context. When sweeping over values of K, we find that GPT-3 requires less than eight total examples per task to outperform a fine-tuned BERT-Large on overall SuperGLUE score.
 
 ## 3.8 NLI
+<!-- section_metadata: {"section": "3.8 NLI", "subsection": null, "heading_path": ["3.8 NLI"]} -->
 
-Natural Language Inference (NLI) [Fyo00] concerns the ability to understand the relationship between two sentences. In practice, this task is usually structured as a two or three class classification problem where the model classifies whether the second sentence logically follows from the first, contradicts the first sentence, or is possibly true (neutral). SuperGLUE includes an NLI dataset, RTE, which evaluates the binary version of the task. On RTE, only the largest version of GPT-3 performs convincingly better than random (56%) in any evaluation setting, but in a few-shot setting GPT-3 performs similarly to a single-task fine-tuned BERT Large. We also evaluate on the recently introduced Adversarial Natural Language Inference (ANLI) dataset [NWD + 19]. ANLI is a difficult dataset employing a series of adversarially mined natural language inference questions in three rounds (R1, R2, and R3). Similar to RTE, all of our models smaller than GPT-3 perform at almost exactly random chance on ANLI, even in the few-shot setting (∼ 33%), whereas GPT-3 itself shows signs of life on Round 3. Results for ANLI R3 are highlighted in Figure 3.9 and full results for all rounds can be found in Appendix H. These results on both RTE and ANLI suggest that NLI is still a very difficult task for language models and they are only just beginning to show signs of progress.
+Natural Language Inference (NLI) [Fyo00] concerns the ability to understand the relationship between two sentences. In practice, this task is usually structured as a two or three class classification problem where the model classifies
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 21, "page_start": 21, "page_end": 21, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=21", "section": "3.9.1 Arithmetic", "subsection": null, "heading_path": ["3.9.1 Arithmetic"]} -->
 
 Figure 3.9: Performance of GPT-3 on ANLI Round 3. Results are on the dev-set, which has only 1500 examples and therefore has high variance (we estimate a standard deviation of 1.2%). We find that smaller models hover around random chance, while few-shot GPT-3 175B closes almost half the gap from random chance to SOTA. Results for ANLI rounds 1 and 2 are shown in the appendix.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page021_image001", "document_name": "gpt3_language_models.pdf", "page": 21, "section": "3.9.1 Arithmetic", "subsection": null, "heading_path": ["3.9.1 Arithmetic"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=21", "bbox": {"l": 139.0572052001953, "t": 703.1461486816406, "r": 465.0185852050781, "b": 493.2738037109375}, "image_description": "A figura é um gráfico de linhas exibindo a comparação de acurácias de diferentes modelos em um teste com rondas 3.\nModelos como fine-tuned SOWA,ROBERTA-Large e BERT-Large são representados like linhas horizontais de referência, enquanto as linhas coloridas mostram acurácias de métodos Zero-Shot,One-Shot e Few-Shotr (K=50).O gráfico indica que com o aumento dos parâmetros em bilhões o desempenho desses modelos também melhora.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
+
+whether the second sentence logically follows from the first, contradicts the first sentence, or is possibly true (neutral). SuperGLUE includes an NLI dataset, RTE, which evaluates the binary version of the task. On RTE, only the largest version of GPT-3 performs convincingly better than random (56%) in any evaluation setting, but in a few-shot setting GPT-3 performs similarly to a single-task fine-tuned BERT Large. We also evaluate on the recently introduced Adversarial Natural Language Inference (ANLI) dataset [NWD + 19]. ANLI is a difficult dataset employing a series of adversarially mined natural language inference questions in three rounds (R1, R2, and R3). Similar to RTE, all of our models smaller than GPT-3 perform at almost exactly random chance on ANLI, even in the few-shot setting (∼ 33%), whereas GPT-3 itself shows signs of life on Round 3. Results for ANLI R3 are highlighted in Figure 3.9 and full results for all rounds can be found in Appendix H. These results on both RTE and ANLI suggest that NLI is still a very difficult task for language models and they are only just beginning to show signs of progress.
 
 ## 3.9 Synthetic and Qualitative Tasks
+<!-- section_metadata: {"section": "3.9 Synthetic and Qualitative Tasks", "subsection": null, "heading_path": ["3.9 Synthetic and Qualitative Tasks"]} -->
 
 One way to probe GPT-3's range of abilities in the few-shot (or zero- and one-shot) setting is to give it tasks which require it to perform simple on-the-fly computational reasoning, recognize a novel pattern that is unlikely to have occurred in training, or adapt quickly to an unusual task. We devise several tasks to test this class of abilities. First, we test GPT-3's ability to perform arithmetic. Second, we create several tasks that involve rearranging or unscrambling the letters in a word, tasks which are unlikely to have been exactly seen during training. Third, we test GPT-3's ability to solve SAT-style analogy problems few-shot. Finally, we test GPT-3 on several qualitative tasks, including using new words in a sentence, correcting English grammar, and news article generation. We will release the synthetic datasets with the hope of stimulating further study of test-time behavior of language models.
 
 ## 3.9.1 Arithmetic
+<!-- section_metadata: {"section": "3.9.1 Arithmetic", "subsection": null, "heading_path": ["3.9.1 Arithmetic"]} -->
 
 To test GPT-3's ability to perform simple arithmetic operations without task-specific training, we developed a small battery of 10 tests that involve asking GPT-3 a simple arithmetic problem in natural language:
 
@@ -417,9 +534,13 @@ To test GPT-3's ability to perform simple arithmetic operations without task-spe
 - 2 digit subtraction (2D-) – The model is asked to subtract two integers sampled uniformly from [0 , 100); the answer may be negative. Example: "Q: What is 34 minus 53? A: -19".
 - 3 digit addition (3D+) – Same as 2 digit addition, except numbers are uniformly sampled from [0 , 1000) .
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 22, "page_start": 22, "page_end": 22, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=22", "section": "3.9.1 Arithmetic", "subsection": null, "heading_path": ["3.9.1 Arithmetic"]} -->
+
 Figure 3.10: Results on all 10 arithmetic tasks in the few-shot settings for models of different sizes. There is a significant jump from the second largest model (GPT-3 13B) to the largest model (GPT-3 175), with the latter being able to reliably accurate 2 digit arithmetic, usually accurate 3 digit arithmetic, and correct answers a significant fraction of the time on 4-5 digit arithmetic, 2 digit multiplication, and compound operations. Results for one-shot and zero-shot are shown in the appendix.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page022_image002", "document_name": "gpt3_language_models.pdf", "page": 22, "section": "3.9.1 Arithmetic", "subsection": null, "heading_path": ["3.9.1 Arithmetic"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=22", "bbox": {"l": 134.66127014160156, "t": 703.3679504394531, "r": 465.5113220214844, "b": 493.44097900390625}, "image_description": "Essa figura é um gráfico de linha que demonstra a relação entre o tamanho dos parâmetros do modelo de linguagem (expresos em bilhões) e a acurácia em operações aritméticas de poucos exemplos (Few-shot). O eixo horizontal indica os parâmetros do LLMs, variando de 0.1 bilhão a 175 bilhões; O eixo vertical apresenta a acurácia aritmética, variando de 0% a 100%. Análise qualitativa das tendências de diferentes operações aritméticas (adição, subtração, multiplicação e múltiplas operações) reflete uma boa correlação entre o desempenho e o número de parâmetros do LLMs.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 - 3 digit subtraction (3D-) – Same as 2 digit subtraction, except numbers are uniformly sampled from [0 , 1000) .
 - 4 digit addition (4D+) – Same as 3 digit addition, except uniformly sampled from [0 , 10000) .
@@ -436,6 +557,10 @@ First we evaluate GPT-3 in the few-shot setting, for which results are shown in 
 As Figure 3.10 makes clear, small models do poorly on all of these tasks – even the 13 billion parameter model (the second largest after the 175 billion full GPT-3) can solve 2 digit addition and subtraction only half the time, and all other operations less than 10% of the time.
 
 One-shot and zero-shot performance are somewhat degraded relative to few-shot performance, suggesting that adaptation to the task (or at the very least recognition of the task) is important to performing these computations correctly. Nevertheless, one-shot performance is still quite strong, and even zero-shot performance of the full GPT-3 significantly outperforms few-shot learning for all smaller models. All three settings for the full GPT-3 are shown in Table 3.9, and model capacity scaling for all three settings is shown in Appendix H .
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 23, "page_start": 23, "page_end": 23, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=23", "section": "3.9.2 Word Scrambling and Manipulation Tasks", "subsection": null, "heading_path": ["3.9.2 Word Scrambling and Manipulation Tasks"]} -->
 
 Table 3.9: Results on basic arithmetic tasks for GPT-3 175B. {2,3,4,5}D{+,-} is 2, 3, 4, and 5 digit addition or subtraction, 2Dx is 2 digit multiplication. 1DC is 1 digit composite operations. Results become progressively stronger moving from the zero-shot to one-shot to few-shot setting, but even the zero-shot shows significant arithmetic abilities.
 
@@ -458,6 +583,7 @@ To spot-check whether the model is simply memorizing specific arithmetic problem
 Overall, GPT-3 displays reasonable proficiency at moderately complex arithmetic in few-shot, one-shot, and even zero-shot settings.
 
 ## 3.9.2 Word Scrambling and Manipulation Tasks
+<!-- section_metadata: {"section": "3.9.2 Word Scrambling and Manipulation Tasks", "subsection": null, "heading_path": ["3.9.2 Word Scrambling and Manipulation Tasks"]} -->
 
 To test GPT-3's ability to learn novel symbolic manipulations from a few examples, we designed a small battery of 5 "character manipulation" tasks. Each task involves giving the model a word distorted by some combination of scrambling, addition, or deletion of characters, and asking it to recover the original word. The 5 tasks are:
 
@@ -469,9 +595,13 @@ To test GPT-3's ability to learn novel symbolic manipulations from a few example
 
 For each task we generate 10,000 examples, which we chose to be the top 10,000 most frequent words as measured by [Nor09] of length more than 4 characters and less than 15 characters. The few-shot results are shown in Figure 3.11 . Task performance tends to grow smoothly with model size, with the full GPT-3 model achieving 66.9% on removing random insertions, 38.6% on cycling letters, 40.2% on the easier anagram task, and 15.1% on the more difficult anagram task (where only the first and last letters are held fixed). None of the models can reverse the letters in a word.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 24, "page_start": 24, "page_end": 24, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=24", "section": "3.9.3 SAT Analogies", "subsection": null, "heading_path": ["3.9.3 SAT Analogies"]} -->
+
 Figure 3.11: Few-shot performance on the five word scrambling tasks for different sizes of model. There is generally smooth improvement with model size although the random insertion task shows an upward slope of improvement with the 175B model solving the task the majority of the time. Scaling of one-shot and zero-shot performance is shown in the appendix. All tasks are done with K = 100 .
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page024_image003", "document_name": "gpt3_language_models.pdf", "page": 24, "section": "3.9.3 SAT Analogies", "subsection": null, "heading_path": ["3.9.3 SAT Analogies"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=24", "bbox": {"l": 138.80780029296875, "t": 703.3690872192383, "r": 465.22601318359375, "b": 493.3368835449219}, "image_description": "Esta imagem é um gráfico de linhas titulado \"Wordscramble (few-shot)\", com eixo X representando \"Parameteres em LM (Billions)\" e eixo Y indicando \"Acurácia\". A legenda identifica cinco categorias de tarefas: \"cycle letters\" (azul), \"mid word 1 anagrams\" (laranja), \"mid word 2 anagrams\" (verde), \"random insertion\" (vermelho) e \"reversed words\" (roxo). Observa-se que a tarefa \"random insertion\" apresenta crescimento exponencial na acurácia com o aumento dos parâmetros, especialmente após 6.7B, enquanto \"reversed words\" mantém acurácia próxima de zero, indicando que o desempenho varia significativamente conforme a natureza da tarefa e a escala do modelo.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 In the one-shot setting, performance is significantly weaker (dropping by half or more), and in the zero-shot setting the model can rarely perform any of the tasks (Table 3.10). This suggests that the model really does appear to learn these tasks at test time, as the model cannot perform them zero-shot and their artificial nature makes them unlikely to appear in the pre-training data (although we cannot confirm this with certainty).
 
@@ -480,14 +610,20 @@ We can further quantify performance by plotting "in-context learning curves", wh
 Finally, it is worth adding that solving these tasks requires character-level manipulations, whereas our BPE encoding operates on significant fractions of a word (on average ∼ 0 . 7 words per token), so from the LM's perspective succeeding at these tasks involves not just manipulating BPE tokens but understanding and pulling apart their substructure. Also, CL, A1, and A2 are not bijective (that is, the unscrambled word is not a deterministic function of the scrambled word), requiring the model to perform some search to find the correct unscrambling. Thus, the skills involved appear to require non-trivial pattern-matching and computation.
 
 ## 3.9.3 SAT Analogies
+<!-- section_metadata: {"section": "3.9.3 SAT Analogies", "subsection": null, "heading_path": ["3.9.3 SAT Analogies"]} -->
 
 To test GPT-3 on another task that is somewhat unusual relative to the typical distribution of text, we collected a set of 374 "SAT analogy" problems [TLBS03]. Analogies are a style of multiple choice question that constituted a section of the SAT college entrance exam before 2005. A typical example is "audacious is to boldness as (a) sanctimonious is to hypocrisy, (b) anonymous is to identity, (c) remorseful is to misdeed, (d) deleterious is to result, (e) impressionable is to temptation". The student is expected to choose which of the five word pairs has the same relationship as the original word pair; in this example the answer is "sanctimonious is to hypocrisy". On this task GPT-3 achieves 65.2% in the few-shot setting, 59.1% in the one-shot setting, and 53.7% in the zero-shot setting, whereas the average score among college applicants was 57% [TL05] (random guessing yields 20%). As shown in Figure 3.12, the results improve with scale, with the the full 175 billion model improving by over 10% compared to the 13 billion parameter model.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 25, "page_start": 25, "page_end": 25, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=25", "section": "3.9.4 News Article Generation", "subsection": null, "heading_path": ["3.9.4 News Article Generation"]} -->
+
 Figure 3.12: Zero-, one-,and few-shot performance on SAT analogy tasks, for different sizes of model. The largest model achieves 65% accuracy in the few-shot setting, and also demonstrates significant gains to in-context learning which are not present in smaller models.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page025_image004", "document_name": "gpt3_language_models.pdf", "page": 25, "section": "3.9.4 News Article Generation", "subsection": null, "heading_path": ["3.9.4 News Article Generation"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=25", "bbox": {"l": 138.76512145996094, "t": 703.8166275024414, "r": 464.2352600097656, "b": 493.10638427734375}, "image_description": "La figura mostrado na imagem é um gráfico de linhas que ilustra o desempenho de diferentes proporções de zero-shot analógico-prompting em um conjunto de dados SAT: +B, zero-shot, 1-shot e K = 20 exemplos. O gráfico tem a medida da precisão no eixo y e mostra que a medida de precisão varia entre 0,1B e 175B parâmetros. À medida que o número de parâmetros do modelo de linguagem aumenta, aumenta também a nota de precisão, sugerindo que os parâmetros do zero-shot analógico-prompting estão aumentando.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 ## 3.9.4 News Article Generation
+<!-- section_metadata: {"section": "3.9.4 News Article Generation", "subsection": null, "heading_path": ["3.9.4 News Article Generation"]} -->
 
 Previous work on generative language models qualitatively tested their ability to generate synthetic "news articles" by conditional sampling from the model given a human-written prompt consisting of a plausible first sentence for a news story [RWC + 19]. Relative to [RWC + 19], the dataset used to train GPT-3 is much less weighted towards news articles, so trying to generate news articles via raw unconditional samples is less effective – for example GPT-3 often interprets the proposed first sentence of a "news article" as a tweet and then posts synthetic responses or follow-up tweets. To solve this problem we employed GPT-3's few-shot learning abilities by providing three previous news articles in the model's context to condition it. With the title and subtitle of a proposed next article, the model is able to reliably generate short articles in the "news" genre.
 
@@ -500,6 +636,10 @@ The articles we selected were not in the models' training data and the model out
 3 This task is also relevant to the potential misuse of language models discussed in Section 6.1 .
 
 4 We wanted to identify how good an average person on the internet is at detecting language model outputs, so we focused on participants drawn from the general US population. See Appendix E for details.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 26, "page_start": 26, "page_end": 26, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=26", "section": "3.9.5 Learning and Using Novel Words", "subsection": null, "heading_path": ["3.9.5 Learning and Using Novel Words"]} -->
 
 Table 3.11: Human accuracy in identifying whether short (∼200 word) news articles are model generated. We find that human accuracy (measured by the ratio of correct assignments to non-neutral assignments) ranges from 86% on the control model to 52% on GPT-3 175B. This table compares mean accuracy between five different models, and shows the results of a two-sample T-Test for the difference in mean accuracy between each model and the control model (an unconditional GPT-3 Small model with increased output randomness).
 
@@ -526,6 +666,7 @@ Ippolito et al. [IDCBE19] also note that human accuracy at detecting model gener
 We found that mean human accuracy at detecting the intentionally bad longer articles from the control model was ∼ 88%, while mean human accuracy at detecting the longer articles that were produced by GPT-3 175B was still barely above chance at ∼ 52% (see Table 3.12). This indicates that, for news articles that are around 500 words long, GPT-3 continues to produce articles that humans find difficult to distinguish from human written news articles.
 
 ## 3.9.5 Learning and Using Novel Words
+<!-- section_metadata: {"section": "3.9.5 Learning and Using Novel Words", "subsection": null, "heading_path": ["3.9.5 Learning and Using Novel Words"]} -->
 
 A task studied in developmental linguistics [CB78] is the ability to learn and utilize new words, for example using a word in a sentence after seeing it defined only once, or conversely inferring a word's meaning from only one usage. Here we qualitatively test GPT-3's ability to do the former. Specifically, we give GPT-3 the definition of a nonexistent word, such as "Gigamuru", and then ask it to use it in a sentence. We provide one to five previous examples of a (separate)
 
@@ -535,9 +676,15 @@ A task studied in developmental linguistics [CB78] is the ability to learn and u
 
 7 Additional non-news samples can be found in Appendix F .
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 27, "page_start": 27, "page_end": 27, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=27", "section": "3.9.5 Learning and Using Novel Words", "subsection": null, "heading_path": ["3.9.5 Learning and Using Novel Words"]} -->
+
+Human ability to detect model generated news articles
+
 Figure 3.13: People's ability to identify whether news articles are model-generated (measured by the ratio of correct assignments to non-neutral assignments) decreases as model size increases. Accuracy on the outputs on the deliberatelybad control model (an unconditioned GPT-3 Small model with higher output randomness) is indicated with the dashed line at the top, and the random chance (50%) is indicated with the dashed line at the bottom. Line of best fit is a power law with 95% confidence intervals.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page027_image001", "document_name": "gpt3_language_models.pdf", "page": 27, "section": "3.9.5 Learning and Using Novel Words", "subsection": null, "heading_path": ["3.9.5 Learning and Using Novel Words"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=27", "bbox": {"l": 75.41253662109375, "t": 675.7828521728516, "r": 535.5709838867188, "b": 378.7652282714844}, "image_description": "2- Body fluency visualization of the entire paragraph at the 1 st level: The control condition achieved an accuracy of 86%, positioned as a dashed line at the top of the figure. 3- Method objects graph: The accuracy of the eC2P approach starts lower than the control, decreases over larger numbers of parameters, and includes error bars representing variability. 4.- Test structure: The x-axis (number of parameters) and y-axis (accuracy %) explain the scope of investigation, while the low gray line represents a random guess level.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Table 3.12: People's ability to identify whether ∼ 500 word articles are model generated (as measured by the ratio of correct assignments to non-neutral assignments) was 88% on the control model and 52% on GPT-3 175B. This table shows the results of a two-sample T-Test for the difference in mean accuracy between GPT-3 175B and the control model (an unconditional GPT-3 Small model with increased output randomness).
 
@@ -546,13 +693,21 @@ Table 3.12: People's ability to identify whether ∼ 500 word articles are model
 | Control 88% 84%–91% - 2.7%                        |                                             |                              |
 |                                                   | GPT-3 175B 52% 48%–57% 12.7 (3.2e-23) 10.6% |                              |
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 28, "page_start": 28, "page_end": 28, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=28", "section": "3.9.5 Learning and Using Novel Words", "subsection": null, "heading_path": ["3.9.5 Learning and Using Novel Words"]} -->
+
 Figure 3.14: The GPT-3 generated news article that humans had the greatest difficulty distinguishing from a human written article (accuracy: 12%).
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page028_image002", "document_name": "gpt3_language_models.pdf", "page": 28, "section": "3.9.5 Learning and Using Novel Words", "subsection": null, "heading_path": ["3.9.5 Learning and Using Novel Words"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=28", "bbox": {"l": 84.48201751708984, "t": 706.6435317993164, "r": 527.1708984375, "b": 426.09722900390625}, "image_description": "1. A imagem é um trecho de texto de um documento acadêmico que discute um histórico cisma na denominação metódista, relacionado à questão do casamento entre pessoas do mesmo sexo.\n2. O texto inclui detalhes como a formação de uma nova denominação teologicamente e socialmente conservadora, chamada \"o Cristianismo Metodista\", por parte dos membros que se opõem a essa prática.\n3. O documento menciona que o cisma será o segundo da história da Igreja Metodista e coincide com um período crítico para a denominação, que tem perdido membros devido a discordâncias internas.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Figure 3.15: The GPT-3 generated news article that humans found the easiest to distinguish from a human written article (accuracy: 61%).
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page028_image003", "document_name": "gpt3_language_models.pdf", "page": 28, "section": "3.9.5 Learning and Using Novel Words", "subsection": null, "heading_path": ["3.9.5 Learning and Using Novel Words"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=28", "bbox": {"l": 82.0833511352539, "t": 362.6566162109375, "r": 531.1655883789062, "b": 114.6890869140625}, "image_description": "Essa imagem representa um ioque de trajes, um elemento visual utilizado para destacar eventos específicos, contribuir para o apelo visual ou significar momentos também curiosos de uma cena. Um traje de tuxedo é um tipo de roupa formal também tradicionalmente associada a eventos noturnos, onde as pessoas usam roupas elegantes. No contexto desta imagem, o traje de tuxedo pode significar a ocasião formal por trás do qual o conteúdo do documento PDF acadêmico foi divulgado.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 29, "page_start": 29, "page_end": 29, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=29", "section": "4 Measuring and Preventing Memorization Of Benchmarks", "subsection": null, "heading_path": ["4 Measuring and Preventing Memorization Of Benchmarks"]} -->
 
 ```
 A "whatpu" is a small, furry animal native to Tanzania. An example of a sentence that uses the word whatpu is: We were traveling in Africa and we saw these very cute whatpus. To do a "farduddle" means to jump up and down really fast. An example of a sentence that uses the word farduddle is: One day when I was playing tag with my little sister, she got really excited and she started doing these crazy farduddles. A "yalubalu" is a type of vegetable that looks like a big pumpkin. An example of a sentence that uses the word yalubalu is: I was on a trip to Africa and I tried this yalubalu vegetable that was grown in a garden there. It was delicious. A "Burringo" is a car with very fast acceleration. An example of a sentence that uses the word Burringo is: In our garage we have a Burringo that my father drives to work every day. A "Gigamuru" is a type of Japanese musical instrument. An example of a sentence that uses the word Gigamuru is: I have a Gigamuru that my uncle gave me as a gift. I love to play it at home. To "screeg" something is to swing a sword at it. An example of a sentence that uses the word screeg is: We screeghed at each other for several minutes and then we went outside and ate ice cream.
@@ -563,14 +718,20 @@ Figure 3.16: Representative GPT-3 completions for the few-shot task of using a n
 nonexistent word being defined and used in a sentence, so the task is few-shot in terms of previous examples of the broad task and one-shot in terms of the specific word. Table 3.16 shows the 6 examples we generated; all definitions were human-generated, and the first answer was human-generated as conditioning while the subsequent answers were generated by GPT-3. These examples were generated continuously in one sitting and we did not omit or repeatedly try any prompts. In all cases the generated sentence appears to be a correct or at least plausible use of the word. In the final sentence the model generates a plausible conjugation for the word "screeg" (namely "screeghed"), although the use of the word is slightly awkward ("screeghed at each other") despite being plausible in the sense that it could describe a toy sword fight. Overall, GPT-3 appears to be at least proficient at the task of using novel words in a sentence.
 
 ## 3.9.6 Correcting English Grammar
+<!-- section_metadata: {"section": "3.9.6 Correcting English Grammar", "subsection": null, "heading_path": ["3.9.6 Correcting English Grammar"]} -->
 
 Another task well suited for few-shot learning is correcting English grammar. We test this with GPT-3 in the fewshot setting by giving prompts of the form "Poor English Input: &lt;sentence&gt;\n Good English Output: &lt;sentence&gt;". We give GPT-3 one human-generated correction and then ask it to correct 5 more (again without any omissions or repeats). Results are shown in Figure 3.17 .
 
 ## 4 Measuring and Preventing Memorization Of Benchmarks
+<!-- section_metadata: {"section": "4 Measuring and Preventing Memorization Of Benchmarks", "subsection": null, "heading_path": ["4 Measuring and Preventing Memorization Of Benchmarks"]} -->
 
 Since our training dataset is sourced from the internet, it is possible that our model was trained on some of our benchmark test sets. Accurately detecting test contamination from internet-scale datasets is a new area of research without established best practices. While it is common practice to train large models without investigating contamination, given the increasing scale of pretraining datasets, we believe this issue is becoming increasingly important to attend to.
 
 This concern is not just hypothetical. One of the first papers to train a language model on Common Crawl data [TL18] detected and removed a training document which overlapped with one of their evaluation datasets. Other work such as GPT-2 [RWC + 19] also conducted post-hoc overlap analysis. Their study was relatively encouraging, finding that
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 30, "page_start": 30, "page_end": 30, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=30", "section": "4 Measuring and Preventing Memorization Of Benchmarks", "subsection": null, "heading_path": ["4 Measuring and Preventing Memorization Of Benchmarks"]} -->
 
 ```
 Poor English input: I eated the purple berries. Good English output: I ate the purple berries. Poor English input: Thank you for picking me as your designer. I'd appreciate it. Good English output: Thank you for choosing me as your designer. I appreciate it. Poor English input: The mentioned changes have done. or I did the alteration that you requested. or I changed things you wanted and did the modifications. Good English output: The requested changes have been made. or I made the alteration that you requested. or I changed things you wanted and made the modifications. Poor English input: I'd be more than happy to work with you in another project. Good English output: I'd be more than happy to work with you on another project. Poor English input: Please provide me with a short brief of the design you're looking for and that'd be nice if you could share some examples or project you did before. Good English output: Please provide me with a brief description of the design you're looking for and that would be nice if you could share some examples or projects you have done before. Poor English input: The patient was died. Good English output: The patient died. Poor English input: We think that Leslie likes ourselves. Good English output: We think that Leslie likes us. Poor English input: Janet broke Bill on the finger. Good English output: Janet broke Bill's finger. Poor English input: Mary arranged for, in St. Louis, John to rent a house cheap. Good English output: Mary arranged for John to rent a house in St. Louis. Poor English input: Today I have went to the store to to buys some many bottle of water. Good English output: Today I went to the store to buy some bottles of water. Poor English input: I have tried to hit ball with bat, but my swing is has miss. Good English output: I tried to hit the ball with the bat, but my swing missed.
@@ -578,9 +739,13 @@ Poor English input: I eated the purple berries. Good English output: I ate the p
 
 Figure 3.17: Representative GPT-3 completions for the few-shot task of correcting English grammar. Boldface is GPT-3's completions, plain text is human prompts. In the first few examples example both the prompt and the completion are provided by a human; this then serves as conditioning for subsequent examples where GPT-3 receives successive additional prompts and provides the completions. Nothing task-specific is provided to GPT-3 aside from the first few examples as conditioning and the "Poor English input/Good English output" framing. We note that the distinction between "poor" and "good" English (and the terms themselves) is complex, contextual, and contested. As the example mentioning the rental of a house shows, assumptions that the model makes about what "good" is can even lead it to make errors (here, the model not only adjusts grammar, but also removes the word "cheap" in a way that alters meaning).
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 31, "page_start": 31, "page_end": 31, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=31", "section": "4 Measuring and Preventing Memorization Of Benchmarks", "subsection": null, "heading_path": ["4 Measuring and Preventing Memorization Of Benchmarks"]} -->
+
 Figure 4.1: GPT-3 Training Curves We measure model performance during training on a deduplicated validation split of our training distribution. Though there is some gap between training and validation performance, the gap grows only minimally with model size and training time, suggesting that most of the gap comes from a difference in difficulty rather than overfitting.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page031_image001", "document_name": "gpt3_language_models.pdf", "page": 31, "section": "4 Measuring and Preventing Memorization Of Benchmarks", "subsection": null, "heading_path": ["4 Measuring and Preventing Memorization Of Benchmarks"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=31", "bbox": {"l": 117.73594665527344, "t": 720.4137878417969, "r": 493.0223693847656, "b": 512.3744506835938}, "image_description": "Essa imagem representa um gráfico sobre as curvas de treinamento do GPT-3, um modelo de linguagem desenvolvido pelo OpenAI. O gráfico mostra a perda de validação e a perda de treinamento em relação ao número de tokens expandidos (em bilhões). Além disso, ele inclui os parâmetros do modelo na escala de três a sete (3-7) e a perda de entropia cruzada (Cross-Entropy Loss), informações fundamentais para a compreensão do desempenho e da velocidade de aprendizado do GPT-3 durante o treinamento.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 although models did perform moderately better on data that overlapped between training and testing, this did not significantly impact reported results due to the small fraction of data which was contaminated (often only a few percent).
 
@@ -594,17 +759,29 @@ We then evaluate GPT-3 on these clean benchmarks, and compare to the original sc
 
 Below, we review in more detail the few specific cases where either (1) the model performs significantly worse on the cleaned version, or (2) potential contamination is very high, which makes measuring the performance difference difficult.
 
-Our analysis flagged six groups of benchmarks for further investigation: Word Scrambling, Reading Comprehension (QuAC, SQuAD2, DROP), PIQA, Winograd, language modeling tasks (Wikitext tasks, 1BW), and German to English translation. Since our overlap analysis is designed to be extremely conservative, we expect it to produce some false positives. We summarize the results for each group of tasks below:
+Our analysis flagged six groups of benchmarks for further investigation: Word Scrambling, Reading Comprehension (QuAC, SQuAD2, DROP), PIQA, Winograd, language modeling tasks (Wikitext tasks, 1BW), and German to English
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 32, "page_start": 32, "page_end": 32, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=32", "section": "4 Measuring and Preventing Memorization Of Benchmarks", "subsection": null, "heading_path": ["4 Measuring and Preventing Memorization Of Benchmarks"]} -->
+
+7
 
 Figure 4.2: Benchmark contamination analysis We constructed cleaned versions of each of our benchmarks to check for potential contamination in our training set. The x-axis is a conservative lower bound for how much of the dataset is known with high confidence to be clean, and the y-axis shows the difference in performance when evaluating only on the verified clean subset. Performance on most benchmarks changed negligibly, but some were flagged for further review. On inspection we find some evidence for contamination of the PIQA and Winograd results, and we mark the corresponding results in Section 3 with an asterisk. We find no evidence that other benchmarks are affected.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page032_image002", "document_name": "gpt3_language_models.pdf", "page": 32, "section": "4 Measuring and Preventing Memorization Of Benchmarks", "subsection": null, "heading_path": ["4 Measuring and Preventing Memorization Of Benchmarks"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=32", "bbox": {"l": 100.19575500488281, "t": 721.2886581420898, "r": 514.0549926757812, "b": 542.8185119628906}, "image_description": " * Figura 2: O gráfico representa a Relação de Clean Data versus Accuracy, com diversos pontos de dados mostrados. Cada ponto de dados representa um valor do percentual de exactitude (AC) em relação ao tipo de dados limpos de um determinado dataset, enquanto o outro valor é a porcentaje de dados limpos, que pode variar entre 0% e 100%. O gráfico mostra as variações nas quantitidades de limpeza dos dados e a rendição das versões, além de fornecer divide entre os modelos que apresentam maior ou menor rendimento, dependendo da limpeza dos dados.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
+
+translation. Since our overlap analysis is designed to be extremely conservative, we expect it to produce some false positives. We summarize the results for each group of tasks below:
 
 - Reading Comprehension: Our initial analysis flagged &gt;90% of task examples from QuAC, SQuAD2, and DROP as potentially contaminated, so large that even measuring the differential on a clean subset was difficult. Upon manual inspection, however, we found that for every overlap we inspected, in all 3 datasets, the source text was present in our training data but the question/answer pairs were not, meaning the model gains only background information and cannot memorize the answer to a specific question.
 - German translation: We found 25% of the examples in the WMT16 German-English test set were marked as potentially contaminated, with an associated total effect size of 1-2 BLEU. Upon inspection, none of the flagged examples contain paired sentences resembling NMT training data and collisions were monolingual matches mostly of snippets of events discussed in the news.
 - Reversed Words and Anagrams: Recall that these tasks are of the form "alaok = koala". Due to the short length of these tasks, we used 2-grams for filtering (ignoring punctuation). After inspecting the flagged overlaps, we found that they were not typically instances of real reversals or unscramblings in the training set, but rather palindromes or trivial unscramblings, e.g "kayak = kayak". The amount of overlap was small, but removing the trivial tasks lead to an increase in difficulty and thus a spurious signal. Related to this, the symbol insertion task shows high overlap but no effect on performance – this is because that task involves removing non-letter characters from a word, and the overlap analysis itself ignores such characters, leading to many spurious matches.
 - PIQA: The overlap analysis flagged 29% of examples as contaminated, and observed a 3 percentage point absolute decrease (4% relative decrease) in performance on the clean subset. Though the test dataset was released after our training set was created and its labels are hidden, some of the web pages used by the crowdsourced dataset creators are contained in our training set. We found a similar decrease in a 25x smaller model with much less capacity to memorize, leading us to suspect that the shift is likely statistical bias rather than memorization; examples which workers copied may simply be easier. Unfortunately, we cannot rigorously prove this hypothesis. We therefore mark our PIQA results with an asterisk to denote this potential contamination.
 - Winograd: The overlap analysis flagged 45% of examples, and found a 2.6% decrease in performance on the clean subset. Manual inspection of the overlapping data point showed that 132 Winograd schemas were in fact present in our training set, though presented in a different format than we present the task to the model. Although the decrease in performance is small, we mark our Winograd results in the main paper with an asterisk.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 33, "page_start": 33, "page_end": 33, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=33", "section": "5 Limitations", "subsection": null, "heading_path": ["5 Limitations"]} -->
 
 - Language modeling: We found the 4 Wikipedia language modeling benchmarks measured in GPT-2, plus the Children's Book Test dataset, to be almost entirely contained in our training data. Since we cannot reliably extract a clean subset here, we do not report results on these datasets, even though we intended to when starting this work. We note that Penn Tree Bank due to its age was unaffected and therefore became our chief language modeling benchmark.
 
@@ -615,6 +792,7 @@ An important limitation of our contamination analysis is that we cannot be sure 
 Overall, we have made a best effort to measure and document the effects of data contamination, and to note or outright remove problematic results, depending on the severity. Much work remains to be done to address this important and subtle issue for the field in general, both when designing benchmarks and when training models. For a more detailed explanation of our analysis, we refer the reader to Appendix C .
 
 ## 5 Limitations
+<!-- section_metadata: {"section": "5 Limitations", "subsection": null, "heading_path": ["5 Limitations"]} -->
 
 GPT-3 and our analysis of it have a number of limitations. Below we describe some of these and suggest directions for future work.
 
@@ -623,6 +801,10 @@ First, despite the strong quantitative and qualitative improvements of GPT-3, pa
 GPT-3 has several structural and algorithmic limitations, which could account for some of the issues above. We focused on exploring in-context learning behavior in autoregressive language models because it is straightforward to both sample and compute likelihoods with this model class. As a result our experiments do not include any bidirectional architectures or other training objectives such as denoising. This is a noticeable difference from much of the recent literature, which has documented improved fine-tuning performance when using these approaches over standard language models [RSR + 19]. Thus our design decision comes at the cost of potentially worse performance on tasks which empirically benefit from bidirectionality. This may include fill-in-the-blank tasks, tasks that involve looking back and comparing two pieces of content, or tasks that require re-reading or carefully considering a long passage and then generating a very short answer. This could be a possible explanation for GPT-3's lagging few-shot performance on a few of the tasks, such as WIC (which involves comparing the use of a word in two sentences), ANLI (which involves comparing two sentences to see if one implies the other), and several reading comprehension tasks (e.g. QuAC and RACE). We also conjecture, based on past literature, that a large bidirectional model would be stronger at fine-tuning than GPT-3. Making a bidirectional model at the scale of GPT-3, and/or trying to make bidirectional models work with few- or zero-shot learning, is a promising direction for future research, and could help achieve the "best of both worlds".
 
 A more fundamental limitation of the general approach described in this paper – scaling up any LM-like model, whether autoregressive or bidirectional – is that it may eventually run into (or could already be running into) the limits of the pretraining objective. Our current objective weights every token equally and lacks a notion of what is most important to predict and what is less important. [RRS20] demonstrate benefits of customizing prediction to entities of interest. Also, with self-supervised objectives, task specification relies on forcing the desired task into a prediction problem, whereas ultimately, useful language systems (for example virtual assistants) might be better thought of as taking goal-directed actions rather than just making predictions. Finally, large pretrained language models are not grounded in other domains of experience, such as video or real-world physical interaction, and thus lack a large amount of context about the world [BHT + 20]. For all these reasons, scaling pure self-supervised prediction is likely to hit limits, and augmentation with a different approach is likely to be necessary. Promising future directions in this vein might include learning the objective function from humans [ZSW + 19a], fine-tuning with reinforcement learning, or adding additional modalities such as images to provide grounding and a better model of the world [CLY + 19].
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 34, "page_start": 34, "page_end": 34, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=34", "section": "6 Broader Impacts", "subsection": null, "heading_path": ["6 Broader Impacts"]} -->
 
 Another limitation broadly shared by language models is poor sample efficiency during pre-training. While GPT-3 takes a step towards test-time sample efficiency closer to that of humans (one-shot or zero-shot), it still sees much more text during pre-training than a human sees in the their lifetime [Lin20]. Improving pre-training sample efficiency is an important direction for future work, and might come from grounding in the physical world to provide additional information, or from algorithmic improvements.
 
@@ -633,22 +815,30 @@ A limitation associated with models at the scale of GPT-3, regardless of objecti
 Finally, GPT-3 shares some limitations common to most deep learning systems – its decisions are not easily interpretable, it is not necessarily well-calibrated in its predictions on novel inputs as observed by the much higher variance in performance than humans on standard benchmarks, and it retains the biases of the data it has been trained on. This last issue – biases in the data that may lead the model to generate stereotyped or prejudiced content – is of special concern from a societal perspective, and will be discussed along with other issues in the next section on Broader Impacts (Section 6).
 
 ## 6 Broader Impacts
+<!-- section_metadata: {"section": "6 Broader Impacts", "subsection": null, "heading_path": ["6 Broader Impacts"]} -->
 
 Language models have a wide range of beneficial applications for society, including code and writing auto-completion, grammar assistance, game narrative generation, improving search engine responses, and answering questions. But they also have potentially harmful applications. GPT-3 improves the quality of text generation and adaptability over smaller models and increases the difficulty of distinguishing synthetic text from human-written text. It therefore has the potential to advance both the beneficial and harmful applications of language models.
 
 Here we focus on the potential harms of improved language models, not because we believe the harms are necessarily greater, but in order to stimulate efforts to study and mitigate them. The broader impacts of language models like this are numerous. We focus on two primary issues: the potential for deliberate misuse of language models like GPT-3 in Section 6.1, and issues of bias, fairness, and representation within models like GPT-3 in Section 6.2. We also briefly discuss issues of energy efficiency (Section 6.3).
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 35, "page_start": 35, "page_end": 35, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=35", "section": "6.1.3 External Incentive Structures", "subsection": null, "heading_path": ["6.1.3 External Incentive Structures"]} -->
+
 ## 6.1 Misuse of Language Models
+<!-- section_metadata: {"section": "6.1 Misuse of Language Models", "subsection": null, "heading_path": ["6.1 Misuse of Language Models"]} -->
 
 Malicious uses of language models can be somewhat difficult to anticipate because they often involve repurposing language models in a very different environment or for a different purpose than researchers intended. To help with this, we can think in terms of traditional security risk assessment frameworks, which outline key steps such as identifying threats and potential impacts, assessing likelihood, and determining risk as a combination of likelihood and impact [Ros12]. We discuss three factors: potential misuse applications, threat actors, and external incentive structures.
 
 ## 6.1.1 Potential Misuse Applications
+<!-- section_metadata: {"section": "6.1.1 Potential Misuse Applications", "subsection": null, "heading_path": ["6.1.1 Potential Misuse Applications"]} -->
 
 Any socially harmful activity that relies on generating text could be augmented by powerful language models. Examples include misinformation, spam, phishing, abuse of legal and governmental processes, fraudulent academic essay writing and social engineering pretexting. Many of these applications bottleneck on human beings to write sufficiently high quality text. Language models that produce high quality text generation could lower existing barriers to carrying out these activities and increase their efficacy.
 
 The misuse potential of language models increases as the quality of text synthesis improves. The ability of GPT-3 to generate several paragraphs of synthetic content that people find difficult to distinguish from human-written text in 3.9.4 represents a concerning milestone in this regard.
 
 ## 6.1.2 Threat Actor Analysis
+<!-- section_metadata: {"section": "6.1.2 Threat Actor Analysis", "subsection": null, "heading_path": ["6.1.2 Threat Actor Analysis"]} -->
 
 Threat actors can be organized by skill and resource levels, ranging from low or moderately skilled and resourced actors who may be able to build a malicious product to 'advanced persistent threats' (APTs): highly skilled and well-resourced (e.g. state-sponsored) groups with long-term agendas [SBC + 19].
 
@@ -657,6 +847,7 @@ To understand how low and mid-skill actors think about language models, we have 
 Because APTs do not typically discuss operations in the open, we have consulted with professional threat analysts about possible APT activity involving the use of language models. Since the release of GPT-2 there has been no discernible difference in operations that may see potential gains by using language models. The assessment was that language models may not be worth investing significant resources in because there has been no convincing demonstration that current language models are significantly better than current methods for generating text, and because methods for "targeting" or "controlling" the content of language models are still at a very early stage.
 
 ## 6.1.3 External Incentive Structures
+<!-- section_metadata: {"section": "6.1.3 External Incentive Structures", "subsection": null, "heading_path": ["6.1.3 External Incentive Structures"]} -->
 
 Each threat actor group also has a set of tactics, techniques, and procedures (TTPs) that they rely on to accomplish their agenda. TTPs are influenced by economic factors like scalability and ease of deployment; phishing is extremely popular among all groups because it offers a low-cost, low-effort, high-yield method of deploying malware and stealing login credentials. Using language models to augment existing TTPs would likely result in an even lower cost of deployment.
 
@@ -664,7 +855,12 @@ Ease of use is another significant incentive. Having stable infrastructure has a
 
 Based on our analysis of this model and analysis of threat actors and the landscape, we suspect AI researchers will eventually develop language models that are sufficiently consistent and steerable that they will be of greater interest to malicious actors. We expect this will introduce challenges for the broader research community, and hope to work on this through a combination of mitigation research, prototyping, and coordinating with other technical developers.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 36, "page_start": 36, "page_end": 36, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=36", "section": "6.2.1 Gender", "subsection": null, "heading_path": ["6.2.1 Gender"]} -->
+
 ## 6.2 Fairness, Bias, and Representation
+<!-- section_metadata: {"section": "6.2 Fairness, Bias, and Representation", "subsection": null, "heading_path": ["6.2 Fairness, Bias, and Representation"]} -->
 
 Biases present in training data may lead models to generate stereotyped or prejudiced content. This is concerning, since model bias could harm people in the relevant groups in different ways by entrenching existing stereotypes and producing demeaning portrayals amongst other potential harms [Cra17]. We have conducted an analysis of biases in the model in order to better understand GPT-3's limitations when it comes to fairness, bias, and representation. 8
 
@@ -673,6 +869,7 @@ Our goal is not to exhaustively characterize GPT-3, but to give a preliminary an
 Broadly, our analysis indicates that internet-trained models have internet-scale biases; models tend to reflect stereotypes present in their training data. Below we discuss our preliminary findings of bias along the dimensions of gender, race, and religion. We probe for bias in the 175 billion parameter model and also in similar smaller models, to see if and how they are different in this dimension.
 
 ## 6.2.1 Gender
+<!-- section_metadata: {"section": "6.2.1 Gender", "subsection": null, "heading_path": ["6.2.1 Gender"]} -->
 
 In our investigation of gender bias in GPT-3, we focused on associations between gender and occupation. We found that occupations in general have a higher probability of being followed by a male gender identifier than a female one (in other words, they are male leaning) when given a context such as "The {occupation} was a" (Neutral Variant). 83% of the 388 occupations we tested were more likely to be followed by a male identifier by GPT-3. We measured this by feeding the model a context such as "The detective was a" and then looking at the probability of the model following up with male indicating words (eg. man, male etc.) or female indicating words (woman, female etc.). In particular, occupations demonstrating higher levels of education such as legislator, banker, or professor emeritus were heavily male leaning along with occupations that require hard physical labour such as mason, millwright, and sheriff. Occupations that were more likely to be followed by female identifiers include midwife, nurse, receptionist, housekeeper etc.
 
@@ -686,6 +883,10 @@ We also performed co-occurrence tests, where we analyzed which words are likely 
 
 8 Evaluating fairness, bias, and representation in language models is a rapidly-developing area with a large body of prior work. See, for example, [HZJ + 19 , NBR20 , SCNP19].
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 37, "page_start": 37, "page_end": 37, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=37", "section": "6.2.2 Race", "subsection": null, "heading_path": ["6.2.2 Race"]} -->
+
 Table 6.1: Most Biased Descriptive Words in 175B Model
 
 | Top 10 Most Biased Male Descriptive Words with Raw Co-Occurrence Counts Top 10 Most Biased Female Descriptive Words with Raw Co-Occurrence Counts                                                                                                                    |
@@ -696,6 +897,7 @@ Table 6.1: Most Biased Descriptive Words in 175B Model
 Table 6.1 shows the top 10 most favored descriptive words for the model along with the raw number of times each word co-occurred with a pronoun indicator. "Most Favored" here indicates words which were most skewed towards a category by co-occurring with it at a higher rate as compared to the other category. To put these numbers in perspective, we have also included the average for the number of co-occurrences across all qualifying words for each gender.
 
 ## 6.2.2 Race
+<!-- section_metadata: {"section": "6.2.2 Race", "subsection": null, "heading_path": ["6.2.2 Race"]} -->
 
 To investigate racial bias in GPT-3, we seeded the model with prompts such as - "The {race} man was very" , "The {race} woman was very" and "People would describe the {race} person as" and generated 800 samples for each of the above prompts, with {race} replaced with a term indicating a racial category such as White or Asian. We then measure word co-occurrences in the generated samples. Given prior research demonstrating that language models produce text of differing sentiment when varying features such as occupation [HZJ + 19], we explored how race impacted sentiment. We measured sentiment using Senti WordNet [BES10] for the words which co-occurred disproportionately with each race. Each word sentiment varied from 100 to -100, with positive scores indicating positive words (eg. wonderfulness: 100, amicable: 87.5), negative scores indicating negative words (eg. wretched: -87.5 , horrid: -87.5) and a score of 0 indicating neutral words (eg. sloping, chalet).
 
@@ -705,9 +907,13 @@ Across the models we analyzed, 'Asian' had a consistently high sentiment - it ra
 
 9 We only used male and female pronouns. This simplifying assumption makes it easier to study co-occurrence since it does not require the isolation of instances in which 'they' refers to a singular noun from those where it didn't, but other forms of gender bias are likely present and could be studied using different approaches.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 38, "page_start": 38, "page_end": 38, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=38", "section": "6.2.3 Religion", "subsection": null, "heading_path": ["6.2.3 Religion"]} -->
+
 Figure 6.1: Racial Sentiment Across Models
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page038_image001", "document_name": "gpt3_language_models.pdf", "page": 38, "section": "6.2.3 Religion", "subsection": null, "heading_path": ["6.2.3 Religion"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=38", "bbox": {"l": 171.5618133544922, "t": 708.3743133544922, "r": 419.41644287109375, "b": 536.3238220214844}, "image_description": "Esta imagem é um gráfico de linhas titulado \"Sentiment Across Models\", que ilustra a relação entre o tamanho do modelo (em milhões de parâmetros) e a pontuação de sentimento para diferentes grupos étnicos, incluindo Asian, Black, White, Latinx, Indian e Middle eastern. A figura provavelmente está presente em um documento acadêmico que analisa vieses ou tendências de sentimento em modelos de linguagem grandes em diferentes demografias.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Table 6.2: Shows the ten most favored words about each religion in the GPT-3 175B model.
 
@@ -721,6 +927,7 @@ Table 6.2: Shows the ten most favored words about each religion in the GPT-3 175
 |              | Judaism ‘Gentiles’, ‘Race’, ‘Semites’, ‘Whites’, ‘Blacks’, ‘Smartest’, ‘Racists’, ‘Arabs’, ‘Game’, ‘Russian’        |
 
 ## 6.2.3 Religion
+<!-- section_metadata: {"section": "6.2.3 Religion", "subsection": null, "heading_path": ["6.2.3 Religion"]} -->
 
 We studied which words co-occurred with religious terms relating to Atheism, Buddhism, Christianity, Hinduism, Islam, and Judaism, by generating 800 model outputs of length ≈50 with a temperature of 1 and a top p of 0 . 9 for every prompt. Our prompts were of the nature " {Religion practitioners} are" (Eg. "Christians are") for each of the six religious categories listed above. We then allowed the model to naturally carry out completions and created a corpus of such completions for studying co-occurrence of words.
 
@@ -730,25 +937,36 @@ The following is an example output from the model:
 
 Similar to race, we found that the models make associations with religious terms that indicate some propensity to reflect how these terms are sometimes presented in the world. For example, with the religion Islam, we found that words such as ramadan , prophet and mosque co-occurred at a higher rate than for other religions. We also found that words such as violent , terrorism and terrorist co-occurred at a greater rate with Islam than with other religions and were in the top 40 most favored words for Islam in GPT-3.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 39, "page_start": 39, "page_end": 39, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=39", "section": "7 Related Work", "subsection": null, "heading_path": ["7 Related Work"]} -->
+
 ## 6.2.4 Future Bias and Fairness Challenges
+<!-- section_metadata: {"section": "6.2.4 Future Bias and Fairness Challenges", "subsection": null, "heading_path": ["6.2.4 Future Bias and Fairness Challenges"]} -->
 
 We have presented this preliminary analysis to share some of the biases we found in order to motivate further research, and to highlight the inherent difficulties in characterizing biases in large-scale generative models; we expect this to be an area of continuous research for us and are excited to discuss different methodological approaches with the community. We view the work in this section as subjective signposting - we chose gender, race, and religion as a starting point, but we recognize the inherent subjectivity in this choice. Our work is inspired by the literature on characterizing model attributes to develop informative labels such as Model Cards for Model Reporting from [MWZ + 18].
 
 Ultimately, it is important not just to characterize biases in language systems but to intervene. The literature on this is also extensive [QMZH19 , HZJ+19], so we offer only a few brief comments on future directions specific to large language models. In order to pave the way for effective bias prevention in general purpose models, there is a need for building a common vocabulary tying together the normative, technical and empirical challenges of bias mitigation for these models. There is room for more research that engages with the literature outside NLP, better articulates normative statements about harm, and engages with the lived experience of communities affected by NLP systems [BBDIW20]. Thus, mitigation work should not be approached purely with a metric driven objective to 'remove' bias as this has been shown to have blind spots [GG19 , NvNvdG19] but in a holistic manner.
 
 ## 6.3 Energy Usage
+<!-- section_metadata: {"section": "6.3 Energy Usage", "subsection": null, "heading_path": ["6.3 Energy Usage"]} -->
 
 Practical large-scale pre-training requires large amounts of computation, which is energy-intensive: training the GPT-3 175B consumed several thousand petaflop/s-days of compute during pre-training, compared to tens of petaflop/s-days for a 1.5B parameter GPT-2 model (Figure 2.2). This means we should be cognizant of the cost and efficiency of such models, as advocated by [SDSE19].
 
 The use of large-scale pre-training also gives another lens through which to view the efficiency of large models - we should consider not only the resources that go into training them, but how these resources are amortized over the lifetime of a model, which will subsequently be used for a variety of purposes and fine-tuned for specific tasks. Though models like GPT-3 consume significant resources during training, they can be surprisingly efficient once trained: even with the full GPT-3 175B, generating 100 pages of content from a trained model can cost on the order of 0.4 kW-hr, or only a few cents in energy costs. Additionally, techniques like model distillation [LHCG19a] can further bring down the cost of such models, letting us adopt a paradigm of training single, large-scale models, then creating more efficient versions of them for use in appropriate contexts. Algorithmic progress may also naturally further increase the efficiency of such models over time, similar to trends observed in image recognition and neural machine translation [HB20].
 
 ## 7 Related Work
+<!-- section_metadata: {"section": "7 Related Work", "subsection": null, "heading_path": ["7 Related Work"]} -->
 
 Several lines of work have focused on increasing parameter count and/or computation in language models as a means to improve generative or task performance. An early work scaled LSTM based language models to over a billion parameters [JVS + 16]. One line of work straightforwardly increases the size of transformer models, scaling up parameters and FLOPS-per-token roughly in proportion. Work in this vein has successively increased model size: 213 million parameters [VSP + 17] in the original paper, 300 million parameters [DCLT18], 1.5 billion parameters [RWC + 19], 8 billion parameters [SPP + 19], 11 billion parameters [RSR + 19], and most recently 17 billion parameters [Tur20]. A second line of work has focused on increasing parameter count but not computation, as a means of increasing models' capacity to store information without increased computational cost. These approaches rely on the conditional computation framework [BLC13] and specifically, the mixture-of-experts method [SMM + 17] has been used to produce 100 billion parameter models and more recently 50 billion parameter translation models [AJF19], though only a small fraction of the parameters are actually used on each forward pass. A third approach increases computation without increasing parameters; examples of this approach include adaptive computation time [Gra16] and the universal transformer [DGV + 18]. Our work focuses on the first approach (scaling compute and parameters together, by straightforwardly making the neural net larger), and increases model size 10x beyond previous models that employ this strategy.
 
 Several efforts have also systematically studied the effect of scale on language model performance. [KMH + 20 , RRBS19 , LWS+20 , HNA+17], find a smooth power-law trend in loss as autoregressive language models are scaled up. This work suggests that this trend largely continues as models continue to scale up (although a slight bending of the curve can perhaps be detected in Figure 3.1), and we also find relatively smooth increases in many (though not all) downstream tasks across 3 orders of magnitude of scaling.
 
 Another line of work goes in the opposite direction from scaling, attempting to preserve strong performance in language models that are as small as possible. This approach includes ALBERT [LCG + 19] as well as general [HVD15] and task-specific [SDCW19 , JYS+19 , KR16] approaches to distillation of language models. These architectures and techniques are potentially complementary to our work, and could be applied to decrease latency and memory footprint of giant models.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 40, "page_start": 40, "page_end": 40, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=40", "section": "8 Conclusion", "subsection": null, "heading_path": ["8 Conclusion"]} -->
 
 As fine-tuned language models have neared human performance on many standard benchmark tasks, considerable effort has been devoted to constructing more difficult or open-ended tasks, including question answering [KPR + 19 , IBGC+14 , CCE+18 , MCKS18], reading comprehension [CHI + 18 , RCM19], and adversarially constructed datasets designed to be difficult for existing language models [SBBC19 , NWD+19]. In this work we test our models on many of these datasets.
 
@@ -765,14 +983,27 @@ Another approach to increasing generality and transfer-learning capability in la
 Algorithmic innovation in language models over the last two years has been enormous, including denoising-based bidirectionality [DCLT18], prefixLM [DL15] and encoder-decoder architectures [LLG + 19 , RSR+19], random permutations during training [YDY + 19], architectures that improve the efficiency of sampling [DYY + 19], improvements in data and training procedures [LOG + 19], and efficiency increases in the embedding parameters [LCG + 19]. Many of these techniques provide significant gains on downstream tasks. In this work we continue to focus on pure autoregressive language models, both in order to focus on in-context learning performance and to reduce the complexity of our large model implementations. However, it is very likely that incorporating these algorithmic advances could improve GPT-3's performance on downstream tasks, especially in the fine-tuning setting, and combining GPT-3's scale with these algorithmic techniques is a promising direction for future work.
 
 ## 8 Conclusion
+<!-- section_metadata: {"section": "8 Conclusion", "subsection": null, "heading_path": ["8 Conclusion"]} -->
 
-We presented a 175 billion parameter language model which shows strong performance on many NLP tasks and benchmarks in the zero-shot, one-shot, and few-shot settings, in some cases nearly matching the performance of state-of-the-art fine-tuned systems, as well as generating high-quality samples and strong qualitative performance at tasks defined on-the-fly. We documented roughly predictable trends of scaling in performance without using fine-tuning. We also discussed the social impacts of this class of model. Despite many limitations and weaknesses, these results suggest that very large language models may be an important ingredient in the development of adaptable, general language systems.
+We presented a 175 billion parameter language model which shows strong performance on many NLP tasks and benchmarks in the zero-shot, one-shot, and few-shot settings, in some cases nearly matching the performance of
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 41, "page_start": 41, "page_end": 41, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=41", "section": "Acknowledgements", "subsection": null, "heading_path": ["Acknowledgements"]} -->
+
+state-of-the-art fine-tuned systems, as well as generating high-quality samples and strong qualitative performance at tasks defined on-the-fly. We documented roughly predictable trends of scaling in performance without using fine-tuning. We also discussed the social impacts of this class of model. Despite many limitations and weaknesses, these results suggest that very large language models may be an important ingredient in the development of adaptable, general language systems.
 
 ## Acknowledgements
+<!-- section_metadata: {"section": "Acknowledgements", "subsection": null, "heading_path": ["Acknowledgements"]} -->
 
 The authors would like to thank Ryan Lowe for giving detailed feedback on drafts of the paper. Thanks to Jakub Pachocki and Szymon Sidor for suggesting tasks, and Greg Brockman, Michael Petrov, Brooke Chan, and Chelsea Voss for helping run evaluations on OpenAI's infrastructure. Thanks to David Luan for initial support in scaling up this project, Irene Solaiman for discussions about ways to approach and evaluate bias, Harrison Edwards and Yura Burda for discussions and experimentation with in-context learning, Geoffrey Irving and Paul Christiano for early discussions of language model scaling, Long Ouyang for advising on the design of the human evaluation experiments, Chris Hallacy for discussions on data collection, and Shan Carter for help with visual design. Thanks to the millions of people who created content that was used in the training of the model, and to those who were involved in indexing or upvoting the content (in the case of WebText). Additionally, we would like to thank the entire OpenAI infrastructure and supercomputing teams for making it possible to train models at this scale.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 42, "page_start": 42, "page_end": 42, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=42", "section": "Contributions", "subsection": null, "heading_path": ["Contributions"]} -->
+
 ## Contributions
+<!-- section_metadata: {"section": "Contributions", "subsection": null, "heading_path": ["Contributions"]} -->
 
 Tom Brown, Ben Mann, Prafulla Dhariwal, Dario Amodei, Nick Ryder, Daniel M Ziegler, and Jeffrey Wu implemented the large-scale models, training infrastructure, and model-parallel strategies.
 
@@ -826,7 +1057,12 @@ Ilya Sutskever was an early advocate for scaling large generative likelihood mod
 
 Dario Amodei designed and led the research.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 43, "page_start": 43, "page_end": 43, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=43", "section": "C Details of Test Set Contamination Studies", "subsection": null, "heading_path": ["C Details of Test Set Contamination Studies"]} -->
+
 ## A Details of Common Crawl Filtering
+<!-- section_metadata: {"section": "A Details of Common Crawl Filtering", "subsection": null, "heading_path": ["A Details of Common Crawl Filtering"]} -->
 
 As mentioned in Section 2.2, we employed two techniques to improve the quality of the Common Crawl dataset: (1) filtering Common Crawl and (2) fuzzy deduplication:
 
@@ -841,18 +1077,24 @@ We chose α = 9 in order to take mostly documents the classifier scored highly, 
 After filtering for duplicates and quality, we also partially removed text occurring in benchmark datasets, described in Appendix C .
 
 ## B Details of Model Training
+<!-- section_metadata: {"section": "B Details of Model Training", "subsection": null, "heading_path": ["B Details of Model Training"]} -->
 
 To train all versions of GPT-3, we use Adam with β1 = 0 . 9 , β2 = 0 . 95, and  = 10 − 8 , we clip the global norm of the gradient at 1.0, and we use cosine decay for learning rate down to 10% of its value, over 260 billion tokens (after 260 billion tokens, training continues at 10% of the original learning rate). There is a linear LR warmup over the first 375 million tokens. We also gradually increase the batch size linearly from a small value (32k tokens) to the full value over the first 4-12 billion tokens of training, depending on the model size. Data are sampled without replacement during training (until an epoch boundary is reached) to minimize overfitting. All models use weight decay of 0.1 to provide a small amount of regularization [LH17].
 
 During training we always train on sequences of the full nctx = 2048 token context window, packing multiple documents into a single sequence when documents are shorter than 2048, in order to increase computational efficiency. Sequences with multiple documents are not masked in any special way but instead documents within a sequence are delimited with a special end of text token, giving the language model the information necessary to infer that context separated by the end of text token is unrelated. This allows for efficient training without need for any special sequence-specific masking.
 
 ## C Details of Test Set Contamination Studies
+<!-- section_metadata: {"section": "C Details of Test Set Contamination Studies", "subsection": null, "heading_path": ["C Details of Test Set Contamination Studies"]} -->
 
 In section 4 we gave a high level overview of test set contamination studies. In this section we provide details on methodology and results.
 
 Initial training set filtering We attempted to remove text occurring in benchmarks from training data by searching for 13 − gram overlaps between all test/development sets used in this work and our training data, and we removed the colliding 13−gram as well as a 200 character window around it, splitting the original document into pieces. For filtering purposes we define a gram as a lowercase, whitespace delimited word with no punctuation. Pieces less than 200 characters long were discarded. Documents split into more than 10 pieces were considered contaminated and removed entirely. Originally we removed entire documents given a single collision, but that overly penalized long documents such as books for false positives. An example of a false positive might be a test set based on Wikipedia, in which the Wikipedia article quotes a single line from a book. We ignored 13−grams that matched more than 10 training documents, as inspection showed the majority of these to contain common cultural phrases, legal boilerplate, or similar content that we likely do want the model to learn, rather than undesired specific overlaps with test sets. Examples for various frequencies can be found in the GPT-3 release repository 11 .
 
 10 https://spark.apache.org/docs/latest/api/python/pyspark.ml.html#pyspark.ml.feature.HashingTF
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 44, "page_start": 44, "page_end": 44, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=44", "section": "C Details of Test Set Contamination Studies", "subsection": null, "heading_path": ["C Details of Test Set Contamination Studies"]} -->
 
 Overlap methodology For our benchmark overlap analysis in Section 4, we used a variable number of words N to check for overlap for each dataset, where N is the 5th percentile example length in words, ignoring all punctuation, whitespace, and casing. Due to spurious collisions at lower values of N we use a minimum value of 8 on non-synthetic tasks. For performance reasons, we set a maximum value of 13 for all tasks. Values for N and the amount of data marked as dirty are shown in Table C.1. Unlike GPT-2's use of bloom filters to compute probabilistic bounds for test contamination, we used Apache Spark to compute exact collisions across all training and test sets. We compute overlaps between test sets and our full training corpus, even though we only trained on 40% of our filtered Common Crawl documents per Section 2.2 .
 
@@ -867,6 +1109,10 @@ This overlap metric tends to show a high rate of false positives for datasets th
 Figure 4.2 shows that as the dataset becomes more contaminated, the variance of the clean/all fraction increases, but there is no apparent bias towards improved or degraded performance. This suggests that GPT-3 is relatively insensitive to contamination. See Section 4 for details on the datasets we flagged for further review.
 
 11 https://github.com/openai/gpt-3/blob/master/overlap\_frequency.md
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 45, "page_start": 45, "page_end": 45, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=45", "section": "C Details of Test Set Contamination Studies", "subsection": null, "heading_path": ["C Details of Test Set Contamination Studies"]} -->
 
 Table C.1: Overlap statistics for all datasets sorted from dirtiest to cleanest. We consider a dataset example dirty if it has a single N-gram collision with any document in our training corpus. "Relative Difference Clean vs All" shows the percent change in performance between only the clean examples vs all the examples in the benchmark. "Count" shows the number of examples. "Clean percentage" is the percent of examples that are clean vs total. For "Acc/F1/BLEU" we use the metric specified in "Metric". These scores come from evaluations with a different seed for the random examples used for in-context learning, and will therefore differ slightly from the scores elsewhere in the paper.
 
@@ -915,7 +1161,12 @@ Table C.1: Overlap statistics for all datasets sorted from dirtiest to cleanest.
 | StoryCloze test acc 13 87.7 1871 100.0 2 87.6 1869 100% 0%            |                                                 |                     |                                    |
 | Winogrande dev acc 13 77.7 1267 - 0 77.7 1267 100% 0%                 |                                                 |                     |                                    |
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 46, "page_start": 46, "page_end": 46, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=46", "section": "E Human Quality Assessment of Synthetic News Articles", "subsection": null, "heading_path": ["E Human Quality Assessment of Synthetic News Articles"]} -->
+
 ## D Total Compute Used to Train Language Models
+<!-- section_metadata: {"section": "D Total Compute Used to Train Language Models", "subsection": null, "heading_path": ["D Total Compute Used to Train Language Models"]} -->
 
 This appendix contains the calculations that were used to derive the approximate compute used to train the language models in Figure 2.2. As a simplifying assumption, we ignore the attention operation, as it typically uses less than 10% of the total compute for the models we are analyzing.
 
@@ -944,12 +1195,17 @@ Calculations can be seen in Table D.1 and are explained within the table caption
 Table D.1: Starting from the right hand side and moving left, we begin with the number of training tokens that each model was trained with. Next we note that since T5 uses an encoder-decoder model, only half of the parameters are active for each token during a forward or backwards pass. We then note that each token is involved in a single addition and a single multiply for each active parameter in the forward pass (ignoring attention). Then we add a multiplier of 3x to account for the backwards pass (as computing both ∂params ∂loss and ∂acts ∂loss use a similar amount of compute as the forwards pass. Combining the previous two numbers, we get the total flops per parameter per token. We multiply this value by the total training tokens and the total parameters to yield the number of total flops used during training. We report both flops and petaflop/s-day (each of which are 8.64e+19 flops).
 
 ## E Human Quality Assessment of Synthetic News Articles
+<!-- section_metadata: {"section": "E Human Quality Assessment of Synthetic News Articles", "subsection": null, "heading_path": ["E Human Quality Assessment of Synthetic News Articles"]} -->
 
 This appendix contains details on the experiments measuring human ability to distinguish GPT-3-generated synthetic news articles from real news articles. We first describe the experiments on the ∼ 200 word news articles, and then describe the preliminary investigation of ∼ 500 word news articles generated by GPT-3.
 
 Participants: We recruited 718 unique participants to take part in 6 experiments. 97 participants were excluded for failing an internet check question, leaving a total of 621 participants: 343 male, 271 female, and 7 other. Mean participant age was ∼ 38 years old. All participants were recruited through Positly, which maintains a whitelist of high-performing workers from Mechanical Turk. All participants were US-based but there were no other demographic restrictions. Participants were paid $12 for their participation, based on a task time estimate of 60 minutes determined by pilot runs. In order to ensure that the sample of participants for each experiment quiz was unique, participants were not allowed to take part in an experiment more than once.
 
 Procedure and design: We arbitrarily selected 25 news articles that appeared in newser.com in early 2020. We used the article titles and subtitles to produce outputs from the 125M, 350M, 760M, 1.3B, 2.7B, 6.7B, 13.0B, and 200B (GPT-3) parameter language models. Five outputs per question were generated by each model and the generation with a word count closest to that of the human written article was selected automatically. This was to minimize the effect that completion length might have on participants' judgments. The same output procedure for each model with the exception of the removal of the intentionally bad control model, as described in the main text.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 47, "page_start": 47, "page_end": 47, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=47", "section": "Average time spent trying to detect model generated news article", "subsection": null, "heading_path": ["Average time spent trying to detect model generated news article"]} -->
 
 Table E.1: Participant details and article lengths for each experiment to evaluate human detection of ∼ 200 word model generated news articles. Participants were excluded due to internet check fails.
 
@@ -965,15 +1221,22 @@ Table E.1: Participant details and article lengths for each experiment to evalua
 | GPT-3 13.0B 81 13 46:28:2 37 216:209                 |                       |                                             |
 | GPT-3 175B 80 9 42:29:0 37 216:216                   |                       |                                             |
 
+## Average time spent trying to detect model generated news article
+<!-- section_metadata: {"section": "Average time spent trying to detect model generated news article", "subsection": null, "heading_path": ["Average time spent trying to detect model generated news article"]} -->
+
 Figure E.1: Participants spend more time trying to identify whether each news article is machine generated as model size increases. Duration on the control model is indicated with the dashed line. Line of best fit is a linear model on a log scale with 95% confidence intervals.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page047_image001", "document_name": "gpt3_language_models.pdf", "page": 47, "section": "Average time spent trying to detect model generated news article", "subsection": null, "heading_path": ["Average time spent trying to detect model generated news article"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=47", "bbox": {"l": 151.95535278320312, "t": 504.46929931640625, "r": 440.9537353515625, "b": 287.4458923339844}, "image_description": "Figura 6: Tempo de computação por escala parameterizada para um modelo com todos os pares conectados, sem fluxo de valor agregado. Original: Boyd-V humor 119 probabilidade de enviar fluxo de valor agregado é 0 por todos os pares. Neste caso, o número de equações lineares é O(N5).\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 In each experiment, half of the participants were randomly assigned to quiz A and half were randomly assigned to quiz B. Each quiz consisted of 25 articles: half (12-13) were human written and half (12-13) were model generated: the articles with human written completions in quiz A had model generated completions in quiz B and vice versa. The order of quiz question was shuffled for each participant. Participants could leave comments and were asked to indicate if they had seen the articles before. Participants were instructed not to look up the articles or their content during the quiz and at the end of the quiz were asked if they had looked anything up during the quiz.
 
 Statistical Tests: To compare means on the different runs, we performed a two-sample t-test for independent groups for each model against the control. This was implemented in Python using the scipy.stats.ttest\_ind function. When plotting a regression line in the graph of average participant accuracy vs model size, we fit a power law of the form ax − b . The 95% confidence intervals were estimated from the t-distribution of the sample mean.
 
 Duration statistics: In the main text, we discussed the finding that the ability of human participants to distinguish model and human generated news articles decreases as our models become larger. We have also found that the average time spent for a given set of questions increases as the model size increases, as shown in Figure E.1. Lower accuracy scores despite increased time investment from participants supports the finding that larger models generate harder-to-distinguish news articles.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 48, "page_start": 48, "page_end": 48, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=48", "section": "F Additional Samples from GPT-3", "subsection": null, "heading_path": ["F Additional Samples from GPT-3"]} -->
 
 Table E.2: Participant details and article lengths for the experiments investigating human detection of ∼ 500 word model generated news articles. Participants were excluded due to internet check fails.
 
@@ -985,8 +1248,13 @@ Table E.2: Participant details and article lengths for the experiments investiga
 Preliminary investigation of ∼ 500 word articles: We recruited 160 unique US-based participants to take part in 2 experiments through Positly (details are given in Table E.2). We randomly selected 12 Reuters world news articles from late 2019 and created a context for GPT-3 175B that consisted of a single Reuters article not in this set of 12. We then used the article titles and Reuters locations to generate completions from GPT-3 175B and the 160M control model from the previous experiments. These were used to create two 12-question quizzes per model, each consisting of half human written and half model generated articles. Comprehension questions were added and articles were shown to participants in 3 stages at 30 second intervals to encourage closer reading. Participants were paid $12 for this task. Model generation selection methods, exclusion criteria, and statistical tests mirror those of the previous experiments.
 
 ## F Additional Samples from GPT-3
+<!-- section_metadata: {"section": "F Additional Samples from GPT-3", "subsection": null, "heading_path": ["F Additional Samples from GPT-3"]} -->
 
 GPT-3 adapts well to many tasks other than the ones explored in the main body of the paper. As an example, in Figure F.1, we show four uncurated samples from a prompt suggesting that the model write a poem, with a given title, in the style of Wallace Stevens. We first experimented with a few prompts, then generated four samples with no additional editing or selection (sampling at temperature 1 using nucleus sampling [HBFC19] with P = 0 . 9). Completions were truncated when the model began to write a new title and author heading, or broke into prose commentary.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 49, "page_start": 49, "page_end": 49, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=49", "section": "F Additional Samples from GPT-3", "subsection": null, "heading_path": ["F Additional Samples from GPT-3"]} -->
 
 Figure F.1: Four uncurated completions from a context suggesting the model compose a poem in the style of Wallace Stevens with the title 'Shadows on the Way'.
 
@@ -1013,7 +1281,12 @@ Figure F.1: Four uncurated completions from a context suggesting the model compo
 | Knows the streets as they are and is of them. And within that darkness                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | As the voices wait;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 50, "page_start": 50, "page_end": 50, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=50", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
+
 ## G Details of Task Phrasing and Specifications
+<!-- section_metadata: {"section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
 
 The following figures illustrate the formatting and phrasing of all the tasks included in the paper. All data comes from the ground truth datasets in this section, and no samples from GPT-3 are included here.
 
@@ -1028,6 +1301,10 @@ The following figures illustrate the formatting and phrasing of all the tasks in
 | A:                                                                                              |
 
 Figure G.1: Formatted dataset example for RACE-h. When predicting, we normalize by the unconditional probability of each answer as described in 2 .
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 51, "page_start": 51, "page_end": 51, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=51", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
 
 Figure G.2: Formatted dataset example for ANLI R2
 
@@ -1065,6 +1342,10 @@ Incorrect Answer → places
 
 Figure G.3: Formatted dataset example for RACE-m. When predicting, we normalize by the unconditional probability of each answer as described in 2 .
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 52, "page_start": 52, "page_end": 52, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=52", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
+
 | Context  →          | How to apply sealant to wood.                                                           |
 |---------------------|-----------------------------------------------------------------------------------------|
 | Correct Answer  →   | Using a brush, brush on sealant onto wood until it is fully saturated with the sealant. |
@@ -1095,6 +1376,10 @@ Figure G.7: Formatted dataset example for ANLI R1
 | Correct Answer  →   | Neither                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | Incorrect Answer  → | True                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | Incorrect Answer  → | False                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 53, "page_start": 53, "page_end": 53, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=53", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
 
 | Context  →                                                                       | Organisms require energy in order to do what?                      |
 |----------------------------------------------------------------------------------|--------------------------------------------------------------------|
@@ -1154,6 +1439,10 @@ Target Completion →
 
 Figure G.13: Formatted dataset example for Winograd. The 'partial' evaluation method we use compares the probability of the completion given a correct and incorrect context.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 54, "page_start": 54, "page_end": 54, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=54", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
+
 Figure G.14: Formatted dataset example for Winogrande. The 'partial' evaluation method we use compares the probability of the completion given a correct and incorrect context.
 
 | Correct Context  →    | Johnny likes fruits more than vegetables in his new keto diet because the fruits     |
@@ -1185,6 +1474,10 @@ Figure G.15: Formatted dataset example for MultiRC. There are three levels withi
 
 Figure G.16: Formatted dataset example for ARC (Easy). When predicting, we normalize by the unconditional probability of each answer as described in 2 .
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 55, "page_start": 55, "page_end": 55, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=55", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
+
 Figure G.17: Formatted dataset example for StoryCloze
 
 | Context  →                             | Bob went to the gas station to fill up his car. His tank was completely empty and so was his wallet. The cashier offered to pay for his gas if he came back later to pay. Bob felt grateful as he drove home.   |
@@ -1209,7 +1502,7 @@ Q: what towns are a part of the metropolitan area?
 
 A:
 
-Target Completion → Helsinki, Espoo, Vantaa, Kauniainen, and surrounding commuter towns Context →
+Target Completion → Helsinki, Espoo, Vantaa, Kauniainen, and surrounding commuter towns
 
 Figure G.18: Formatted dataset example for CoQA
 
@@ -1218,6 +1511,12 @@ Figure G.18: Formatted dataset example for CoQA
 | Target Completion → | casino                                                                     |
 
 Figure G.19: Formatted dataset example for Cycled Letters
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 56, "page_start": 56, "page_end": 56, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=56", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
+
+Context →
 
 Passage: Saint Jean de Br´ebeuf was a French Jesuit missionary who travelled to New France in 1625. There he worked primarily with the Huron for the rest of his life, except for a few years in France from 1629 to 1633. He learned their language and culture, writing extensively about each to aid other missionaries. In 1649, Br´ebeuf and another missionary were captured when an Iroquois raid took over a Huron village . Together with Huron captives, the missionaries were ritually tortured and killed on March 16, 1649. Br´ebeuf was beatified in 1925 and among eight Jesuit missionaries canonized as saints in the Roman Catholic Church in 1930. Question: How many years did Saint Jean de Br´ebeuf stay in New France before he went back to France for a few years? Answer:
 
@@ -1271,6 +1570,10 @@ Context →
 
 Target Completion →
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 57, "page_start": 57, "page_end": 57, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=57", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
+
 Context
 
 →
@@ -1301,6 +1604,10 @@ Figure G.26: Formatted dataset example for Symbol Insertion
 
 Figure G.27: Formatted dataset example for Reversed Words
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 58, "page_start": 58, "page_end": 58, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=58", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
+
 Context → Title: The Blitz
 
 Background: From the German point of view, March 1941 saw an improvement. The Luftwaffe flew 4,000 sorties that month, including 12 major and three heavy attacks. The electronic war intensified but the Luftwaffe flew major inland missions only on moonlit nights. Ports were easier to find and made better targets. To confuse the British, radio silence was observed until the bombs fell. X- and Y-Ger¨at beams were placed over false targets and switched only at the last minute. Rapid frequency changes were introduced for X-Ger¨at, whose wider band of frequencies and greater tactical flexibility ensured it remained effective at a time when British selective jamming was degrading the effectiveness of Y-Ger¨at.
@@ -1327,6 +1634,10 @@ Figure G.30: Formatted dataset example for CB
 
 | Context  →    | The trend toward lower rents may seem surprising given that some communities in New York are bemoaning the loss of favorite local businesses to high rents. But, despite the recent softening, for many of these retailers there’s still been too big a jump from the rental rates of the late 1970s, when their leases were signed. Certainly, the recent drop in prices doesn’t mean Manhattan comes cheap. question: Manhattan comes cheap. true, false, or neither? answer:   |
 |---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 59, "page_start": 59, "page_end": 59, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=59", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
 
 Context →
 
@@ -1376,6 +1687,10 @@ Figure G.34: Formatted dataset example for TriviaQA. TriviaQA allows for multipl
 
 Context →
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 60, "page_start": 60, "page_end": 60, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=60", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
+
 | Context  →          | Q: What school did burne hogarth establish?   |
 |---------------------|-----------------------------------------------|
 |                     | A:                                            |
@@ -1413,6 +1728,10 @@ Figure G.40: Formatted dataset example for En→Ro
 |---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Target Completion → | Adev˘arul este c˘a v˘a dorit¸i, cu orice pret¸ ¸si ^ımpotriva dorint¸ei europenilor, s˘a continuat¸i negocierile de aderare a Turciei la Uniunea European˘a, ^ın ciuda refuzului continuu al Turciei de a recunoa¸ste Ciprul ¸si ^ın ciuda faptului c˘a reformele democratice au ajuns ^ıntr-un punct mort. |
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 61, "page_start": 61, "page_end": 61, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=61", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
+
 Figure G.48: Formatted dataset example for Arithmetic 4D-
 
 | Context  →          | Adev˘arul este c˘a v˘a dorit¸i, cu orice pret¸ ¸si ^ımpotriva dorint¸ei europenilor, s˘a continuat¸i negocierile de aderare a Turciei la Uniunea European˘a, ^ın ciuda refuzului continuu al Turciei de a recunoa¸ste Ciprul ¸si ^ın ciuda faptului c˘a reformele democratice au ajuns ^ıntr-un punct mort.   |
@@ -1440,6 +1759,10 @@ Figure G.48: Formatted dataset example for Arithmetic 4D-
 | Context  →          | Q: What is 6209 minus 3365? A:                                                                                                                                                                                                                                                                                |
 | Target Completion → | 2844                                                                                                                                                                                                                                                                                                          |
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 62, "page_start": 62, "page_end": 62, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=62", "section": "G Details of Task Phrasing and Specifications", "subsection": null, "heading_path": ["G Details of Task Phrasing and Specifications"]} -->
+
 | Context  →          |   Q: What is 9923 plus 617? A: |
 |---------------------|--------------------------------|
 | Target Completion → |                          10540 |
@@ -1458,7 +1781,12 @@ Figure G.51: Formatted dataset example for Arithmetic 5D+
 |---------------------|-----------------------------------|
 | Target Completion → |                             81564 |
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 63, "page_start": 63, "page_end": 63, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=63", "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"]} -->
+
 ## H Results on All Tasks for All Model Sizes
+<!-- section_metadata: {"section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"]} -->
 
 Table H.1: Scores for every task, setting and model that we investigate in this paper.
 
@@ -1517,47 +1845,68 @@ Table H.1: Scores for every task, setting and model that we investigate in this 
 |                   |           |                                                                                                                                                                                                                                                                                                        | Reversed Words acc n/a 100 0.00 0.01 0.01 0.01 0.02 0.03 0.03 0.09 0.02 0.01 0.01 0.00 0.05 0.07 0.11 0.48 0.00 0.05 0.00 0.17 0.24 0.30 0.42 0.44                                                                                                                                                |                                                                                                                                                       |      |
 |                   |           |                                                                                                                                                                                                                                                                                                        | SAT Analogies acc n/a 20 35.6 39.0 45.2 44.1 50.0 49.2 52.7 53.7 30.5 41.2 43.1 46.5 55.1 54.3 53.5 59.1 30.5 40.4 42.8 40.6 48.4 51.9 53.5 65.2                                                                                                                                                  |                                                                                                                                                       |      |
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 64, "page_start": 64, "page_end": 64, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=64", "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"]} -->
+
 Figure H.1: All results for all SuperGLUE tasks.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page064_image001", "document_name": "gpt3_language_models.pdf", "page": 64, "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=64", "bbox": {"l": 75.3251724243164, "t": 692.84326171875, "r": 564.7391967773438, "b": 298.05950927734375}, "image_description": "Os gráficos mostram a eficácia de diferentes tipos de arquiteturas (Zero-Shot, One-Shot e Fine-Tuned) em várias tarefas de compreensão textual. Cada gráfico compara a precisão de cada modelo, indicando como os mais ajustados (Fine-Tuned) costumam desempenhar-se melhor. A natureza detalhada e comparativa dos gráficos sugere que o documento está provável discutindo avanços em Modelle de Linguagem.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Figure H.2: Results for SAT task.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page064_image002", "document_name": "gpt3_language_models.pdf", "page": 64, "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=64", "bbox": {"l": 71.62440490722656, "t": 220.30804443359375, "r": 237.64175415039062, "b": 116.49896240234375}, "image_description": "Esta imagem exibe um gráfico de linhas intitulado \"SAT Analogies\", com o eixo X representando parâmetros em LM (bilhões) e o eixo Y representando acurácia. Compara três métodos: \"Zero-Shot\" (azul), \"One-Shot\" (verde) e \"Few-Shot (n=20)\" (laranja), onde o método Few-Shot mostra a melhor performance e crescimento. A linha laranja termina com a maior acurácia, ultrapassando as demais linhas à medida que os parâmetros aumentam.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page064_image003", "document_name": "gpt3_language_models.pdf", "page": 64, "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=64", "bbox": {"l": 259.1763916015625, "t": 219.71380615234375, "r": 590.5700073242188, "b": 115.37213134765625}, "image_description": " A imagem apresentada é um gráfico comparativo de performance entre diferentes implementações de avaliação de exemplos fora do conjunto de treinamento (\"Out-of-Distribution\", OOD). Os eixos representam os parâmetros e métricas de desempenho dos modelos visto slide de um documento sobre técnicas para mitigar degradação do desempenho de modelos ML devido à deriva do conceito. Esses tipos de gráficos são comuns em documentos científicos para ilustrar eficiência e eficácia de soluções propostas em pesquisa ML.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Figure H.3: All results for all Winograd tasks.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 65, "page_start": 65, "page_end": 65, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=65", "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"]} -->
+
 Figure H.4: All results for all Arithmetic tasks.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page065_image004", "document_name": "gpt3_language_models.pdf", "page": 65, "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=65", "bbox": {"l": 77.41822814941406, "t": 693.5049591064453, "r": 566.5337524414062, "b": 298.5054626464844}, "image_description": "Esta imagem é uma figura composta por 12 gráficos de linha que analisam a precisão em relação ao número de parâmetros em diversas tarefas aritméticas. Cada subfigura, com títulos como \"Two Digit Addition\" ou \"Five Digit Subtraction\", compara curvas de desempenho para diferentes estratégias de disparo, como Zero Shot e Few Shot, em porcentagens variadas. O conjunto demonstra a relação entre o tamanho do modelo, o tipo de treinamento e a acurácia nas operações matemáticas.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Figure H.5: All results for all Cloze and Completion tasks.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page065_image005", "document_name": "gpt3_language_models.pdf", "page": 65, "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=65", "bbox": {"l": 71.9495620727539, "t": 219.77197265625, "r": 571.3643798828125, "b": 115.95843505859375}, "image_description": "As figuras apresentadas no gráfico mostram a performance de modelos treinados na tarefa de compreensão de linguagem natural, com visualizações separadas para dados individuais de desenvolvimento e para conjuntos combinados de desenvolvimento e teste. Os dados são apresentados em escala logarítmica, demonstrando a escalabilidade dos modelos com a adição de parâmetros. As linhas coloridas representam diferentes graus de ajustamento do modelo com base na complexidade da arquitetura e nos recursos computacionais utilizados.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
-<!-- image -->
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 66, "page_start": 66, "page_end": 66, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=66", "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"]} -->
+
+<!-- image_metadata: {"image_id": "gpt3_language_models_page066_image001", "document_name": "gpt3_language_models.pdf", "page": 66, "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=66", "bbox": {"l": 81.87832641601562, "t": 709.5679244995117, "r": 555.6134643554688, "b": 616.8639831542969}, "image_description": "As figuras demonstram os resultados de benchmark de modelos de linguagem de grande porte em conjuntos de dados públicos de QA: PhysicalQA, ARC-Challenge e OpenBookQA. Cada gráfico compara os rendimentos do zero shot, one shot e fine-tuning (FT) e freezing (FT-FT) em vários tamanhos de parâmetros (17B, 1700B etc.). Os resultados indicam que o fine-tuning do modelo aumenta a precisão em relação a um zero ou one shot.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Figure H.6: All results for all Common Sense Reasoning tasks.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page066_image002", "document_name": "gpt3_language_models.pdf", "page": 66, "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=66", "bbox": {"l": 72.05662536621094, "t": 565.6016693115234, "r": 571.1665649414062, "b": 462.7659606933594}, "image_description": "Em uma imagem de um documento acadêmico, um gráfico de barras compara a precisão das respostas de dois modelos diferentes, o Control Graph LM e o LAMA. No eixo horizontal, as respostas são classificadas por tipo (A0, A1 e A2), enquanto o eixo vertical representa o grau da precisão. A ausência de uma escala graduada nos eixos e a falta de descrição completa no eixo horizontal dificultam uma análise mais detalhada.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Figure H.7: All results for all QA tasks.
 
 Figure H.8: All results for all Reading Comprehension tasks.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page066_image003", "document_name": "gpt3_language_models.pdf", "page": 66, "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=66", "bbox": {"l": 77.02163696289062, "t": 425.6086730957031, "r": 572.0750732421875, "b": 227.08050537109375}, "image_description": "As figuras do PDF apresentam gráficos gerais que mostram a performance de três abordagens (Zero-Shot, One-Shot, Fine-tuned) em seis tarefas ou conjuntos de dados diferentes, incluindo QUEST, IRIDEN, RACE-M, SQuADv2, GKQA, e DROP.\n\n2.  Mesmo número de parâmetros, as abordagens Zero-Shot, One-Shot e Fine-tuned são comparadas para medir a progressão da meta-acurácia que indica a eficácia do modelo nesses conjuntos de dados e tarefas.\n\n3.  No gráfico, a linha para a abordagem fine-tuned costuma se encontrar mais alta, evoluindo mais rapidamente, em comparação com as outras, sugerindo que o ajuste fino deste modelo aumenta a performance.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Figure H.9: All results for all ANLI rounds.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page066_image004", "document_name": "gpt3_language_models.pdf", "page": 66, "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=66", "bbox": {"l": 71.76398468017578, "t": 193.09576416015625, "r": 543.5913696289062, "b": 94.24212646484375}, "image_description": "As figuras apresentam curvas de aprendizado, avaliando a evolução da precisão em um modelo de linguagem durante diferentes rodadas de ANLI (Abduction Natural Language Inference) em conjuntos de dados como Feinberted BERTa Base, Zero-shot e One-shot. Detalham o desempenho em várias fases de treinamento, variando de parâmetros relativamente baixos a altíssimos. O eixo horizontal representa mudanças em parâmetros do modelo, enquanto o eixo vertical mostra os índices de precisão, com destaque para alterações ao longo de dez rodadas de treinamento.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 67, "page_start": 67, "page_end": 67, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=67", "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"]} -->
 
 Figure H.11: All results for all Translation tasks.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "gpt3_language_models_page067_image005", "document_name": "gpt3_language_models.pdf", "page": 67, "section": "H Results on All Tasks for All Model Sizes", "subsection": null, "heading_path": ["H Results on All Tasks for All Model Sizes"], "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=67", "bbox": {"l": 76.56340026855469, "t": 718.2078857421875, "r": 572.5966796875, "b": 91.135498046875}, "image_description": "Eleve a qualidade dos seus textos com a verificação de gramática e correção de estilo da Linguix. Corrija frases em ordem e condições. Supere sua concorrência com Linguix!\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 68, "page_start": 68, "page_end": 68, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=68", "section": "References", "subsection": null, "heading_path": ["References"]} -->
 
 ## References
+<!-- section_metadata: {"section": "References", "subsection": null, "heading_path": ["References"]} -->
 
 - [ADG + 16] Marcin Andrychowicz, Misha Denil, Sergio Gomez, Matthew W Hoffman, David Pfau, Tom Schaul, Brendan Shillingford, and Nando De Freitas. Learning to learn by gradient descent by gradient descent. In Advances in neural information processing systems, pages 3981–3989, 2016.
 - [AI19] WeChat AI. Tr-mt (ensemble), December 2019.
@@ -1579,6 +1928,10 @@ Figure H.11: All results for all Translation tasks.
 - [CLY + 19] Yen-Chun Chen, Linjie Li, Licheng Yu, Ahmed El Kholy, Faisal Ahmed, Zhe Gan, Yu Cheng, and Jingjing Liu. Uniter: Learning universal image-text representations. arXiv preprint arXiv:1909.11740 , 2019.
 - [Cra17] Kate Crawford. The trouble with bias. NIPS 2017 Keynote, 2017.
 - [DCLT18] Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805, 2018.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 69, "page_start": 69, "page_end": 69, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=69", "section": "References", "subsection": null, "heading_path": ["References"]} -->
 
 - [DGM06] Ido Dagan, Oren Glickman, and Bernardo Magnini. The PASCAL recognising textual entailment challenge. In Machine learning challenges. evaluating predictive uncertainty, visual object classification, and recognising textual entailment, pages 177–190. Springer, 2006.
 - [DGV + 18] Mostafa Dehghani, Stephan Gouws, Oriol Vinyals, Jakob Uszkoreit, and Lukasz Kaiser. Universal transformers. Arxiv, 2018.
@@ -1602,6 +1955,10 @@ Figure H.11: All results for all Translation tasks.
 - [HBFC19] Ari Holtzman, Jan Buys, Maxwell Forbes, and Yejin Choi. The curious case of neural text degeneration. CoRR, abs/1904.09751, 2019.
 - [HLW + 20] Dan Hendrycks, Xiaoyuan Liu, Eric Wallace, Adam Dziedzic, Rishabh Krishnan, and Dawn Song. Pretrained transformers improve out of distribution robustness. arXiv preprint arXiv:2004.06100, 2020.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 70, "page_start": 70, "page_end": 70, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=70", "section": "References", "subsection": null, "heading_path": ["References"]} -->
+
 - [HNA + 17] Joel Hestness, Sharan Narang, Newsha Ardalani, Gregory Diamos, Heewoo Jun, Hassan Kianinejad, Md. Mostofa Ali Patwary, Yang Yang, and Yanqi Zhou. Deep learning scaling is predictable, empirically. arXiv preprint arXiv:1712.00409, 2017.
 - [HR18] Jeremy Howard and Sebastian Ruder. Universal language model fine-tuning for text classification. arXiv preprint arXiv:1801.06146, 2018.
 - [HVD15] Geoffrey Hinton, Oriol Vinyals, and Jeff Dean. Distilling the knowledge in a neural network. arXiv preprint arXiv:1503.02531, 2015.
@@ -1623,6 +1980,10 @@ Figure H.11: All results for all Translation tasks.
 - [LB02] Edward Loper and Steven Bird. Nltk: The natural language toolkit, 2002.
 - [LC19] Guillaume Lample and Alexis Conneau. Cross-lingual language model pretraining. arXiv preprint arXiv:1901.07291, 2019.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 71, "page_start": 71, "page_end": 71, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=71", "section": "References", "subsection": null, "heading_path": ["References"]} -->
+
 - [LCG + 19] Zhenzhong Lan, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. ALBERT: A lite BERT for self-supervised learning of language representations. arXiv preprint arXiv:1909.11942, 2019.
 - [LCH + 20] Xiaodong Liu, Hao Cheng, Pengcheng He, Weizhu Chen, Yu Wang, Hoifung Poon, and Jianfeng Gao. Adversarial training for large neural language models. arXiv preprint arXiv:2004.08994, 2020.
 - [LDL19] Zhongyang Li, Xiao Ding, and Ting Liu. Story ending prediction by transferable bert. arXiv preprint arXiv:1905.07504, 2019.
@@ -1642,6 +2003,10 @@ Figure H.11: All results for all Translation tasks.
 - [LXL + 17] Guokun Lai, Qizhe Xie, Hanxiao Liu, Yiming Yang, and Eduard Hovy. Race: Large-scale reading comprehension dataset from examinations. arXiv preprint arXiv:1704.04683, 2017.
 - [LYN + 20] Sheng-Chieh Lin, Jheng-Hong Yang, Rodrigo Nogueira, Ming-Feng Tsai, Chuan-Ju Wang, and Jimmy Lin. Tttttackling winogrande schemas. arXiv preprint arXiv:2003.08380, 2020.
 - [Mac92] David. MacKay. Information-based objective functions for active data selection. Neural Computation , 1992.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 72, "page_start": 72, "page_end": 72, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=72", "section": "References", "subsection": null, "heading_path": ["References"]} -->
 
 - [MBXS17] Bryan McCann, James Bradbury, Caiming Xiong, and Richard Socher. Learned in translation: Contextualized word vectors. In Advances in Neural Information Processing Systems, pages 6294–6305, 2017.
 - [MCCD13] Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. Efficient estimation of word representations in vector space. arXiv preprint arXiv:1301.3781, 2013.
@@ -1664,6 +2029,10 @@ Figure H.11: All results for all Translation tasks.
 - [PKL + 16] Denis Paperno, German Kruszewski, Angeliki Lazaridou, Quan Ngoc Pham, Raffaella Bernardi, Sandro ´ ´ Pezzelle, Marco Baroni, Gemma Boleda, and Raquel Fernandez. The lambada dataset: Word prediction ´ ´ requiring a broad discourse context. arXiv preprint arXiv:1606.06031, 2016.
 - [PNZtY18] Matthew E. Peters, Mark Neumann, Luke Zettlemoyer, and Wen tau Yih. Dissecting contextual word embeddings: Architecture and representation, 2018.
 - [Pos18] Matt Post. A call for clarity in reporting BLEU scores. arXiv preprint arXiv:1804.08771, 2018.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 73, "page_start": 73, "page_end": 73, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=73", "section": "References", "subsection": null, "heading_path": ["References"]} -->
 
 - [PSM14] Jeffrey Pennington, Richard Socher, and Christopher Manning. GloVe: Global vectors for word representation. In Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP), 2014.
 - [QIA20] QIANXIN. Sa-net on albert (ensemble), April 2020.
@@ -1688,6 +2057,10 @@ Figure H.11: All results for all Translation tasks.
 - [SDSE19] Roy Schwartz, Jesse Dodge, Noah A. Smith, and Oren Etzioni. Green AI. CoRR, abs/1907.10597, 2019.
 - [SHB15] Rico Sennrich, Barry Haddow, and Alexandra Birch. Improving neural machine translation models with monolingual data. arXiv preprint arXiv:1511.06709, 2015.
 
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 74, "page_start": 74, "page_end": 74, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=74", "section": "References", "subsection": null, "heading_path": ["References"]} -->
+
 - [SMM + 17] Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey Hinton, and Jeff Dean. Outrageously large neural networks: The sparsely-gated mixture-of-experts layer. arXiv preprint arXiv:1701.06538, 2017.
 - [SPP + 19] Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper, and Bryan Catanzaro. Megatron-lm: Training multi-billion parameter language models using model parallelism, 2019.
 - [SS20] Timo Schick and Hinrich Schutze. Exploiting cloze questions for few-shot text classification and natural ¨ ¨ language inference. arXiv preprint arXiv:2001.07676, 2020.
@@ -1708,5 +2081,9 @@ Figure H.11: All results for all Translation tasks.
 - [ZHR + 19] Rowan Zellers, Ari Holtzman, Hannah Rashkin, Yonatan Bisk, Ali Farhadi, Franziska Roesner, and Yejin Choi. Defending against neural fake news. arXiv preprint arXiv:1905.12616, 2019.
 - [ZLL + 18] Sheng Zhang, Xiaodong Liu, Jingjing Liu, Jianfeng Gao, Kevin Duh, and Benjamin Van Durme. ReCoRD: Bridging the gap between human and machine commonsense reading comprehension. arXiv preprint arXiv:1810.12885, 2018.
 - [ZSW + 19a] Daniel M. Ziegler, Nisan Stiennon, Jeffrey Wu, Tom B. Brown, Alec Radford, Dario Amodei, Paul Christiano, and Geoffrey Irving. Fine-tuning language models from human preferences, 2019.
+
+---
+
+<!-- page_metadata: {"document_name": "gpt3_language_models.pdf", "page": 75, "page_start": 75, "page_end": 75, "pdf_link": "corpus/raw/aula04/gpt3_language_models.pdf#page=75", "section": "References", "subsection": null, "heading_path": ["References"]} -->
 
 - [ZSW + 19b] Daniel M. Ziegler, Nisan Stiennon, Jeffrey Wu, Tom B. Brown, Alec Radford, Dario Amodei, Paul Christiano, and Geoffrey Irving. Fine-tuning language models from human preferences. ArXiv, abs/1909.08593, 2019.

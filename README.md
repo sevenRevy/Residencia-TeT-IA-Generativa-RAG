@@ -8,8 +8,8 @@
 | --- | --- | --- | --- |
 | `AULA_01/` | Setup inicial  | Primeiros testes com LLMs, OpenRouter/OpenAI e variáveis de ambiente. | [Ler README](AULA_01/README.md) |
 | `AULA_02/` | Extração estruturada de informações | Scripts de conversão e extração de metadados. | [Ler README](AULA_02/README.md) |
-| `AULA_03/` | Embeddings, distâncias e busca semântica manual | Scripts de embeddings, distâncias, busca semântica manual e gráficos. | [Ler README](AULA_03/README.md) |
-| `AULA_04/` | Busca semântica com LangChain e RAG | Script de conversão com Docling e experimentos de chunking/RAG. | [Ler README](AULA_04/README.md) |
+| `AULA_03/` | Embeddings, distâncias e busca semântica manual | Scripts de embeddings com Qwen local, distâncias, busca semântica manual e gráficos. | [Ler README](AULA_03/README.md) |
+| `AULA_04/` | Chunking com LangChain e embeddings | Script de conversão com Docling e 120 experimentos de chunking com embeddings Qwen. | [Ler README](AULA_04/README.md) |
 | `AULA_05/` | Documents com LangChain | Exemplos de `Document` com metadados a partir dos dados reais da Aula 04. | [Ler README](AULA_05/README.md) |
 
 ## Organização do Corpus
@@ -27,9 +27,11 @@ corpus/
 ├── metadata/
 │   └── aula02/      # JSONs de metadados extraídos na Aula 02
 ├── embeddings/
-│   └── aula03/      # JSONs de embeddings, distâncias e busca semântica manual
+│   ├── aula03/      # JSONs de embeddings, distâncias e busca semântica manual
+│   └── cache/       # Cache de embeddings Qwen para retomar execuções longas
+├── archive/         # Artefatos antigos preservados, incluindo saídas Nemotron
 └── reports/
-    └── aula04/      # Relatórios completos e filtrados dos experimentos de RAG
+    └── *.json       # 120 relatórios completos de chunking/embeddings + summary.json
 ```
 
 ## Onde Procurar
@@ -42,7 +44,13 @@ corpus/
 | Markdown processado da Aula 04 | `corpus/processed/aula04/` |
 | Metadados extraídos da Aula 02 | `corpus/metadata/aula02/` |
 | Embeddings e resultados da Aula 03 | `corpus/embeddings/aula03/` |
-| Relatórios de busca/chunking da Aula 04 | `corpus/reports/aula04/` |
+| Relatórios de chunking da Aula 04 | `corpus/reports/` |
+| Resumo comparativo da Aula 04 | `corpus/reports/summary.json` |
+| Artefatos antigos arquivados | `corpus/archive/` |
+
+## Estado Atual dos Relatórios
+
+A geração atual da Aula 04 fica diretamente em `corpus/reports/`: são 120 arquivos `completo_*.json`, cobrindo 12 documentos Markdown e 10 estratégias de chunking, além do `summary.json` comparativo. Os relatórios antigos que ficavam em `corpus/reports/aula04/` foram substituídos pela estrutura nova; saídas antigas preservadas ficam em `corpus/archive/`.
 
 ## 🚀 Passo a Passo para Configuração e Execução
 
@@ -84,7 +92,9 @@ Crie um arquivo `.env` na raiz do projeto a partir do modelo `.env.example`:
 ```env
 OPENAI_API_KEY=sua_chave_de_api_aqui
 OPENAI_MODEL=gpt-5.4-mini
-OPENAI_EMBEDDING_MODEL=nvidia/nemotron-3-embed-1b:free
+LOCAL_OPENAI_BASE_URL=http://localhost:5001/v1/
+LOCAL_OPENAI_API_KEY=local
+LOCAL_EMBEDDING_MODEL=Qwen3-Embedding-0.6B.Q8_0.gguf
 ```
 *(Importante: adicione o arquivo `.env` ao seu `.gitignore` para não enviá-lo para o GitHub).*
 

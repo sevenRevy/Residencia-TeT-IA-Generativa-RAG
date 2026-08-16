@@ -1,4 +1,7 @@
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 1, "page_start": 1, "page_end": 1, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=1", "section": "1 INTRODUCTION", "subsection": null, "heading_path": ["1 INTRODUCTION"]} -->
+
 ## LORA: LOW-RANK ADAPTATION OF LARGE LAN -GUAGE MODELS
+<!-- section_metadata: {"section": "LORA: LOW-RANK ADAPTATION OF LARGE LAN -GUAGE MODELS", "subsection": null, "heading_path": ["LORA: LOW-RANK ADAPTATION OF LARGE LAN -GUAGE MODELS"]} -->
 
 Edward Hu ∗ Yelong Shen ∗ Phillip Wallis Zeyuan Allen-Zhu Yuanzhi Li Shean Wang Lu Wang Weizhu Chen
 
@@ -9,10 +12,12 @@ Microsoft Corporation
 (Version 2)
 
 ## ABSTRACT
+<!-- section_metadata: {"section": "ABSTRACT", "subsection": null, "heading_path": ["ABSTRACT"]} -->
 
 An important paradigm of natural language processing consists of large-scale pretraining on general domain data and adaptation to particular tasks or domains. As we pre-train larger models, full fine-tuning, which retrains all model parameters, becomes less feasible. Using GPT-3 175B as an example – deploying independent instances of fine-tuned models, each with 175B parameters, is prohibitively expensive. We propose Low-Rank Adaptation, or LoRA, which freezes the pretrained model weights and injects trainable rank decomposition matrices into each layer of the Transformer architecture, greatly reducing the number of trainable parameters for downstream tasks. Compared to GPT-3 175B fine-tuned with Adam, LoRA can reduce the number of trainable parameters by 10,000 times and the GPU memory requirement by 3 times. LoRA performs on-par or better than finetuning in model quality on RoBERTa, DeBERTa, GPT-2, and GPT-3, despite having fewer trainable parameters, a higher training throughput, and, unlike adapters, no additional inference latency. We also provide an empirical investigation into rank-deficiency in language model adaptation, which sheds light on the efficacy of LoRA. We release a package that facilitates the integration of LoRA with PyTorch models and provide our implementations and model checkpoints for RoBERTa, DeBERTa, and GPT-2 at https://github.com/microsoft/LoRA .
 
 ## 1 INTRODUCTION
+<!-- section_metadata: {"section": "1 INTRODUCTION", "subsection": null, "heading_path": ["1 INTRODUCTION"]} -->
 
 Many applications in natural language processing rely on adapting one large-scale, pre-trained language model to multiple downstream applications. Such adaptation is usually done via fine-tuning , which updates all the parameters of the pre-trained model. The major downside of fine-tuning is that the new model contains as many parameters as in the original model. As larger models are trained every few months, this changes from a mere "inconvenience" for GPT-2 (Radford et al., b) or RoBERTa large (Liu et al., 2019) to a critical deployment challenge for GPT-3 (Brown et al., 2020) with 175 billion trainable parameters. 1
 
@@ -28,7 +33,7 @@ While GPT-3 175B achieves non-trivial performance with few-shot learning, fine-t
 
 Figure 1: Our reparametrization. We only train A and B .
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "lora_low_rank_adaptation_page001_image001", "document_name": "lora_low_rank_adaptation.pdf", "page": 1, "section": "1 INTRODUCTION", "subsection": null, "heading_path": ["1 INTRODUCTION"], "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=1", "bbox": {"l": 388.87646484375, "t": 266.9010009765625, "r": 503.1208801269531, "b": 164.31182861328125}, "image_description": "Esta figura parece detalhar a arquitetura de rede neural híbrida que utiliza pesos pré-treinados, conforme o texto e notação matemática (\\in denota pertinência; \\mathbb{R}^{d\\times d} indica uma matriz de dimensões d por d). Ela integra camadas com pesos aprendidos (setor azul) e camadas com peso aleatório (setor laranja), representando possivelmente uma abordagem para adaptação de redes neurais profundas pré-treinadas a novos dados ou domínios, uma estratégia comum na aprendizagem de máquina profunda.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Pretrained
 
@@ -41,6 +46,10 @@ Weights
 x
 
 𝑑
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 2, "page_start": 2, "page_end": 2, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=2", "section": "2 PROBLEM STATEMENT", "subsection": null, "heading_path": ["2 PROBLEM STATEMENT"]} -->
 
 often introduce inference latency (Houlsby et al., 2019; Rebuffi et al., 2017) by extending model depth or reduce the model's usable sequence length (Li &amp; Liang, 2021; Lester et al., 2021; Hambardzumyan et al., 2020; Liu et al., 2021) (Section 3). More importantly, these method often fail to match the fine-tuning baselines, posing a trade-off between efficiency and model quality.
 
@@ -56,10 +65,15 @@ LoRA possesses several key advantages.
 Terminologies and Conventions We make frequent references to the Transformer architecture and use the conventional terminologies for its dimensions. We call the input and output dimension size of a Transformer layer dmodel. We use Wq Wq, Wk , Wv Wv , and Wo Wo to refer to the query/key/value/output projection matrices in the self-attention module. W or W0 refers to a pretrained weight matrix and ∆W its accumulated gradient update during adaptation. We use r to denote the rank of a LoRA module. We follow the conventions set out by (Vaswani et al., 2017; Brown et al., 2020) and use Adam (Loshchilov &amp; Hutter, 2019; Kingma &amp; Ba, 2017) for model optimization and use a Transformer MLP feedforward dimension df fn = 4 × dmodel .
 
 ## 2 PROBLEM STATEMENT
+<!-- section_metadata: {"section": "2 PROBLEM STATEMENT", "subsection": null, "heading_path": ["2 PROBLEM STATEMENT"]} -->
 
 While our proposal is agnostic to training objective, we focus on language modeling as our motivating use case. Below is a brief description of the language modeling problem and, in particular, the maximization of conditional probabilities given a task-specific prompt.
 
 Suppose we are given a pre-trained autoregressive language model PΦ(y|x) parametrized by Φ . For instance, PΦ(y|x) can be a generic multi-task learner such as GPT (Radford et al., b; Brown et al., 2020) based on the Transformer architecture (Vaswani et al., 2017). Consider adapting this pre-trained model to downstream conditional text generation tasks, such as summarization, machine reading comprehension (MRC), and natural language to SQL (NL2SQL). Each downstream task is represented by a training dataset of context-target pairs: Z = {(xi, yi)}i=1,..,N , where both xi and yi are sequences of tokens. For example, in NL2SQL, xiis a natural language query and yiits corresponding SQL command; for summarization, xiis the content of an article and yiits summary.
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 3, "page_start": 3, "page_end": 3, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=3", "section": "3 AREN ' T EXISTING SOLUTIONS GOOD ENOUGH?", "subsection": null, "heading_path": ["3 AREN ' T EXISTING SOLUTIONS GOOD ENOUGH?"]} -->
 
 During full fine-tuning, the model is initialized to pre-trained weights Φ0 and updated to Φ0 + ∆Φ by repeatedly following the gradient to maximize the conditional language modeling objective:
 
@@ -67,13 +81,15 @@ During full fine-tuning, the model is initialized to pre-trained weights Φ0 and
 
 One of the main drawbacks for full fine-tuning is that for each downstream task, we learn a different set of parameters ∆Φ whose dimension |∆Φ| equals |Φ0|. Thus, if the pre-trained model is large (such as GPT-3 with |Φ0| ≈ 175 Billion), storing and deploying many independent instances of fine-tuned models can be challenging, if at all feasible.
 
-In this paper, we adopt a more parameter-efficient approach, where the task-specific parameter increment ∆Φ = ∆Φ(Θ) is further encoded by a much smaller-sized set of parameters Θ with |Θ|  |Φ0|. The task of finding ∆Φ thus becomes optimizing over Θ:
+In this paper, we adopt a more parameter-efficient approach, where the task-specific parameter increment ∆Φ = ∆Φ(Θ) is further encoded by a much smaller-sized set of parameters Θ with |Θ| 
+ |Φ0|. The task of finding ∆Φ thus becomes optimizing over Θ:
 
 <!-- formula-not-decoded -->
 
 In the subsequent sections, we propose to use a low-rank representation to encode ∆Φ that is both compute- and memory-efficient. When the pre-trained model is GPT-3 175B, the number of trainable parameters |Θ| can be as small as 0 . 01% of |Φ0| .
 
 ## 3 AREN ' T EXISTING SOLUTIONS GOOD ENOUGH?
+<!-- section_metadata: {"section": "3 AREN ' T EXISTING SOLUTIONS GOOD ENOUGH?", "subsection": null, "heading_path": ["3 AREN ' T EXISTING SOLUTIONS GOOD ENOUGH?"]} -->
 
 The problem we set out to tackle is by no means new. Since the inception of transfer learning, dozens of works have sought to make model adaptation more parameter- and compute-efficient. See Section 6 for a survey of some of the well-known works. Using language modeling as an example, there are two prominent strategies when it comes to efficient adaptations: adding adapter layers (Houlsby et al., 2019; Rebuffi et al., 2017; Pfeiffer et al., 2021; Ruckl ¨ ¨ e et al., 2020) or optimizing some forms ´ ´ of the input layer activations (Li &amp; Liang, 2021; Lester et al., 2021; Hambardzumyan et al., 2020; Liu et al., 2021). However, both strategies have their limitations, especially in a large-scale and latency-sensitive production scenario.
 
@@ -82,6 +98,10 @@ Adapter Layers Introduce Inference Latency There are many variants of adapters. 
 This problem gets worse when we need to shard the model as done in Shoeybi et al. (2020); Lepikhin et al. (2020), because the additional depth requires more synchronous GPU operations such as AllReduce and Broadcast, unless we store the adapter parameters redundantly many times.
 
 Directly Optimizing the Prompt is Hard The other direction, as exemplified by prefix tuning (Li &amp; Liang, 2021), faces a different challenge. We observe that prefix tuning is difficult to optimize and that its performance changes non-monotonically in trainable parameters, confirming similar observations in the original paper. More fundamentally, reserving a part of the sequence length for adaptation necessarily reduces the sequence length available to process a downstream task, which we suspect makes tuning the prompt less performant compared to other methods. We defer the study on task performance to Section 5.
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 4, "page_start": 4, "page_end": 4, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=4", "section": "4.1 LOW-RANK-PARAMETRIZED UPDATE MATRICES", "subsection": null, "heading_path": ["4.1 LOW-RANK-PARAMETRIZED UPDATE MATRICES"]} -->
 
 | Batch Size      | 32 16 1                                                |
 |-----------------|--------------------------------------------------------|
@@ -94,12 +114,15 @@ Directly Optimizing the Prompt is Hard The other direction, as exemplified by pr
 Table 1: Infernece latency of a single forward pass in GPT-2 medium measured in milliseconds, averaged over 100 trials. We use an NVIDIA Quadro RTX8000. "|Θ|" denotes the number of trainable parameters in adapter layers. Adapter L and Adapter H are two variants of adapter tuning, which we describe in Section 5.1. The inference latency introduced by adapter layers can be significant in an online, short-sequence-length scenario. See the full study in Appendix B.
 
 ## 4 OUR METHOD
+<!-- section_metadata: {"section": "4 OUR METHOD", "subsection": null, "heading_path": ["4 OUR METHOD"]} -->
 
 We describe the simple design of LoRA and its practical benefits. The principles outlined here apply to any dense layers in deep learning models, though we only focus on certain weights in Transformer language models in our experiments as the motivating use case.
 
 ## 4.1 LOW-RANK-PARAMETRIZED UPDATE MATRICES
+<!-- section_metadata: {"section": "4.1 LOW-RANK-PARAMETRIZED UPDATE MATRICES", "subsection": null, "heading_path": ["4.1 LOW-RANK-PARAMETRIZED UPDATE MATRICES"]} -->
 
-A neural network contains many dense layers which perform matrix multiplication. The weight matrices in these layers typically have full-rank. When adapting to a specific task, Aghajanyan et al. (2020) shows that the pre-trained language models have a low "instrisic dimension" and can still learn efficiently despite a random projection to a smaller subspace. Inspired by this, we hypothesize the updates to the weights also have a low "intrinsic rank" during adaptation. For a pre-trained weight matrix W0 ∈ R d×k , we constrain its update by representing the latter with a low-rank decomposition W0 + ∆W = W0 + BA, where B ∈ R d×r , A ∈ R r×k , and the rank r  min(d, k) . During training, W0 is frozen and does not receive gradient updates, while A and B contain trainable parameters. Note both W0 and ∆W = BA are multiplied with the same input, and their respective output vectors are summed coordinate-wise. For h = W0x, our modified forward pass yields:
+A neural network contains many dense layers which perform matrix multiplication. The weight matrices in these layers typically have full-rank. When adapting to a specific task, Aghajanyan et al. (2020) shows that the pre-trained language models have a low "instrisic dimension" and can still learn efficiently despite a random projection to a smaller subspace. Inspired by this, we hypothesize the updates to the weights also have a low "intrinsic rank" during adaptation. For a pre-trained weight matrix W0 ∈ R d×k , we constrain its update by representing the latter with a low-rank decomposition W0 + ∆W = W0 + BA, where B ∈ R d×r , A ∈ R r×k , and the rank r 
+ min(d, k) . During training, W0 is frozen and does not receive gradient updates, while A and B contain trainable parameters. Note both W0 and ∆W = BA are multiplied with the same input, and their respective output vectors are summed coordinate-wise. For h = W0x, our modified forward pass yields:
 
 <!-- formula-not-decoded -->
 
@@ -113,19 +136,27 @@ No Additional Inference Latency. When deployed in production, we can explicitly 
 
 3 An inevitability when adapting to hard tasks.
 
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 5, "page_start": 5, "page_end": 5, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=5", "section": "5.1 BASELINES", "subsection": null, "heading_path": ["5.1 BASELINES"]} -->
+
 ## 4.2 APPLYING LORA TO TRANSFORMER
+<!-- section_metadata: {"section": "4.2 APPLYING LORA TO TRANSFORMER", "subsection": null, "heading_path": ["4.2 APPLYING LORA TO TRANSFORMER"]} -->
 
 In principle, we can apply LoRA to any subset of weight matrices in a neural network to reduce the number of trainable parameters. In the Transformer architecture, there are four weight matrices in the self-attention module (Wq Wq , Wk, Wv Wv , Wo Wo ) and two in the MLP module. We treat Wq Wq (or Wk , Wv Wv ) as a single matrix of dimension dmodel ×dmodel, even though the output dimension is usually sliced into attention heads. We limit our study to only adapting the attention weights for downstream tasks and freeze the MLP modules (so they are not trained in downstream tasks) both for simplicity and parameter-efficiency.We further study the effect on adapting different types of attention weight matrices in a Transformer in Section 7.1. We leave the empirical investigation of adapting the MLP layers, LayerNorm layers, and biases to a future work.
 
-Practical Benefits and Limitations. The most significant benefit comes from the reduction in memory and storage usage. For a large Transformer trained with Adam, we reduce that VRAM usage by up to 2/3 if r  dmodel as we do not need to store the optimizer states for the frozen parameters. On GPT-3 175B, we reduce the VRAM consumption during training from 1.2TB to 350GB. With r = 4 and only the query and value projection matrices being adapted, the checkpoint size is reduced by roughly 10,000× (from 350GB to 35MB) 4 . This allows us to train with significantly fewer GPUs and avoid I/O bottlenecks. Another benefit is that we can switch between tasks while deployed at a much lower cost by only swapping the LoRA weights as opposed to all the parameters. This allows for the creation of many customized models that can be swapped in and out on the fly on machines that store the pre-trained weights in VRAM. We also observe a 25% speedup during training on GPT-3 175B compared to full fine-tuning 5 as we do not need to calculate the gradient for the vast majority of the parameters.
+Practical Benefits and Limitations. The most significant benefit comes from the reduction in memory and storage usage. For a large Transformer trained with Adam, we reduce that VRAM usage by up to 2/3 if r 
+ dmodel as we do not need to store the optimizer states for the frozen parameters. On GPT-3 175B, we reduce the VRAM consumption during training from 1.2TB to 350GB. With r = 4 and only the query and value projection matrices being adapted, the checkpoint size is reduced by roughly 10,000× (from 350GB to 35MB) 4 . This allows us to train with significantly fewer GPUs and avoid I/O bottlenecks. Another benefit is that we can switch between tasks while deployed at a much lower cost by only swapping the LoRA weights as opposed to all the parameters. This allows for the creation of many customized models that can be swapped in and out on the fly on machines that store the pre-trained weights in VRAM. We also observe a 25% speedup during training on GPT-3 175B compared to full fine-tuning 5 as we do not need to calculate the gradient for the vast majority of the parameters.
 
 LoRA also has its limitations. For example, it is not straightforward to batch inputs to different tasks with different A and B in a single forward pass, if one chooses to absorb A and B into W to eliminate additional inference latency. Though it is possible to not merge the weights and dynamically choose the LoRA modules to use for samples in a batch for scenarios where latency is not critical.
 
 ## 5 EMPIRICAL EXPERIMENTS
+<!-- section_metadata: {"section": "5 EMPIRICAL EXPERIMENTS", "subsection": null, "heading_path": ["5 EMPIRICAL EXPERIMENTS"]} -->
 
 We evaluate the downstream task performance of LoRA on RoBERTa (Liu et al., 2019), DeBERTa (He et al., 2021), and GPT-2 (Radford et al., b), before scaling up to GPT-3 175B (Brown et al., 2020). Our experiments cover a wide range of tasks, from natural language understanding (NLU) to generation (NLG). Specifically, we evaluate on the GLUE (Wang et al., 2019) benchmark for RoBERTa and DeBERTa. We follow the setup of Li &amp; Liang (2021) on GPT-2 for a direct comparison and add WikiSQL (Zhong et al., 2017) (NL to SQL queries) and SAMSum (Gliwa et al., 2019) (conversation summarization) for large-scale experiments on GPT-3. See Appendix C for more details on the datasets we use. We use NVIDIA Tesla V100 for all experiments.
 
 ## 5.1 BASELINES
+<!-- section_metadata: {"section": "5.1 BASELINES", "subsection": null, "heading_path": ["5.1 BASELINES"]} -->
 
 To compare with other baselines broadly, we replicate the setups used by prior work and reuse their reported numbers whenever possible. This, however, means that some baselines might only appear in certain experiments.
 
@@ -134,6 +165,10 @@ Fine-Tuning (FT) is a common approach for adaptation. During fine-tuning, the mo
 4 We still need the 350GB model during deployment; however, storing 100 adapted models only requires 350GB + 35MB * 100 ≈ 354GB as opposed to 100 * 350GB ≈ 35TB.
 
 5 For GPT-3 175B, the training throughput for full fine-tuning is 32.5 tokens/s per V100 GPU; with the same number of weight shards for model parallelism, the throughput is 43.1 tokens/s per V100 GPU for LoRA.
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 6, "page_start": 6, "page_end": 6, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=6", "section": "5.1 BASELINES", "subsection": null, "heading_path": ["5.1 BASELINES"]} -->
 
 Table 2: RoBERTa base , RoBERTalarge, and DeBERTaXXL with different adaptation methods on the GLUE benchmark. We report the overall (matched and mismatched) accuracy for MNLI, Matthew's correlation for CoLA, Pearson correlation for STS-B, and accuracy for other tasks. Higher is better for all metrics. * indicates numbers published in prior works. † indicates runs configured in a setup similar to Houlsby et al. (2019) for a fair comparison.
 
@@ -164,6 +199,10 @@ Adapter tuning as proposed in Houlsby et al. (2019) inserts adapter layers betwe
 
 LoRA adds trainable pairs of rank decomposition matrices in parallel to existing weight matrices. As mentioned in Section 4.2, we only apply LoRA to Wq Wq and Wv Wv in most experiments for simplicity. The number of trainable parameters is determined by the rank r and the shape of the original weights: |Θ| = 2 × L ˆ LoRA × dmodel × r, where L ˆ LoRA is the number of weight matrices we apply LoRA to.
 
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 7, "page_start": 7, "page_end": 7, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=7", "section": "5.4 GPT-2 MEDIUM/LARGE", "subsection": null, "heading_path": ["5.4 GPT-2 MEDIUM/LARGE"]} -->
+
 | Model & Method        | # Trainable  Parameters    | E2E NLG Challenge   | E2E NLG Challenge                    | E2E NLG Challenge   | E2E NLG Challenge   | E2E NLG Challenge   |
 |-----------------------|----------------------------|---------------------|--------------------------------------|---------------------|---------------------|---------------------|
 |                       |                            |                     | BLEU NIST MET ROUGE-L CIDEr          |                     |                     |                     |
@@ -183,16 +222,23 @@ LoRA adds trainable pairs of rank decomposition matrices in parallel to existing
 Table 3: GPT-2 medium (M) and large (L) with different adaptation methods on the E2E NLG Challenge. For all metrics, higher is better. LoRA outperforms several baselines with comparable or fewer trainable parameters. Confidence intervals are shown for experiments we ran. * indicates numbers published in prior works.
 
 ## 5.2 ROBERTA BASE/LARGE
+<!-- section_metadata: {"section": "5.2 ROBERTA BASE/LARGE", "subsection": null, "heading_path": ["5.2 ROBERTA BASE/LARGE"]} -->
 
 RoBERTa (Liu et al., 2019) optimized the pre-training recipe originally proposed in BERT (Devlin et al., 2019a) and boosted the latter's task performance without introducing many more trainable parameters. While RoBERTa has been overtaken by much larger models on NLP leaderboards such as the GLUE benchmark (Wang et al., 2019) in recent years, it remains a competitive and popular pre-trained model for its size among practitioners. We take the pre-trained RoBERTa base (125M) and RoBERTa large (355M) from the HuggingFace Transformers library (Wolf et al., 2020) and evaluate the performance of different efficient adaptation approaches on tasks from the GLUE benchmark. We also replicate Houlsby et al. (2019) and Pfeiffer et al. (2021) according to their setup. To ensure a fair comparison, we make two crucial changes to how we evaluate LoRA when comparing with adapters. First, we use the same batch size for all tasks and use a sequence length of 128 to match the adapter baselines. Second, we initialize the model to the pre-trained model for MRPC, RTE, and STS-B, not a model already adapted to MNLI like the fine-tuning baseline. Runs following this more restricted setup from Houlsby et al. (2019) are labeled with †. The result is presented in Table 2 (Top Three Sections). See Section D.1 for details on the hyperparameters used.
 
 ## 5.3 DEBERTA XXL
+<!-- section_metadata: {"section": "5.3 DEBERTA XXL", "subsection": null, "heading_path": ["5.3 DEBERTA XXL"]} -->
 
 DeBERTa (He et al., 2021) is a more recent variant of BERT that is trained on a much larger scale and performs very competitively on benchmarks such as GLUE (Wang et al., 2019) and SuperGLUE (Wang et al., 2020). We evaluate if LoRA can still match the performance of a fully fine-tuned DeBERTa XXL (1.5B) on GLUE. The result is presented in Table 2 (Bottom Section). See Section D.2 for details on the hyperparameters used.
 
 ## 5.4 GPT-2 MEDIUM/LARGE
+<!-- section_metadata: {"section": "5.4 GPT-2 MEDIUM/LARGE", "subsection": null, "heading_path": ["5.4 GPT-2 MEDIUM/LARGE"]} -->
 
 Having shown that LoRA can be a competitive alternative to full fine-tuning on NLU, we hope to answer if LoRA still prevails on NLG models, such as GPT-2 medium and large (Radford et al., b). We keep our setup as close as possible to Li &amp; Liang (2021) for a direct comparison. Due to space constraint, we only present our result on E2E NLG Challenge (Table 3) in this section. See Section F.1 for results on WebNLG (Gardent et al., 2017) and DART (Nan et al., 2020). We include a list of the hyperparameters used in Section D.3.
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 8, "page_start": 8, "page_end": 8, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=8", "section": "6 RELATED WORKS", "subsection": null, "heading_path": ["6 RELATED WORKS"]} -->
 
 Table 4: Performance of different adaptation methods on GPT-3 175B. We report the logical form validation accuracy on WikiSQL, validation accuracy on MultiNLI-matched, and Rouge-1/2/L on SAMSum. LoRA performs better than prior approaches, including full fine-tuning. The results on WikiSQL have a fluctuation around ±0 . 5%, MNLI-m around ±0 . 1%, and SAMSum around ±0 . 2/±0 . 2/±0 . 1 for the three metrics.
 
@@ -208,6 +254,7 @@ Table 4: Performance of different adaptation methods on GPT-3 175B. We report th
 | GPT-3 (LoRA)       | 37.7M                      | 74.0 91.6 | 53.4/29.2/45.1                                     |
 
 ## 5.5 SCALING UP TO GPT-3 175B
+<!-- section_metadata: {"section": "5.5 SCALING UP TO GPT-3 175B", "subsection": null, "heading_path": ["5.5 SCALING UP TO GPT-3 175B"]} -->
 
 As a final stress test for LoRA, we scale up to GPT-3 with 175 billion parameters. Due to the high training cost, we only report the typical standard deviation for a given task over random seeds, as opposed to providing one for every entry. See Section D.4 for details on the hyperparameters used.
 
@@ -215,11 +262,16 @@ As shown in Table 4, LoRA matches or exceeds the fine-tuning baseline on all thr
 
 Figure 2: GPT-3 175B validation accuracy vs. number of trainable parameters of several adaptation methods on WikiSQL and MNLI-matched. LoRA exhibits better scalability and task performance. See Section F.2 for more details on the plotted data points.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "lora_low_rank_adaptation_page008_image001", "document_name": "lora_low_rank_adaptation.pdf", "page": 8, "section": "6 RELATED WORKS", "subsection": null, "heading_path": ["6 RELATED WORKS"], "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=8", "bbox": {"l": 112.47559356689453, "t": 336.7858581542969, "r": 498.33319091796875, "b": 214.00164794921875}, "image_description": "Essa é um gráfico de validação de precisão para um conjunto de dados de perguntas do WebSQL usando um modelo de aprendizado de máquina treinado em diferentes quantidades de parâmetros treináveis. O gráfico compara a precisão de três métodos: LoRA, Adapter, e Prefix Embedding, bem como dois métodos não treináveis: Fine-tune e Prefix Layering. Prefix Embedding obtém resultados significativamente mais altos no WebSQL.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 ## 6 RELATED WORKS
+<!-- section_metadata: {"section": "6 RELATED WORKS", "subsection": null, "heading_path": ["6 RELATED WORKS"]} -->
 
 Transformer Language Models. Transformer (Vaswani et al., 2017) is a sequence-to-sequence architecture that makes heavy use of self-attention. Radford et al. (a) applied it to autoregressive language modeling by using a stack of Transformer decoders. Since then, Transformer-based language models have dominated NLP, achieving the state-of-the-art in many tasks. A new paradigm emerged with BERT (Devlin et al., 2019b) and GPT-2 (Radford et al., b) – both are large Transformer language models trained on a large amount of text – where fine-tuning on task-specific data after pretraining on general domain data provides a significant performance gain compared to training on task-specific data directly. Training larger Transformers generally results in better performance and remains an active research direction. GPT-3 (Brown et al., 2020) is the largest single Transformer language model trained to-date with 175B parameters.
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 9, "page_start": 9, "page_end": 9, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=9", "section": "7 UNDERSTANDING THE LOW-RANK UPDATES", "subsection": null, "heading_path": ["7 UNDERSTANDING THE LOW-RANK UPDATES"]} -->
 
 Prompt Engineering and Fine-Tuning. While GPT-3 175B can adapt its behavior with just a few additional training examples, the result depends heavily on the input prompt (Brown et al., 2020). This necessitates an empirical art of composing and formatting the prompt to maximize a model's performance on a desired task, which is known as prompt engineering or prompt hacking. Fine-tuning retrains a model pre-trained on general domains to a specific task Devlin et al. (2019b); Radford et al. (a). Variants of it include learning just a subset of the parameters Devlin et al. (2019b); Collobert &amp; Weston (2008), yet practitioners often retrain all of them to maximize the downstream performance. However, the enormity of GPT-3 175B makes it challenging to perform fine-tuning in the usual way due to the large checkpoint it produces and the high hardware barrier to entry since it has the same memory footprint as pre-training.
 
@@ -228,14 +280,20 @@ Parameter-Efficient Adaptation. Many have proposed inserting adapter layers betw
 Low-Rank Structures in Deep Learning. Low-rank structure is very common in machine learning. A lot of machine learning problems have certain intrinsic low-rank structure (Li et al., 2016; Cai et al., 2010; Li et al., 2018b; Grasedyck et al., 2013). Moreover, it is known that for many deep learning tasks, especially those with a heavily over-parametrized neural network, the learned neural network will enjoy low-rank properties after training (Oymak et al., 2019). Some prior works even explicitly impose the low-rank constraint when training the original neural network (Sainath et al., 2013; Povey et al., 2018; Zhang et al., 2014; Jaderberg et al., 2014; Zhao et al., 2016; Khodak et al., 2021; Denil et al., 2014); however, to the best of our knowledge, none of these works considers low-rank update to a frozen model for adaptation to downstream tasks. In theory literature, it is known that neural networks outperform other classical learning methods, including the corresponding (finite-width) neural tangent kernels (Allen-Zhu et al., 2019; Li &amp; Liang, 2018) when the underlying concept class has certain low-rank structure (Ghorbani et al., 2020; Allen-Zhu &amp; Li, 2019; Allen-Zhu &amp; Li, 2020a). Another theoretical result in Allen-Zhu &amp; Li (2020b) suggests that low-rank adaptations can be useful for adversarial training. In sum, we believe that our proposed low-rank adaptation update is well-motivated by the literature.
 
 ## 7 UNDERSTANDING THE LOW-RANK UPDATES
+<!-- section_metadata: {"section": "7 UNDERSTANDING THE LOW-RANK UPDATES", "subsection": null, "heading_path": ["7 UNDERSTANDING THE LOW-RANK UPDATES"]} -->
 
 Given the empirical advantage of LoRA, we hope to further explain the properties of the low-rank adaptation learned from downstream tasks. Note that the low-rank structure not only lowers the hardware barrier to entry which allows us to run multiple experiments in parallel, but also gives better interpretability of how the update weights are correlated with the pre-trained weights. We focus our study on GPT-3 175B, where we achieved the largest reduction of trainable parameters (up to 10,000×) without adversely affecting task performances.
 
 We perform a sequence of empirical studies to answer the following questions: 1) Given a parameter budget constraint, which subset of weight matrices in a pre-trained Transformer should we adapt to maximize downstream performance? 2) Is the "optimal" adaptation matrix ∆W really rankdeficient? If so, what is a good rank to use in practice? 3) What is the connection between ∆W and W? Does ∆W highly correlate with W? How large is ∆W comparing to W?
 
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 10, "page_start": 10, "page_end": 10, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=10", "section": "7.2 WHAT IS THE OPTIMAL RANK r FOR LORA?", "subsection": null, "heading_path": ["7.2 WHAT IS THE OPTIMAL RANK r FOR LORA?"]} -->
+
 We believe that our answers to question (2) and (3) shed light on the fundamental principles of using pre-trained language models for downstream tasks, which is a critical topic in NLP.
 
 ## 7.1 WHICH WEIGHT MATRICES IN TRANSFORMER SHOULD WE APPLY LORA TO?
+<!-- section_metadata: {"section": "7.1 WHICH WEIGHT MATRICES IN TRANSFORMER SHOULD WE APPLY LORA TO?", "subsection": null, "heading_path": ["7.1 WHICH WEIGHT MATRICES IN TRANSFORMER SHOULD WE APPLY LORA TO?"]} -->
 
 Given a limited parameter budget, which types of weights should we adapt with LoRA to obtain the best performance on downstream tasks? As mentioned in Section 4.2, we only consider weight matrices in the self-attention module. We set a parameter budget of 18M (roughly 35MB if stored in FP16) on GPT-3 175B, which corresponds to r = 8 if we adapt one type of attention weights or r = 4 if we adapt two types, for all 96 layers. The result is presented in Table 5.
 
@@ -250,6 +308,7 @@ Table 5: Validation accuracy on WikiSQL and MultiNLI after applying LoRA to diff
 Note that putting all the parameters in ∆Wq Wq or ∆Wk Wk results in significantly lower performance, while adapting both Wq Wq and Wv Wv yields the best result. This suggests that even a rank of four captures enough information in ∆W such that it is preferable to adapt more weight matrices than adapting a single type of weights with a larger rank.
 
 ## 7.2 WHAT IS THE OPTIMAL RANK r FOR LORA?
+<!-- section_metadata: {"section": "7.2 WHAT IS THE OPTIMAL RANK r FOR LORA?", "subsection": null, "heading_path": ["7.2 WHAT IS THE OPTIMAL RANK r FOR LORA?"]} -->
 
 We turn our attention to the effect of rank r on model performance. We adapt {Wq Wq , Wv Wv } , {Wq Wq , Wk, Wv Wv , Wc Wc }, and just Wq Wq for a comparison.
 
@@ -270,19 +329,21 @@ Table 6 shows that, surprisingly, LoRA already performs competitively with a ver
 
 ---
 
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 11, "page_start": 11, "page_end": 11, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=11", "section": "7.3 HOW DOES THE ADAPTATION MATRIX ∆W COMPARE TO W ?", "subsection": null, "heading_path": ["7.3 HOW DOES THE ADAPTATION MATRIX ∆W COMPARE TO W ?"]} -->
+
 Subspace similarity between different r . Given A r=8 and A r =64 which are the learned adaptation matrices with rank r = 8 and 64 using the same pre-trained model, we perform singular value decomposition and obtain the right-singular unitary matrices UA r=8 and UA r =64 . 7 We hope to answer: how much of the subspace spanned by the top i singular vectors in UA r=8 (for 1 ≤ i ≤ 8) is contained in the subspace spanned by top j singular vectors of UA r =64 (for 1 ≤ j ≤ 64)? We measure this quantity with a normalized subspace similarity based on the Grassmann distance (See Appendix G for a more formal discussion)
 
 <!-- formula-not-decoded -->
 
-where U
-A i U
+where U
+A i U
 A r=8 represents the columns of UA r=8 corresponding to the top-i singular vectors.
 
 φ(·) has a range of [0 , 1], where 1 represents a complete overlap of subspaces and 0 a complete separation. See Figure 3 for how φ changes as we vary i and j. We only look at the 48th layer (out of 96) due to space constraint, but the conclusion holds for other layers as well, as shown in Section H.1.
 
 Figure 3: Subspace similarity between column vectors of A r=8 and A r =64 for both ∆Wq Wq and ∆Wv Wv. The third and the fourth figures zoom in on the lower-left triangle in the first two figures. The top directions in r = 8 are included in r = 64, and vice versa.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "lora_low_rank_adaptation_page011_image001", "document_name": "lora_low_rank_adaptation.pdf", "page": 11, "section": "7.3 HOW DOES THE ADAPTATION MATRIX ∆W COMPARE TO W ?", "subsection": null, "heading_path": ["7.3 HOW DOES THE ADAPTATION MATRIX ∆W COMPARE TO W ?"], "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=11", "bbox": {"l": 111.80354309082031, "t": 524.8725280761719, "r": 499.38995361328125, "b": 401.8489074707031}, "image_description": "A figura apresenta quatro mapas de calor gráficos, que visualizam os valores de diferenças energéticas (δWθΩ e δWθWϵ) em relação a dois índices, i e j. Esses mapas são parte da análise de uma simulação numérica dentro de um contexto científico, possivelmente relacionado a física teórica ou matemática aplicada. A cor varia de vermelho escuro a roxo, indicando a magnitude da diferença energética, com uma escala de cores ao lado para referência.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 We make an important observation from Figure 3.
 
@@ -293,14 +354,19 @@ Since both A r=8 and A r =64 are learned using the same pre-trained model, Figur
 Subspace similarity between different random seeds. We further confirm this by plotting the normalized subspace similarity between two randomly seeded runs with r = 64, shown in Figure 4. ∆Wq Wq appears to have a higher "intrinsic rank" than ∆Wv Wv , since more common singular value directions are learned by both runs for ∆Wq Wq , which is in line with our empirical observation in Table 6. As a comparison, we also plot two random Gaussian matrices, which do not share any common singular value directions with each other.
 
 ## 7.3 HOW DOES THE ADAPTATION MATRIX ∆W COMPARE TO W ?
+<!-- section_metadata: {"section": "7.3 HOW DOES THE ADAPTATION MATRIX ∆W COMPARE TO W ?", "subsection": null, "heading_path": ["7.3 HOW DOES THE ADAPTATION MATRIX ∆W COMPARE TO W ?"]} -->
 
 We further investigate the relationship between ∆W and W. In particular, does ∆W highly correlate with W? (Or mathematically, is ∆W mostly contained in the top singular directions of W?) Also, how "large" is ∆W comparing to its corresponding directions in W? This can shed light on the underlying mechanism for adapting pre-trained language models.
 
 7 Note that a similar analysis can be carried out with B and the left-singular unitary matrices – we stick with A for our experiments.
 
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 12, "page_start": 12, "page_end": 12, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=12", "section": "8 CONCLUSION AND FUTURE WORK", "subsection": null, "heading_path": ["8 CONCLUSION AND FUTURE WORK"]} -->
+
 Figure 4: Left and Middle: Normalized subspace similarity between the column vectors of A r =64 from two random seeds, for both ∆Wq Wq and ∆Wv Wv in the 48-th layer. Right: the same heat-map between the column vectors of two random Gaussian matrices. See Section H.1 for other layers.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "lora_low_rank_adaptation_page012_image002", "document_name": "lora_low_rank_adaptation.pdf", "page": 12, "section": "8 CONCLUSION AND FUTURE WORK", "subsection": null, "heading_path": ["8 CONCLUSION AND FUTURE WORK"], "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=12", "bbox": {"l": 122.12104797363281, "t": 710.3693389892578, "r": 489.4256286621094, "b": 582.4663848876953}, "image_description": "Esse gráfico mostra os valores calculados em três casos distintos, com uma gradiente de cores que representa diferentes intensidades, com 'ΔWq' no primeiro mapa, 'φ(A_λ=0.000, ΔWr, i,j)' no segundo e 'Random Gaussian' no terceiro. Os valores de i e j variam de 1 a 56 no eixo vertical e de 1 a 59 no horizontal. Os dois primeiros mapas mostram uma gradiente de cor, enquanto o último é uniformemente escuro.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 To answer these questions, we project W onto the r-dimensional subspace of ∆W by computing U &gt; W V &gt; , with U/V being the left/right singular-vector matrix of ∆W. Then, we compare the Frobenius norm between kU &gt; W V &gt; kF and kWkF . As a comparison, we also compute kU &gt; W V &gt; kF by replacing U, V with the top r singular vectors of W or a random matrix.
 
@@ -315,12 +381,18 @@ Table 7: The Frobenius norm of U &gt; Wq Wq V &gt; where U and V are the left/ri
 We draw several conclusions from Table 7. First, ∆W has a stronger correlation with W compared to a random matrix, indicating that ∆W amplifies some features that are already in W. Second, instead of repeating the top singular directions of W , ∆W only amplifies directions that are not emphasized in W. Third, the amplification factor is rather huge: 21 . 5 ≈ 6 . 91/0 . 32 for r = 4 . See Section H.4 for why r = 64 has a smaller amplification factor. We also provide a visualization in Section H.3 for how the correlation changes as we include more top singular directions from Wq Wq . This suggests that the low-rank adaptation matrix potentially amplifies the important features for specific downstream tasks that were learned but not emphasized in the general pre-training model .
 
 ## 8 CONCLUSION AND FUTURE WORK
+<!-- section_metadata: {"section": "8 CONCLUSION AND FUTURE WORK", "subsection": null, "heading_path": ["8 CONCLUSION AND FUTURE WORK"]} -->
 
 Fine-tuning enormous language models is prohibitively expensive in terms of the hardware required and the storage/switching cost for hosting independent instances for different tasks. We propose LoRA, an efficient adaptation strategy that neither introduces inference latency nor reduces input sequence length while retaining high model quality. Importantly, it allows for quick task-switching when deployed as a service by sharing the vast majority of the model parameters. While we focused on Transformer language models, the proposed principles are generally applicable to any neural networks with dense layers.
 
 There are many directions for future works. 1) LoRA can be combined with other efficient adaptation methods, potentially providing orthogonal improvement. 2) The mechanism behind fine-tuning or LoRA is far from clear – how are features learned during pre-training transformed to do well on downstream tasks? We believe that LoRA makes it more tractable to answer this than full finetuning. 3) We mostly depend on heuristics to select the weight matrices to apply LoRA to. Are there more principled ways to do it? 4) Finally, the rank-deficiency of ∆W suggests that W could be rank-deficient as well, which can also be a source of inspiration for future works.
 
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 13, "page_start": 13, "page_end": 13, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=13", "section": "REFERENCES", "subsection": null, "heading_path": ["REFERENCES"]} -->
+
 ## REFERENCES
+<!-- section_metadata: {"section": "REFERENCES", "subsection": null, "heading_path": ["REFERENCES"]} -->
 
 - Armen Aghajanyan, Luke Zettlemoyer, and Sonal Gupta. Intrinsic Dimensionality Explains the Effectiveness of Language Model Fine-Tuning. arXiv:2012.13255 [cs], December 2020. URL http://arxiv.org/abs/2012.13255 .
 - Zeyuan Allen-Zhu and Yuanzhi Li. What Can ResNet Learn Efficiently, Going Beyond Kernels? In NeurIPS, 2019. Full version available at http://arxiv.org/abs/1905.10337 .
@@ -337,6 +409,10 @@ There are many directions for future works. 1) LoRA can be combined with other e
 - Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. arXiv:1810.04805 [cs], May 2019b. URL http://arxiv.org/abs/1810.04805. arXiv: 1810.04805.
 - William B. Dolan and Chris Brockett. Automatically constructing a corpus of sentential paraphrases. In Proceedings of the Third International Workshop on Paraphrasing (IWP2005), 2005. URL https://aclanthology.org/I05-5002 .
 - Claire Gardent, Anastasia Shimorina, Shashi Narayan, and Laura Perez-Beltrachini. The webnlg challenge: Generating text from rdf data. In Proceedings of the 10th International Conference on Natural Language Generation, pp. 124–133, 2017.
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 14, "page_start": 14, "page_end": 14, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=14", "section": "REFERENCES", "subsection": null, "heading_path": ["REFERENCES"]} -->
 
 - Behrooz Ghorbani, Song Mei, Theodor Misiakiewicz, and Andrea Montanari. When do neural networks outperform kernel methods? arXiv preprint arXiv:2006.13409, 2020.
 - Bogdan Gliwa, Iwona Mochol, Maciej Biesek, and Aleksander Wawer. Samsum corpus: A humanannotated dialogue dataset for abstractive summarization. CoRR, abs/1911.12237, 2019. URL http://arxiv.org/abs/1911.12237 .
@@ -357,6 +433,10 @@ There are many directions for future works. 1) LoRA can be combined with other e
 - Yuanzhi Li, Tengyu Ma, and Hongyang Zhang. Algorithmic regularization in over-parameterized matrix sensing and neural networks with quadratic activations. In Conference On Learning Theory, pp. 2–47. PMLR, 2018b.
 - Zhaojiang Lin, Andrea Madotto, and Pascale Fung. Exploring versatile generative language model via parameter-efficient transfer learning. In Findings of the Association for Computational Linguistics: EMNLP 2020, pp. 441–459, Online, November 2020. Association for Computational Linguistics. doi: 10.18653/v1/2020.findings-emnlp.41. URL https://aclanthology. org/2020.findings-emnlp.41 .
 
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 15, "page_start": 15, "page_end": 15, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=15", "section": "REFERENCES", "subsection": null, "heading_path": ["REFERENCES"]} -->
+
 - Xiao Liu, Yanan Zheng, Zhengxiao Du, Ming Ding, Yujie Qian, Zhilin Yang, and Jie Tang. GPT Understands, Too. arXiv:2103.10385 [cs], March 2021. URL http://arxiv.org/abs/ 2103.10385. arXiv: 2103.10385.
 - Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer Levy, Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov. Roberta: A robustly optimized bert pretraining approach, 2019.
 - Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. arXiv preprint arXiv:1711.05101, 2017.
@@ -376,6 +456,10 @@ There are many directions for future works. 1) LoRA can be combined with other e
 - Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper, and Bryan Catanzaro. Megatron-lm: Training multi-billion parameter language models using model parallelism, 2020.
 - Richard Socher, Alex Perelygin, Jean Wu, Jason Chuang, Christopher D. Manning, Andrew Ng, and Christopher Potts. Recursive deep models for semantic compositionality over a sentiment treebank. In Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing, pp. 1631–1642, Seattle, Washington, USA, October 2013. Association for Computational Linguistics. URL https://aclanthology.org/D13-1170 .
 
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 16, "page_start": 16, "page_end": 16, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=16", "section": "A LARGE LANGUAGE MODELS STILL NEED PARAMETER UPDATES", "subsection": null, "heading_path": ["A LARGE LANGUAGE MODELS STILL NEED PARAMETER UPDATES"]} -->
+
 - Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. In Proceedings of the 31st International Conference on Neural Information Processing Systems, pp. 6000–6010, 2017.
 - Alex Wang, Amanpreet Singh, Julian Michael, Felix Hill, Omer Levy, and Samuel R. Bowman. Glue: A multi-task benchmark and analysis platform for natural language understanding, 2019.
 - Alex Wang, Yada Pruksachatkun, Nikita Nangia, Amanpreet Singh, Julian Michael, Felix Hill, Omer Levy, and Samuel R. Bowman. Superglue: A stickier benchmark for general-purpose language understanding systems, 2020.
@@ -389,8 +473,13 @@ There are many directions for future works. 1) LoRA can be combined with other e
 - Victor Zhong, Caiming Xiong, and Richard Socher. Seq2sql: Generating structured queries from natural language using reinforcement learning. CoRR, abs/1709.00103, 2017. URL http:// arxiv.org/abs/1709.00103 .
 
 ## A LARGE LANGUAGE MODELS STILL NEED PARAMETER UPDATES
+<!-- section_metadata: {"section": "A LARGE LANGUAGE MODELS STILL NEED PARAMETER UPDATES", "subsection": null, "heading_path": ["A LARGE LANGUAGE MODELS STILL NEED PARAMETER UPDATES"]} -->
 
 Few-shot learning, or prompt engineering, is very advantageous when we only have a handful of training samples. However, in practice, we can often afford to curate a few thousand or more training examples for performance-sensitive applications. As shown in Table 8, fine-tuning improves the model performance drastically compared to few-shot learning on datasets large and small. We take the GPT-3 few-shot result on RTE from the GPT-3 paper (Brown et al., 2020). For MNLI-matched, we use two demonstrations per class and six in-context examples in total.
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 17, "page_start": 17, "page_end": 17, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=17", "section": "C DATASET DETAILS", "subsection": null, "heading_path": ["C DATASET DETAILS"]} -->
 
 Table 8: Fine-tuning significantly outperforms few-shot learning on GPT-3 (Brown et al., 2020).
 
@@ -400,6 +489,7 @@ Table 8: Fine-tuning significantly outperforms few-shot learning on GPT-3 (Brown
 | GPT-3 Fine-Tuned | 89.5 85.4                                |
 
 ## B INFERENCE LATENCY INTRODUCED BY ADAPTER LAYERS
+<!-- section_metadata: {"section": "B INFERENCE LATENCY INTRODUCED BY ADAPTER LAYERS", "subsection": null, "heading_path": ["B INFERENCE LATENCY INTRODUCED BY ADAPTER LAYERS"]} -->
 
 Adapter layers are external modules added to a pre-trained model in a sequential manner, whereas our proposal, LoRA, can be seen as external modules added in a parallel manner. Consequently, adapter layers must be computed in addition to the base model, inevitably introducing additional latency. While as pointed out in Ruckl ¨ ¨ e et al. (2020), the latency introduced by adapter layers can ´ ´ be mitigated when the model batch size and/or sequence length is large enough to full utilize the hardware parallelism. We confirm their observation with a similar latency study on GPT-2 medium and point out that there are scenarios, notably online inference where the batch size is small, where the added latency can be significant.
 
@@ -407,13 +497,18 @@ We measure the latency of a single forward pass on an NVIDIA Quadro RTX8000 by a
 
 Figure 5: Percentage slow-down of inference latency compared to the no-adapter (r = 0) baseline. The top row shows the result for Adapter H and the bottom row Adapter L . Larger batch size and sequence length help to mitigate the latency, but the slow-down can be as high as over 30% in an online, short-sequence-length scenario. We tweak the colormap for better visibility.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "lora_low_rank_adaptation_page017_image001", "document_name": "lora_low_rank_adaptation.pdf", "page": 17, "section": "C DATASET DETAILS", "subsection": null, "heading_path": ["C DATASET DETAILS"], "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=17", "bbox": {"l": 126.54951477050781, "t": 426.0211181640625, "r": 485.37542724609375, "b": 228.6065673828125}, "image_description": "Esta figura apresenta uma grade de seis heatmaps organizados em duas linhas e três colunas, com títulos indicando \"Seq Len\" variando de 128 a 512. O eixo x representa \"Batch Size\" (1-32) e o eixo y representa \"Adapter r\", com escalas diferentes nas linhas superior (0-100) e inferior (0-250). A barra de cores à direita varia de 0 a 35, sugerindo que a figura visualiza métricas de desempenho ou similaridade em experimentos de machine learning.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 ## C DATASET DETAILS
+<!-- section_metadata: {"section": "C DATASET DETAILS", "subsection": null, "heading_path": ["C DATASET DETAILS"]} -->
 
 GLUE Benchmark is a wide-ranging collection of natural language understanding tasks. It includes MNLI (inference, Williams et al. (2018)), SST-2 (sentiment analysis, Socher et al. (2013)), MRPC (paraphrase detection, Dolan &amp; Brockett (2005)), CoLA (linguistic acceptability, Warstadt et al. (2018)), QNLI (inference, Rajpurkar et al. (2018)), QQP 8 (question-answering), RTE (inference), and STS-B (textual similarity, Cer et al. (2017)). The broad coverage makes GLUE benchmark a standard metric to evaluate NLU models such as RoBERTa and DeBERTa. The individual datasets are released under different permissive licenses.
 
 8 https://quoradata.quora.com/First-Quora-Dataset-Release-Question-Pairs
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 18, "page_start": 18, "page_end": 18, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=18", "section": "D.2 DEBERTA", "subsection": null, "heading_path": ["D.2 DEBERTA"]} -->
 
 WikiSQL is introduced in Zhong et al. (2017) and contains 56 , 355/8 , 421 training/validation examples. The task is to generate SQL queries from natural language questions and table schemata. We encode context as x = {table schema , query} and target as y = {SQL}. The dataset is release under the BSD 3-Clause License.
 
@@ -426,14 +521,21 @@ DART is an open-domain data-to-text dataset described in Nan et al. (2020). DART
 WebNLG is another commonly used dataset for data-to-text evaluation (Gardent et al., 2017). With 22K examples in total WebNLG comprises 14 distinct categories, nine of which are seen during training. Since five of the 14 total categories are not seen during training, but are represented in the test set, evaluation is typically broken out by "seen" categories (S), "unseen" categories (U) and "all" (A). Each input example is represented by a sequence of SUBJECT — PROPERTY — OBJECT triples. The dataset is released under Creative Commons BY-NC-SA 4.0.
 
 ## D HYPERPARAMETERS USED IN EXPERIMENTS
+<!-- section_metadata: {"section": "D HYPERPARAMETERS USED IN EXPERIMENTS", "subsection": null, "heading_path": ["D HYPERPARAMETERS USED IN EXPERIMENTS"]} -->
 
 ## D.1 ROBERTA
+<!-- section_metadata: {"section": "D.1 ROBERTA", "subsection": null, "heading_path": ["D.1 ROBERTA"]} -->
 
 We train using AdamW with a linear learning rate decay schedule. We sweep learning rate, number of training epochs, and batch size for LoRA. Following Liu et al. (2019), we initialize the LoRA modules to our best MNLI checkpoint when adapting to MRPC, RTE, and STS-B, instead of the usual initialization; the pre-trained model stays frozen for all tasks. We report the median over 5 random seeds; the result for each run is taken from the best epoch. For a fair comparison with the setup in Houlsby et al. (2019) and Pfeiffer et al. (2021), we restrict the model sequence length to 128 and used a fixed batch size for all tasks. Importantly, we start with the pre-trained RoBERTa large model when adapting to MRPC, RTE, and STS-B, instead of a model already adapted to MNLI. The runs with this restricted setup are marked with †. See the hyperparameters used in our runs in Table 9.
 
 ## D.2 DEBERTA
+<!-- section_metadata: {"section": "D.2 DEBERTA", "subsection": null, "heading_path": ["D.2 DEBERTA"]} -->
 
 We again train using AdamW with a linear learning rate decay schedule. Following He et al. (2021), we tune learning rate, dropout probability, warm-up steps, and batch size. We use the same model sequence length used by (He et al., 2021) to keep our comparison fair. Following He et al. (2021), we initialize the LoRA modules to our best MNLI checkpoint when adapting to MRPC, RTE, and STS-B, instead of the usual initialization; the pre-trained model stays frozen for all tasks. We report the median over 5 random seeds; the result for each run is taken from the best epoch. See the hyperparameters used in our runs in Table 10.
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 19, "page_start": 19, "page_end": 19, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=19", "section": "D.4 GPT-3", "subsection": null, "heading_path": ["D.4 GPT-3"]} -->
 
 Table 9: The hyperparameters we used for RoBERTa on the GLUE benchmark.
 
@@ -449,12 +551,18 @@ Table 9: The hyperparameters we used for RoBERTa on the GLUE benchmark.
 | RoBERTa large Adpt H (0.8M)† | Batch Size  # Epochs  Learning Rate  Bottleneck r  Max Seq. Len.         | 32 10 5 10 10 5 20 20 10 3E-04 3E-04 3E-04 3E-04 3E-04 3E-04 3E-04 3E-04 8 128                                                       |                   |
 
 ## D.3 GPT-2
+<!-- section_metadata: {"section": "D.3 GPT-2", "subsection": null, "heading_path": ["D.3 GPT-2"]} -->
 
 We train all of our GPT-2 models using AdamW (Loshchilov &amp; Hutter, 2017) with a linear learning rate schedule for 5 epochs. We use the batch size, learning rate, and beam search beam size described in Li &amp; Liang (2021). Accordingly, we also tune the above hyperparameters for LoRA. We report the mean over 3 random seeds; the result for each run is taken from the best epoch. The hyperparameters used for LoRA in GPT-2 are listed in Table 11. For those used for other baselines, see Li &amp; Liang (2021).
 
 ## D.4 GPT-3
+<!-- section_metadata: {"section": "D.4 GPT-3", "subsection": null, "heading_path": ["D.4 GPT-3"]} -->
 
 For all GPT-3 experiments, we train using AdamW (Loshchilov &amp; Hutter, 2017) for 2 epochs with a batch size of 128 samples and a weight decay factor of 0.1. We use a sequence length of 384 for WikiSQL (Zhong et al., 2017), 768 for MNLI (Williams et al., 2018), and 2048 for SAMSum (Gliwa et al., 2019). We tune learning rate for all method-dataset combinations. See Section D.4 for more details on the hyperparameters used. For prefix-embedding tuning, we find the optimal l p and l i to be 256 and 8, respectively, totalling 3 . 2M trainable parameters. We use l p = 8 and l i = 8 for prefix-layer tuning with 20 . 2M trainable parameters to obtain the overall best performance. We present two parameter budgets for LoRA: 4.7M (r q = r v = 1 or r v = 2) and 37.7M (r q = r v = 8 or r q = rk = rv = ro = 2). We report the best validation performance from each run. The training hyperparameters used in our GPT-3 experiments are listed in Table 12.
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 20, "page_start": 20, "page_end": 20, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=20", "section": "E COMBINING LORA WITH PREFIX TUNING", "subsection": null, "heading_path": ["E COMBINING LORA WITH PREFIX TUNING"]} -->
 
 Table 10: The hyperparameters for DeBERTa XXL on tasks included in the GLUE benchmark.
 
@@ -471,6 +579,7 @@ Table 11: The hyperparameters for GPT-2 LoRA on E2E, WebNLG and DART.
 | Beam Size  Length Penalty  no repeat ngram size                                                                                                   | 10 0.9 0.8 0.8 4                                                                                         |
 
 ## E COMBINING LORA WITH PREFIX TUNING
+<!-- section_metadata: {"section": "E COMBINING LORA WITH PREFIX TUNING", "subsection": null, "heading_path": ["E COMBINING LORA WITH PREFIX TUNING"]} -->
 
 LoRA can be naturally combined with existing prefix-based approaches. In this section, we evaluate two combinations of LoRA and variants of prefix-tuning on WikiSQL and MNLI.
 
@@ -479,6 +588,8 @@ LoRA+PrefixEmbed (LoRA+PE) combines LoRA with prefix-embedding tuning, where we 
 LoRA+PrefixLayer (LoRA+PL) combines LoRA with prefix-layer tuning. We also insert l p + li special tokens; however, instead of letting the hidden representations of these tokens evolve natu-
 
 ---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 21, "page_start": 21, "page_end": 21, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=21", "section": "F.1 ADDITIONAL EXPERIMENTS ON GPT-2", "subsection": null, "heading_path": ["F.1 ADDITIONAL EXPERIMENTS ON GPT-2"]} -->
 
 | Hyperparameters                                            | Fine-Tune PreEmbed PreLayer BitFit Adapter   | H    | LoRA                                                 |
 |------------------------------------------------------------|----------------------------------------------|------|------------------------------------------------------|
@@ -492,8 +603,10 @@ rally, we replace them after every Transformer block with an input agnostic vect
 In Table 15, we show the evaluation results of LoRA+PE and LoRA+PL on WikiSQL and MultiNLI. First of all, LoRA+PE significantly outperforms both LoRA and prefix-embedding tuning on WikiSQL, which indicates that LoRA is somewhat orthogonal to prefix-embedding tuning. On MultiNLI, the combination of LoRA+PE doesn't perform better than LoRA, possibly because LoRA on its own already achieves performance comparable to the human baseline. Secondly, we notice that LoRA+PL performs slightly worse than LoRA even with more trainable parameters. We attribute this to the fact that prefix-layer tuning is very sensitive to the choice of learning rate and thus makes the optimization of LoRA weights more difficult in LoRA+PL.
 
 ## F ADDITIONAL EMPIRICAL EXPERIMENTS
+<!-- section_metadata: {"section": "F ADDITIONAL EMPIRICAL EXPERIMENTS", "subsection": null, "heading_path": ["F ADDITIONAL EMPIRICAL EXPERIMENTS"]} -->
 
 ## F.1 ADDITIONAL EXPERIMENTS ON GPT-2
+<!-- section_metadata: {"section": "F.1 ADDITIONAL EXPERIMENTS ON GPT-2", "subsection": null, "heading_path": ["F.1 ADDITIONAL EXPERIMENTS ON GPT-2"]} -->
 
 We also repeat our experiment on DART (Nan et al., 2020) and WebNLG (Gardent et al., 2017) following the setup of Li &amp; Liang (2021). The result is shown in Table 13. Similar to our result on E2E NLG Challenge, reported in Section 5, LoRA performs better than or at least on-par with prefix-based approaches given the same number of trainable parameters.
 
@@ -514,6 +627,10 @@ Table 13: GPT-2 with different adaptation methods on DART. The variances of MET 
 | Adapter L       | 23M                               | 47.1±.1      |                | 0.39 0.45    |
 | PrefLayer 0.77M |                                   |              | 46.7 0.38      | 0.45         |
 |                 | LoRA 0.77M                        | 47.5±.1      |                | 0.39 0.45    |
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 22, "page_start": 22, "page_end": 22, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=22", "section": "G MEASURING SIMILARITY BETWEEN SUBSPACES", "subsection": null, "heading_path": ["G MEASURING SIMILARITY BETWEEN SUBSPACES"]} -->
 
 | Method            | WebNLG       | WebNLG         | WebNLG         | WebNLG       | WebNLG       | WebNLG       | WebNLG       | WebNLG       | WebNLG       |
 |-------------------|--------------|----------------|----------------|--------------|--------------|--------------|--------------|--------------|--------------|
@@ -536,26 +653,33 @@ Table 13: GPT-2 with different adaptation methods on DART. The variances of MET 
 Table 14: GPT-2 with different adaptation methods on WebNLG. The variances of MET and TER are less than 0 . 01 for all the experiments we ran. "U" indicates unseen categories, "S" indicates seen categories, and "A" indicates all categories in the test set of WebNLG.
 
 ## F.2 ADDITIONAL EXPERIMENTS ON GPT-3
+<!-- section_metadata: {"section": "F.2 ADDITIONAL EXPERIMENTS ON GPT-3", "subsection": null, "heading_path": ["F.2 ADDITIONAL EXPERIMENTS ON GPT-3"]} -->
 
 We present additional runs on GPT-3 with different adaptation methods in Table 15. The focus is on identifying the trade-off between performance and the number of trainable parameters.
 
 ## F.3 LOW-DATA REGIME
+<!-- section_metadata: {"section": "F.3 LOW-DATA REGIME", "subsection": null, "heading_path": ["F.3 LOW-DATA REGIME"]} -->
 
 To evaluate the performance of different adaptation approaches in the low-data regime. we randomly sample 100, 1k and 10k training examples from the full training set of MNLI to form the low-data MNLI-n tasks. In Table 16, we show the performance of different adaptation approaches on MNLIn . To our surprise, PrefixEmbed and PrefixLayer performs very poorly on MNLI-100 dataset, with PrefixEmbed performing only slightly better than random chance (37.6% vs. 33.3%). PrefixLayer performs better than PrefixEmbed but is still significantly worse than Fine-Tune or LoRA on MNLI100. The gap between prefix-based approaches and LoRA/Fine-tuning becomes smaller as we increase the number of training examples, which might suggest that prefix-based approaches are not suitable for low-data tasks in GPT-3. LoRA achieves better performance than fine-tuning on both MNLI-100 and MNLI-Full, and comparable results on MNLI-1k and MNLI-10K considering the (±0 . 3) variance due to random seeds.
 
 The training hyperparameters of different adaptation approaches on MNLI-n are reported in Table 17. We use a smaller learning rate for PrefixLayer on the MNLI-100 set, as the training loss does not decrease with a larger learning rate.
 
 ## G MEASURING SIMILARITY BETWEEN SUBSPACES
+<!-- section_metadata: {"section": "G MEASURING SIMILARITY BETWEEN SUBSPACES", "subsection": null, "heading_path": ["G MEASURING SIMILARITY BETWEEN SUBSPACES"]} -->
 
-In this paper we use the measure φ(A, B, i, j) = ψ(U
-A i U
-A , U
-B j U
-B ) = kU i&gt; A UBk 2 F min{i,j} to measure the subspace similarity between two column orthonormal matrices U
-A i U
-A ∈ R d×i and U
-B j U
+In this paper we use the measure φ(A, B, i, j) = ψ(U
+A i U
+A , U
+B j U
+B ) = kU i&gt; A UBk 2 F min{i,j} to measure the subspace similarity between two column orthonormal matrices U
+A i U
+A ∈ R d×i and U
+B j U
 B ∈ R d×j , obtained by taking columns of the left singular matrices of A and B. We point out that this similarity is simply a reverse of the standard Projection Metric that measures distance between subspaces Ham &amp; Lee (2008).
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 23, "page_start": 23, "page_end": 23, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=23", "section": "G MEASURING SIMILARITY BETWEEN SUBSPACES", "subsection": null, "heading_path": ["G MEASURING SIMILARITY BETWEEN SUBSPACES"]} -->
 
 Table 15: Hyperparameter analysis of different adaptation approaches on WikiSQL and MNLI. Both prefix-embedding tuning (PrefixEmbed) and prefix-layer tuning (PrefixLayer) perform worse as we increase the number of trainable parameters, while LoRA's performance stabilizes. Performance is measured in validation accuracy.
 
@@ -602,13 +726,17 @@ Table 16: Validation accuracy of different methods on subsets of MNLI using GPT-
 | GPT-3 (PrefixLayer) |      | 48.3 82.5 85.9 89.6 |                                                   |
 | GPT-3 (LoRA)        | 63.8 | 85.6                | 89.2 91.7                                         |
 
-To be concrete, let the singular values of U
-A i&gt; U
-A U
-B j U
+To be concrete, let the singular values of U
+A i&gt; U
+A U
+B j U
 B to be σ 1, σ2 , · · · , σp where p = min{i, j}. We know that the Projection Metric Ham &amp; Lee (2008) is defined as:
 
 <!-- formula-not-decoded -->
+
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 24, "page_start": 24, "page_end": 24, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=24", "section": "H.3 CORRELATION BETWEEN W AND ∆W", "subsection": null, "heading_path": ["H.3 CORRELATION BETWEEN W AND ∆W"]} -->
 
 Table 17: The hyperparameters used for different GPT-3 adaptation methods on MNLI(m)-n .
 
@@ -623,25 +751,29 @@ where our similarity is defined as:
 
 <!-- formula-not-decoded -->
 
-This similarity satisfies that if U
-A i U
-A and U
-B j U
+This similarity satisfies that if U
+A i U
+A and U
+B j U
 B share the same column span, then φ(A, B, i, j) = 1. If they are completely orthogonal, then φ(A, B, i, j) = 0. Otherwise, φ(A, B, i, j) ∈ (0 , 1) .
 
 ## H ADDITIONAL EXPERIMENTS ON LOW-RANK MATRICES
+<!-- section_metadata: {"section": "H ADDITIONAL EXPERIMENTS ON LOW-RANK MATRICES", "subsection": null, "heading_path": ["H ADDITIONAL EXPERIMENTS ON LOW-RANK MATRICES"]} -->
 
 We present additional results from our investigation into the low-rank update matrices.
 
 ## H.1 CORRELATION BETWEEN LORA MODULES
+<!-- section_metadata: {"section": "H.1 CORRELATION BETWEEN LORA MODULES", "subsection": null, "heading_path": ["H.1 CORRELATION BETWEEN LORA MODULES"]} -->
 
 See Figure 6 and Figure 7 for how the results presented in Figure 3 and Figure 4 generalize to other layers.
 
 ## H.2 EFFECT OF r ON GPT-2
+<!-- section_metadata: {"section": "H.2 EFFECT OF r ON GPT-2", "subsection": null, "heading_path": ["H.2 EFFECT OF r ON GPT-2"]} -->
 
 We repeat our experiment on the effect of r (Section 7.2) in GPT-2. Using the E2E NLG Challenge dataset as an example, we report the validation loss and test metrics achieved by different choices of r after training for 26,000 steps. We present our result in Table 18. The optimal rank for GPT-2 Medium is between 4 and 16 depending on the metric used, which is similar to that for GPT-3 175B. Note that the relationship between model size and the optimal rank for adaptation is still an open question.
 
 ## H.3 CORRELATION BETWEEN W AND ∆W
+<!-- section_metadata: {"section": "H.3 CORRELATION BETWEEN W AND ∆W", "subsection": null, "heading_path": ["H.3 CORRELATION BETWEEN W AND ∆W"]} -->
 
 See Figure 8 for the normalized subspace similarity between W and ∆W with varying r .
 
@@ -649,11 +781,16 @@ Note again that ∆W does not contain the top singular directions of W, since th
 
 An interesting next question to answer, is how "strong" do we need to amplify those task-specific directions, in order for the model adaptation to work well?
 
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 25, "page_start": 25, "page_end": 25, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=25", "section": "H.4 AMPLIFICATION FACTOR", "subsection": null, "heading_path": ["H.4 AMPLIFICATION FACTOR"]} -->
+
 Figure 6: Normalized subspace similarity between the column vectors of A r=8 and A r =64 for both ∆Wq Wq and ∆Wv Wv from the 1st, 32nd, 64th, and 96th layers in a 96-layer Transformer.
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "lora_low_rank_adaptation_page025_image001", "document_name": "lora_low_rank_adaptation.pdf", "page": 25, "section": "H.4 AMPLIFICATION FACTOR", "subsection": null, "heading_path": ["H.4 AMPLIFICATION FACTOR"], "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=25", "bbox": {"l": 108.59526062011719, "t": 711.518180847168, "r": 503.4733581542969, "b": 349.0198059082031}, "image_description": "A imagem é um heatmap que visualiza valores de $\\Delta W_0$ em diferentes camadas (Layer 1, 32, 64, 96) e índices, com uma escala de cores que varia de 0.0 a 1.0. A figura é titulada $\\phi(A_{i-1}, A_i = \\epsilon_4, f_i)$ e apresenta uma grade com linhas correspondentes às camadas e colunas indexadas de 1 a 8. Provavelmente analisa a magnitude de parâmetros em uma rede neural, exibindo padrões de intensidade variando entre as camadas e colunas.", "image_description_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 ## H.4 AMPLIFICATION FACTOR
+<!-- section_metadata: {"section": "H.4 AMPLIFICATION FACTOR", "subsection": null, "heading_path": ["H.4 AMPLIFICATION FACTOR"]} -->
 
 One can naturally consider a feature amplification factor as the ratio k∆WkF kU &gt; W V &gt;kF , where U and V are the left- and right-singular matrices of the SVD decomposition of ∆W. (Recall UU &gt; W V &gt; V gives the "projection" of W onto the subspace spanned by ∆W.)
 
@@ -661,7 +798,11 @@ Intuitively, when ∆W mostly contains task-specific directions, this quantity m
 
 One may notice, however, for r = 64, this amplification factor is only around 2, meaning that most directions learned in ∆W with r = 64 are not being amplified by much. This should not be surprising, and in fact gives evidence (once again) that the intrinsic rank needed to represent the "task-specific directions" (thus for model adaptation) is low. In contrast, those directions in the rank-4 version of ∆W (corresponding to r = 4) are amplified by a much larger factor 20.
 
-<!-- image -->
+---
+
+<!-- page_metadata: {"document_name": "lora_low_rank_adaptation.pdf", "page": 26, "page_start": 26, "page_end": 26, "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=26", "section": "H.4 AMPLIFICATION FACTOR", "subsection": null, "heading_path": ["H.4 AMPLIFICATION FACTOR"]} -->
+
+<!-- image_metadata: {"image_id": "lora_low_rank_adaptation_page026_image001", "document_name": "lora_low_rank_adaptation.pdf", "page": 26, "section": "H.4 AMPLIFICATION FACTOR", "subsection": null, "heading_path": ["H.4 AMPLIFICATION FACTOR"], "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=26", "bbox": {"l": 108.62779998779297, "t": 710.0130844116211, "r": 502.9992980957031, "b": 533.0003662109375}, "image_description": "As imagens exibidas na figura são de um tipo de matriz de calor (heatmap) utilizado para representar a diferença entre as camadas dos pesos, denominado ΔW, y entre um peso específico and seu elemento anterior, indicado pela notação phi(A'... A, i, j). Ó array de peso é um conjunto de valores numéricos que permitem a interpretação das características de um documento.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
 
 Figure 7: Normalized subspace similarity between the column vectors of A r =64 from two randomly seeded runs, for both ∆Wq Wq and ∆Wv Wv from the 1st, 32nd, 64th, and 96th layers in a 96-layer Transformer.
 
@@ -683,4 +824,4 @@ Table 18: Validation loss and test set metrics on E2E NLG Challenge achieved by 
 
 Figure 8: Normalized subspace similarity between the singular directions of Wq Wq and those of ∆Wq Wq with varying r and a random baseline. ∆Wq Wq amplifies directions that are important but not emphasized in W . ∆W with a larger r tends to pick up more directions that are already emphasized in W .
 
-<!-- image -->
+<!-- image_metadata: {"image_id": "lora_low_rank_adaptation_page026_image002", "document_name": "lora_low_rank_adaptation.pdf", "page": 26, "section": "H.4 AMPLIFICATION FACTOR", "subsection": null, "heading_path": ["H.4 AMPLIFICATION FACTOR"], "pdf_link": "corpus/raw/aula04/lora_low_rank_adaptation.pdf#page=26", "bbox": {"l": 108.49578857421875, "t": 252.9033203125, "r": 502.4161682128906, "b": 117.3109130859375}, "image_description": "Essa imagem, provavelmente do artigo \"Manuscript Title\", barra o impacto relativo de diferentes escolhas de prática de mini-batch no SGD (descida dos gradientes estocásticos). Ela compara a estabilidade dos resultados computacionais midiatando sobre instâncias aleatórias do problema usando um algoritmo regularizado de aprendizado, medindo a sensibilidade das soluções à variável 'A' e, diferente do modelo canonico gris, revela que a sensibilidade aumenta conforme variamos 'A', evidenciando os diferenças surgidas devido à superparametria do problema.\n", "image_description_model": "nvidia/nemotron-nano-12b-v2-vl:free", "image_description_skipped": false, "image_description_primary_model": "nvidia/nemotron-nano-12b-v2-vl:free"} -->
