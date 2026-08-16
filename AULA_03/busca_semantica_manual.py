@@ -17,11 +17,10 @@ from openai import OpenAI
 load_dotenv()
 
 client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=os.getenv("OPENROUTER_API_KEY"),
+    base_url=os.getenv("LOCAL_OPENAI_BASE_URL", "http://localhost:5001/v1/"),
+    api_key=os.getenv("LOCAL_OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY") or "local",
 )
 
-embedding_model = os.getenv("OPENAI_EMBEDDING_MODEL", "nvidia/nemotron-3-embed-1b:free")
 REPO_DIR = Path(__file__).resolve().parents[1]
 DOCUMENTOS_DIR = REPO_DIR / "corpus" / "processed" / "aula02"
 EMBEDDINGS_DIR = REPO_DIR / "corpus" / "embeddings" / "aula03"
@@ -38,6 +37,24 @@ ESTRATEGIAS = {
     9: "recursivo",
     10: "markdown_heading",
 }
+
+
+def escolher_modelo_embedding() -> str:
+    modelo_env = os.getenv("LOCAL_EMBEDDING_MODEL")
+    if modelo_env and modelo_env.lower() != "inactive":
+        return modelo_env
+
+    modelos = client.models.list()
+    ids_modelos = [modelo.id for modelo in modelos.data if getattr(modelo, "id", None)]
+    for modelo_id in ids_modelos:
+        modelo_lower = modelo_id.lower()
+        if "qwen" in modelo_lower and "embed" in modelo_lower:
+            return modelo_id
+
+    raise RuntimeError("Nenhum modelo local de embedding Qwen foi encontrado.")
+
+
+embedding_model = escolher_modelo_embedding()
 
 
 def ler_documentos_markdown(diretorio: Path = DOCUMENTOS_DIR) -> List[Dict[str, str]]:
@@ -98,6 +115,29 @@ def montar_trechos(documentos: List[Dict[str, str]], grupo: int) -> List[Dict[st
     return trechos
 
 
+def montar_trechos_linhas(documentos: List[Dict[str, str]]) -> List[Dict[str, Any]]:
+    """Quebra os documentos linha por linha para a busca semântica manual."""
+    trechos = []
+
+    for documento in documentos:
+        indice = 1
+        for linha in documento["texto"].splitlines():
+            texto = linha.strip()
+            if not texto:
+                continue
+
+            trechos.append({
+                "arquivo": documento["arquivo"],
+                "indice": indice,
+                "grupo": "linha",
+                "tamanho": len(texto),
+                "texto": texto,
+            })
+            indice += 1
+
+    return trechos
+
+
 def montar_trechos_sentencas(documentos: List[Dict[str, str]], tamanho_grupo: int = 3) -> List[Dict[str, Any]]:
     """Grupo 8: Quebra o texto em sentenças e junta em blocos de N sentenças."""
     trechos = []
@@ -144,7 +184,7 @@ def montar_trechos_markdown(documentos: List[Dict[str, str]]) -> List[Dict[str, 
     return trechos
 
 def gerar_embeddings_em_lote(textos: List[str], lote_tamanho: int = 64) -> Dict[str, List[float]]:
-    """Gera embeddings em lote utilizando a API do OpenRouter."""
+    """Gera embeddings em lote utilizando a API local compatível com OpenAI."""
     embeddings = {}
     textos_unicos = list(dict.fromkeys(texto.strip() for texto in textos if texto and texto.strip()))
 
@@ -180,6 +220,19 @@ def similaridade_cosseno(embedding_a: List[float], embedding_b: List[float]) -> 
         return 0.0
 
     return produto_escalar / ((norma_a ** 0.5) * (norma_b ** 0.5))
+
+
+def distancia_euclidiana(embedding_a: List[float], embedding_b: List[float]) -> float:
+    """Calcula a distância euclidiana entre dois vetores de embedding."""
+    if len(embedding_a) != len(embedding_b):
+        raise ValueError("Embeddings precisam ter a mesma dimensão")
+
+    return sum((a - b) ** 2 for a, b in zip(embedding_a, embedding_b)) ** 0.5
+
+
+def distancia_cosseno(embedding_a: List[float], embedding_b: List[float]) -> float:
+    """Calcula a distância de cosseno entre dois vetores de embedding."""
+    return 1.0 - similaridade_cosseno(embedding_a, embedding_b)
 
 
 def buscar_top_k(
@@ -265,16 +318,91 @@ def gerar_relatorio_busca_semantica(
     return relatorio
 
 
-if __name__ == "__main__":
-    if not os.getenv("OPENROUTER_API_KEY"):
-        raise RuntimeError("Defina OPENROUTER_API_KEY no .env ou no ambiente antes de executar este script.")
-
-    queries_teste = [
-        "O que é autonomia e opacidade algorítmica?",
-        "Quais são os principais problemas éticos em modelos de linguagem?"
+def comparar_frases_teste() -> Dict[str, Any]:
+    """Compara a frase âncora com exemplos de sentidos diferentes."""
+    frase_ancora = "O cachorro correu no parque e brincou com a bola."
+    frases_comparacao = [
+        ("Similar (mesmo sentido, palavras diferentes)", "Um cão estava correndo no jardim e brincando com seu brinquedo."),
+        ("Relacionado (mesmo contexto de animais)", "O gato dormiu na almofada da sala durante toda a tarde."),
+        ("Diferente (outro domínio - economia)", "A taxa de juros do banco central subiu dois pontos percentuais."),
+        ("Oposto/Negação", "Nenhum animal esteve no parque e o cão permaneceu preso em casa."),
     ]
 
-    print("Gerando embeddings reais via API...")
+    textos = [frase_ancora] + [frase for _, frase in frases_comparacao]
+    embeddings = gerar_embeddings_em_lote(textos)
+    embedding_ancora = embeddings[frase_ancora]
+
+    resultados = []
+    for rotulo, frase in frases_comparacao:
+        embedding_comparacao = embeddings[frase]
+        resultados.append({
+            "rotulo": rotulo,
+            "frase": frase,
+            "distancia_euclidiana": round(distancia_euclidiana(embedding_ancora, embedding_comparacao), 4),
+            "similaridade_cosseno": round(similaridade_cosseno(embedding_ancora, embedding_comparacao), 4),
+            "distancia_cosseno": round(distancia_cosseno(embedding_ancora, embedding_comparacao), 4),
+        })
+
+    return {
+        "frase_ancora": frase_ancora,
+        "resultados": resultados,
+    }
+
+
+def gerar_relatorio_top3_busca_manual(queries: List[str]) -> List[Dict[str, Any]]:
+    """Executa a busca semântica manual em linhas, parágrafos e capítulos."""
+    documentos = ler_documentos_markdown()
+    estrategias = {
+        "linha": montar_trechos_linhas(documentos),
+        "paragrafo": montar_trechos(documentos, 7),
+        "capitulo": montar_trechos_markdown(documentos),
+    }
+    textos_para_embedding = list(queries)
+    for trechos in estrategias.values():
+        textos_para_embedding.extend(trecho["texto"] for trecho in trechos)
+
+    embeddings = gerar_embeddings_em_lote(textos_para_embedding)
+    relatorio = []
+
+    for query in queries:
+        item_query = {
+            "query": query,
+            "top_3_por_estrategia": {},
+        }
+
+        for nome_estrategia, trechos in estrategias.items():
+            item_query["top_3_por_estrategia"][nome_estrategia] = buscar_top_k(
+                query,
+                trechos,
+                embeddings,
+                k=3,
+            )
+
+        relatorio.append(item_query)
+
+    return relatorio
+
+
+if __name__ == "__main__":
+    queries_teste = [
+        "O que é autonomia e opacidade algorítmica?",
+        "O que é o diário de bordo da IA?",
+        "Quais são os principais problemas éticos em modelos de linguagem?",
+    ]
+
+    print(f"Gerando embeddings locais com {embedding_model}...")
+    EMBEDDINGS_DIR.mkdir(parents=True, exist_ok=True)
+
+    relatorio_comparacao = comparar_frases_teste()
+    arquivo_comparacao = EMBEDDINGS_DIR / "Aula03_comparacao_frases.json"
+    with open(arquivo_comparacao, "w", encoding="utf-8") as f:
+        json.dump(relatorio_comparacao, f, indent=2, ensure_ascii=False)
+
+    relatorio_top3 = gerar_relatorio_top3_busca_manual(queries_teste)
+    arquivo_top3 = EMBEDDINGS_DIR / "Aula03_busca_semantica_manual.json"
+    with open(arquivo_top3, "w", encoding="utf-8") as f:
+        json.dump(relatorio_top3, f, indent=2, ensure_ascii=False)
+
     relatorio_completo = gerar_relatorio_busca_semantica(queries_teste, k=None)
 
     LIMIAR = 0.6
@@ -301,7 +429,6 @@ if __name__ == "__main__":
             "resultados": res_menores
         })
 
-    EMBEDDINGS_DIR.mkdir(parents=True, exist_ok=True)
     arquivo_maiores = EMBEDDINGS_DIR / "relatorio_maiores_ou_igual_06.json"
     arquivo_menores = EMBEDDINGS_DIR / "relatorio_menores_06.json"
 
@@ -312,5 +439,7 @@ if __name__ == "__main__":
         json.dump(relatorio_menores, f, indent=2, ensure_ascii=False)
 
     print("\nArquivos salvos com sucesso!")
+    print(f" - Comparação de frases: {arquivo_comparacao}")
+    print(f" - TOP 3 busca manual: {arquivo_top3}")
     print(f" - Scores >= 0.6: {arquivo_maiores}")
     print(f" - Scores <  0.6: {arquivo_menores}")

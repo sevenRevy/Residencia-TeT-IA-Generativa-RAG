@@ -1,222 +1,246 @@
 [
   {
     "query": "O que é autonomia e opacidade algorítmica?",
-    "resultados": {
+    "top_3_por_estrategia": {
       "linha": [
         {
           "arquivo": "bioetica_e_ia.md",
-          "indice": 41,
-          "granularidade": "linha",
-          "texto": "## Autonomia e opacidade algorítmica",
-          "similaridade_cosseno": 0.9446289574605747
+          "indice": 54,
+          "tamanho": 286,
+          "score_similaridade": 0.7511,
+          "texto": "<!-- page_metadata: {\"document_name\": \"bioetica_e_ia.pdf\", \"page\": 4, \"page_start\": 4, \"page_end\": 4, \"pdf_link\": \"corpus/raw/aula02/bioetica_e_ia.pdf#page=4\", \"section\": \"Autonomia e opacidade algorítmica\", \"subsection\": null, \"heading_path\": [\"Autonomia e opacidade algorítmica\"]} -->"
         },
         {
           "arquivo": "bioetica_e_ia.md",
-          "indice": 20,
-          "granularidade": "linha",
-          "texto": "Contudo, o advento da IA na medicina introduz novos e complexos desafios éticos que tensionam esses princípios. Entre os dilemas que emergem estão  a  opacidade  e  a  não  explicabilidade  dos algoritmos - os chamados black boxes -, que difi -cultam a compreensão e a validação das decisões automatizadas por parte de médicos e pacientes, e essa falta de transparência algorítmica compro -mete o princípio da autonomia, pois impede o con -sentimento plenamente informado. Além disso, surgem questões sobre a responsabilização por erros clínicos decorrentes de decisões baseadas em IA, com dúvidas sobre se a culpa recai sobre o médico, o programador, a instituição de saúde ou o próprio algoritmo  2,5,6 .",
-          "similaridade_cosseno": 0.5057033782431988
+          "indice": 58,
+          "tamanho": 150,
+          "score_similaridade": 0.7265,
+          "texto": "<!-- section_metadata: {\"section\": \"Autonomia e opacidade algorítmica\", \"subsection\": null, \"heading_path\": [\"Autonomia e opacidade algorítmica\"]} -->"
         },
         {
           "arquivo": "bioetica_e_ia.md",
-          "indice": 44,
-          "granularidade": "linha",
-          "texto": "Além  disso,  a  opacidade  algorítmica  intro -duz novas camadas de assimetria informacional. Pacientes com menor escolaridade, acesso digital limitado ou baixo letramento em saúde são ainda mais vulneráveis a perda de autonomia, uma vez que enfrentam barreiras adicionais à compreen -são dos processos decisórios. Como defendido por Gerke, Minssen e Cohen, a autonomia não é ape -nas direito individual, mas fenômeno relacional que exige contextos adequados para ser exercida - entre eles, o acesso a informação clara e inteligível 6 .",
-          "similaridade_cosseno": 0.49271992161561695
+          "indice": 57,
+          "tamanho": 36,
+          "score_similaridade": 0.7249,
+          "texto": "## Autonomia e opacidade algorítmica"
         }
       ],
       "paragrafo": [
         {
           "arquivo": "bioetica_e_ia.md",
-          "indice": 40,
-          "granularidade": "paragrafo",
-          "texto": "## Autonomia e opacidade algorítmica",
-          "similaridade_cosseno": 0.9446289574605747
+          "indice": 23,
+          "tamanho": 286,
+          "score_similaridade": 0.7511,
+          "texto": "<!-- page_metadata: {\"document_name\": \"bioetica_e_ia.pdf\", \"page\": 4, \"page_start\": 4, \"page_end\": 4, \"pdf_link\": \"corpus/raw/aula02/bioetica_e_ia.pdf#page=4\", \"section\": \"Autonomia e opacidade algorítmica\", \"subsection\": null, \"heading_path\": [\"Autonomia e opacidade algorítmica\"]} -->"
         },
         {
           "arquivo": "bioetica_e_ia.md",
-          "indice": 20,
-          "granularidade": "paragrafo",
-          "texto": "Contudo, o advento da IA na medicina introduz novos e complexos desafios éticos que tensionam esses princípios. Entre os dilemas que emergem estão  a  opacidade  e  a  não  explicabilidade  dos algoritmos - os chamados black boxes -, que difi -cultam a compreensão e a validação das decisões automatizadas por parte de médicos e pacientes, e essa falta de transparência algorítmica compro -mete o princípio da autonomia, pois impede o con -sentimento plenamente informado. Além disso, surgem questões sobre a responsabilização por erros clínicos decorrentes de decisões baseadas em IA, com dúvidas sobre se a culpa recai sobre o médico, o programador, a instituição de saúde ou o próprio algoritmo  2,5,6 .",
-          "similaridade_cosseno": 0.5057033806257203
+          "indice": 26,
+          "tamanho": 873,
+          "score_similaridade": 0.6102,
+          "texto": "## Autonomia e opacidade algorítmica\n<!-- section_metadata: {\"section\": \"Autonomia e opacidade algorítmica\", \"subsection\": null, \"heading_path\": [\"Autonomia e opacidade algorítmica\"]} -->\n\nO princípio da autonomia é central na ética médica moderna e representa o direito do paciente de tomar decisões informadas sobre seu próprio cuidado. A realização plena desse princípio, fundamentado na transparência da relação médico-paciente, depende de comunicação clara, compreensão dos riscos e participação ativa do paciente no processo terapêutico. Contudo, a ascensão da IA, especialmente em formas de deep learning, ameaça minar essa transparência essencial. Algoritmos complexos, treinados com grandes volumes de dados, frequentemente operam como \"caixas-pretas\", ou seja, são incapazes de explicar, de forma compreensível, como chegaram a determinada recomendação 1,2,4,22 ."
         },
         {
           "arquivo": "bioetica_e_ia.md",
-          "indice": 43,
-          "granularidade": "paragrafo",
-          "texto": "Além  disso,  a  opacidade  algorítmica  intro -duz novas camadas de assimetria informacional. Pacientes com menor escolaridade, acesso digital limitado ou baixo letramento em saúde são ainda mais vulneráveis a perda de autonomia, uma vez que enfrentam barreiras adicionais à compreen -são dos processos decisórios. Como defendido por Gerke, Minssen e Cohen, a autonomia não é ape -nas direito individual, mas fenômeno relacional que exige contextos adequados para ser exercida - entre eles, o acesso a informação clara e inteligível 6 .",
-          "similaridade_cosseno": 0.49271992111241286
+          "indice": 28,
+          "tamanho": 526,
+          "score_similaridade": 0.5554,
+          "texto": "Além disso, a opacidade algorítmica introduz novas camadas de assimetria informacional. Pacientes com menor escolaridade, acesso digital limitado ou baixo letramento em saúde são ainda mais vulneráveis a perda de autonomia, uma vez que enfrentam barreiras adicionais à compreensão dos processos decisórios. Como defendido por Gerke, Minssen e Cohen, a autonomia não é apenas direito individual, mas fenômeno relacional que exige contextos adequados para ser exercida – entre eles, o acesso a informação clara e inteligível 6 ."
         }
       ],
       "capitulo": [
         {
           "arquivo": "bioetica_e_ia.md",
           "indice": 11,
-          "granularidade": "capitulo",
-          "texto": "## Autonomia e opacidade algorítmica\n\nO princípio da autonomia é central na ética médica  moderna  e  representa  o  direito  do paciente  de  tomar  decisões  informadas  sobre seu  próprio  cuidado.  A  realização  plena  desse princípio, fundamentado na transparência da rela -ção médico-paciente, depende de comunicação clara, compreensão dos riscos e participação ativa do paciente no processo terapêutico. Contudo, a ascensão da IA, especialmente em formas de deep learning , ameaça minar essa transparência essencial. Algoritmos complexos, treinados com grandes  volumes  de  dados,  frequentemente operam como 'caixas-pretas', ou seja, são inca -pazes de explicar, de forma compreensível, como chegaram a determinada recomendação  1,2,4,22 .\n\nTal opacidade compromete a base do consenti -mento informado, já que nem mesmo profissionais de saúde compreendem integralmente os crité -rios utilizados pelos algoritmos. Como destacam Morley e colaboradores 21 , quando o médico não consegue explicar ao paciente como uma decisão foi tomada - seja um diagnóstico, classificação de risco ou proposta terapêutica -, o próprio pacto ético que fundamenta a autonomia acaba sendo abalado. O paciente, em vez de decidir livremente, torna-se dependente de um sistema cuja lógica lhe é inacessível.\n\nAlém  disso,  a  opacidade  algorítmica  intro -duz novas camadas de assimetria informacional. Pacientes com menor escolaridade, acesso digital limitado ou baixo letramento em saúde são ainda mais vulneráveis a perda de autonomia, uma vez que enfrentam barreiras adicionais à compreen -são dos processos decisórios. Como defendido por Gerke, Minssen e Cohen, a autonomia não é ape -nas direito individual, mas fenômeno relacional que exige contextos adequados para ser exercida - entre eles, o acesso a informação clara e inteligível 6 .\n\nA questão se agrava quando consideramos a ambiguidade em torno da responsabilidade ética e jurídica das decisões tomadas com auxílio de IA. Quando uma decisão clínica é tomada com base em recomendação algorítmica, quem deve ser responsabilizado por seus resultados? O médico? O desenvolvedor do algoritmo? A instituição  5 ? A ausência de clareza quanto à responsabilização moral - o que é chamado por alguns autores de 'vácuo ético' 23 - compromete não apenas a auto -nomia, mas a própria legitimidade do cuidado.\n\nNesse cenário, torna-se urgente avançar na direção de sistemas mais explicáveis e auditáveis 24 . A transparência algorítmica, aliada ao desenvolvi -mento de mecanismos participativos de consen -timento e mediação, é condição essencial para preservar a autonomia do paciente em uma era dominada por decisões automatizadas.",
-          "similaridade_cosseno": 0.5786125279534302
+          "tamanho": 3038,
+          "score_similaridade": 0.5673,
+          "texto": "<!-- section_metadata: {\"section\": \"Autonomia e opacidade algorítmica\", \"subsection\": null, \"heading_path\": [\"Autonomia e opacidade algorítmica\"]} -->  \nO princípio da autonomia é central na ética médica moderna e representa o direito do paciente de tomar decisões informadas sobre seu próprio cuidado. A realização plena desse princípio, fundamentado na transparência da relação médico-paciente, depende de comunicação clara, compreensão dos riscos e participação ativa do paciente no processo terapêutico. Contudo, a ascensão da IA, especialmente em formas de deep learning, ameaça minar essa transparência essencial. Algoritmos complexos, treinados com grandes volumes de dados, frequentemente operam como \"caixas-pretas\", ou seja, são incapazes de explicar, de forma compreensível, como chegaram a determinada recomendação1,2,4,22 .  \nTal opacidade compromete a base do consentimento informado, já que nem mesmo profissionais de saúde compreendem integralmente os critérios utilizados pelos algoritmos. Como destacam Morley e colaboradores 21 , quando o médico não consegue explicar ao paciente como uma decisão foi tomada – seja um diagnóstico, classificação de risco ou proposta terapêutica –, o próprio pacto ético que fundamenta a autonomia acaba sendo abalado. O paciente, em vez de decidir livremente, torna-se dependente de um sistema cuja lógica lhe é inacessível.  \nAlém disso, a opacidade algorítmica introduz novas camadas de assimetria informacional. Pacientes com menor escolaridade, acesso digital limitado ou baixo letramento em saúde são ainda mais vulneráveis a perda de autonomia, uma vez que enfrentam barreiras adicionais à compreensão dos processos decisórios. Como defendido por Gerke, Minssen e Cohen, a autonomia não é apenas direito individual, mas fenômeno relacional que exige contextos adequados para ser exercida – entre eles, o acesso a informação clara e inteligível 6 .  \nA questão se agrava quando consideramos a ambiguidade em torno da responsabilidade ética e jurídica das decisões tomadas com auxílio de IA. Quando uma decisão clínica é tomada com base em recomendação algorítmica, quem deve ser responsabilizado por seus resultados? O médico? O desenvolvedor do algoritmo? A instituição 5 ? A ausência de clareza quanto à responsabilização moral – o que é chamado por alguns autores de \"vácuo ético\"23 – compromete não apenas a autonomia, mas a própria legitimidade do cuidado.  \n---  \n<!-- page_metadata: {\"document_name\": \"bioetica_e_ia.pdf\", \"page\": 5, \"page_start\": 5, \"page_end\": 5, \"pdf_link\": \"corpus/raw/aula02/bioetica_e_ia.pdf#page=5\", \"section\": \"Não maleficência e danos invisíveis\", \"subsection\": null, \"heading_path\": [\"Não maleficência e danos invisíveis\"]} -->  \nNesse cenário, torna-se urgente avançar na direção de sistemas mais explicáveis e auditáveis 24 . A transparência algorítmica, aliada ao desenvolvimento de mecanismos participativos de consentimento e mediação, é condição essencial para preservar a autonomia do paciente em uma era dominada por decisões automatizadas.",
+          "metadata": {
+            "h2": "Autonomia e opacidade algorítmica"
+          }
         },
         {
-          "arquivo": "bioetica_e_ia.md",
-          "indice": 21,
-          "granularidade": "capitulo",
-          "texto": "## Considerações finais\n\nA inteligência artificial representa uma das transformações mais significativas da prática médica no século XXI. Ao mesmo tempo que oferece recursos poderosos para diagnósticos, prognósticos  e  terapias  personalizadas,  sua adoção  em  larga  escala  impõe  desafios  éti -cos profundos que reconfiguram os alicerces tradicionais da medicina. Tais transformações demandam não apenas atualização técnica dos profissionais de saúde, mas também reflexão crítica sobre os valores que devem nortear o uso dessas tecnologias.\n\nA  análise  crítica  da  literatura  revela  que  os princípios hipocráticos da beneficência, não male -ficência,  autonomia  e  justiça  continuam  sendo fundamentais, mas precisam ser reinterpretados à luz dos riscos e potencialidades da era digital. Autonomia, por exemplo, já não pode ser garan -tida  apenas  pelo  consentimento  informado tradicional:  ela  requer  explicabilidade  algorít -mica e transparência das decisões automatizadas. Beneficência demanda vigilância constante con -tra vieses nos dados e nos sistemas de aprendi -zagem da máquina, que podem comprometer a qualidade e a equidade do cuidado. Não malefi -cência exige abordagem sistêmica e interdiscipli -nar, que leve em conta os efeitos não intencionais dos algoritmos na prática clínica. E justiça implica compromisso com a democratização do acesso a tecnologias, a fim de evitar a concentração de recursos em contextos privilegiados.\n\nAdicionalmente,  os  marcos  legais  nacio -nais e internacionais oferecem importante base normativa, mas ainda insuficiente para dar conta da complexidade ética que os sistemas de IA em saúde introduzem. Embora forneçam diretrizes relevantes para proteção de dados e segurança da informação, muitos desses regulamentos ainda não abrangem integralmente os dilemas ligados à autonomia algorítmica, à responsabilidade em",
-          "similaridade_cosseno": 0.31530952774626836
+          "arquivo": "twitter_algoritmo.md",
+          "indice": 4,
+          "tamanho": 2371,
+          "score_similaridade": 0.4068,
+          "texto": "<!-- section_metadata: {\"section\": \"The Twitter/X Case: algorithm, public space, and digital ultra-liberalism\", \"subsection\": null, \"heading_path\": [\"The Twitter/X Case: algorithm, public space, and digital ultra-liberalism\"]} -->  \n<!-- image_metadata: {\"image_id\": \"twitter_algoritmo_page001_image001\", \"document_name\": \"twitter_algoritmo.pdf\", \"page\": 1, \"section\": \"Abstract\", \"subsection\": null, \"heading_path\": [\"Abstract\"], \"pdf_link\": \"corpus/raw/aula02/twitter_algoritmo.pdf#page=1\", \"bbox\": {\"l\": 366.98004347224946, \"t\": 617.2974075843755, \"r\": 380.1566199484461, \"b\": 605.6247062713844}, \"image_description\": \"Essa imagem representa o símbolo do documento do Adobe Acrobat utilizado para indicar informações adicionais ou interativas dentro de um documento PDF. O símbolo, no formato de um círculo verde com um olho estilizado e uma folha, é um recurso comum em interfaces de software, como marcadores no Adobe Acrobat, Adobe Reader e Microsoft Word.\\n\", \"image_description_model\": \"nvidia/nemotron-nano-12b-v2-vl:free\", \"image_description_skipped\": false, \"image_description_primary_model\": \"nvidia/nemotron-nano-12b-v2-vl:free\"} -->  \n<!-- image_metadata: {\"image_id\": \"twitter_algoritmo_page001_image002\", \"document_name\": \"twitter_algoritmo.pdf\", \"page\": 1, \"section\": \"Abstract\", \"subsection\": null, \"heading_path\": [\"Abstract\"], \"pdf_link\": \"corpus/raw/aula02/twitter_algoritmo.pdf#page=1\", \"bbox\": {\"l\": 372.1540939054256, \"t\": 602.9207477460487, \"r\": 385.31689677583444, \"b\": 590.9296402696248}, \"image_description\": \"A figura apresenta um símbolo de planta com a letra B no centro, envelopada por um círculo escuro e uma área exterior verde. Ela parece ser um tipo de diagrama estilizado, possivelmente relacionado a conceitos botânicos ou ecossistêmicos, onde cores e formas podem representar diferentes elementos interconectados, como cobertura vegetal, biodiversidade, ou atividade ecológica. Tal tipo de representação simbólica é comum em estudos ambientais e geográficos, servindo como visualização metafórica de relações complexas em um ambiente natural.\\n\", \"image_description_model\": \"nvidia/nemotron-nano-12b-v2-vl:free\", \"image_description_skipped\": false, \"image_description_primary_model\": \"nvidia/nemotron-nano-12b-v2-vl:free\"} -->  \n*Ettore Schimid Batalha1 *Jefferson Ribeiro da Silva 2  \n*Bruno Daniel Vendruscolo Espinosa Velásquez 3",
+          "metadata": {
+            "h2": "The Twitter/X Case: algorithm, public space, and digital ultra-liberalism"
+          }
         },
         {
-          "arquivo": "bioetica_e_ia.md",
-          "indice": 7,
-          "granularidade": "capitulo",
-          "texto": "## Between the algorithm and the Hippocratic Oath: bioethics in the age of artificial intelligence\n\nThe advancement of artificial intelligence has profoundly transformed medical practice. From clinical decisionsupport systems to screening and diagnostic algorithms, artificial intelligence has demonstrated potential for early diagnosis, personalized therapies, resource optimization, error reduction, and expanded access to specialized care. However, this technological revolution imposes significant ethical challenges on the classic principles of bioethics, such as beneficence, non-maleficence, confidentiality, and respect for patient autonomy, enshrined since the Hippocratic Oath. The incorporation of artificial intelligence into medicine raises tensions between automated efficiency and human values. This article reviews the literature on the primary ethical dilemmas of applying artificial intelligence in medical practice and evaluates to what extent Hippocratic principles can be preserved or adapted in the face of technological transformations, aiming to contribute to the debate on the ethical directions of contemporary medicine in a scenario of increasing automation.\n\nKeywords: Bioethics. Artificial intelligence. Ethics, medical. Personal autonomy.\n\nDeclaram não haver conflito de interesse.\n\nA introdução da inteligência artificial (IA) na medicina representa um dos maiores saltos tecno -lógicos da história recente da saúde. De sistemas de apoio à decisão clínica a algoritmos de triagem e diagnóstico, a IA tem demonstrado potencial para diagnósticos  precoces,  terapias  personalizadas, otimização de recursos, redução de erros médicos e ampliação do acesso a cuidados especializados, especialmente em regiões remotas ou com escas -sez de profissionais de saúde qualificados  1,2 . Em áreas como dermatologia, radiologia e cardiologia, algoritmos baseados em deep learning (apren -dizado  profundo)  já  demonstram  desempenho comparável, ou mesmo superior, ao de especialis -tas humanos em tarefas específicas 3 .\n\nNo entanto, a rápida expansão e incorporação da IA à prática clínica não ocorre sem desafios. A  adoção  acelerada  dessas  tecnologias  suscita preocupações éticas significativas, especialmente no que diz respeito aos princípios fundamentais da bioética. Desde seus primórdios, a medicina tem sido regida por princípios éticos que visam à proteção e ao bem-estar do paciente. O Juramento de Hipócrates, datado do século V a.C., consagrou valores  fundamentais  como  beneficência,  não maleficência, confidencialidade e respeito à auto -nomia do doente - pilares da bioética ainda hoje 4 . Tais valores foram reforçados no século XX por documentos como o Código de Nüremberg e  a Declaração de Helsinki , que consolidaram as bases para a ética em pesquisa e prática médica 3 .\n\nContudo, o advento da IA na medicina introduz novos e complexos desafios éticos que tensionam esses princípios. Entre os dilemas que emergem estão  a  opacidade  e  a  não  explicabilidade  dos algoritmos - os chamados black boxes -, que difi -cultam a compreensão e a validação das decisões automatizadas por parte de médicos e pacientes, e essa falta de transparência algorítmica compro -mete o princípio da autonomia, pois impede o con -sentimento plenamente informado. Além disso, surgem questões sobre a responsabilização por erros clínicos decorrentes de decisões baseadas em IA, com dúvidas sobre se a culpa recai sobre o médico, o programador, a instituição de saúde ou o próprio algoritmo  2,5,6 .\n\nA privacidade e a proteção de dados sensíveis dos pacientes são outros pontos críticos. Como a IA depende de grandes volumes de dados para treinamento e operação, é essencial garantir que o  tratamento  das  informações  esteja  em  con -formidade com legislações e regulamentações, como  a  Lei  14.510/2022,  que  dispõe  sobre  a prestação de serviços de telessaúde 7 , a Lei Geral de Proteção de Dados (LGPD, Lei 13.709/2018)  8 , e a Resolução do Conselho Federal de Medicina (CFM) 2.314/2022, que define e regulamenta a telemedicina como forma de prestação de servi -ços médicos  9 , no Brasil; o General Data Protection Regulation (GDPR)  10  e a Network and Information Systems  (NIS  Directive) 11 ,  na  União  Europeia; o Health Insurance Portability and Accountability Act (HIPAA) 12 e o Health Information Technology for Economic and Clinical Health Act (HITECH) 13 , nos  Estados  Unidos.  A  violação  da  privacidade ou o uso indevido de dados médicos podem ter consequências devastadoras para os pacientes, incluindo discriminação, estigmatização e danos morais e financeiros.\n\nAdicionalmente, há o risco de ampliar desi -gualdades no acesso à saúde. A implantação de soluções baseadas em IA, muitas vezes desen -volvidas em contextos de alta renda, pode não considerar  adequadamente  as  necessidades, idiomas e realidades socioculturais de populações vulneráveis  ou  de  países  em  desenvolvimento. Isso pode acentuar disparidades já existentes no sistema de saúde e comprometer o princípio da justiça distributiva, fundamental para a equidade no cuidado médico 14 .\n\nTambém  merece  preocupação  a  possível desumanização na medicina. A relação médico --paciente,  historicamente  centrada  na  escuta, no cuidado e na empatia, pode ser afetada nega -tivamente  se  a  confiança  for  deslocada  para sistemas  automatizados.  O  excesso  de  depen -dência tecnológica pode tornar o atendimento mais impessoal, comprometendo a integralidade do cuidado e a dimensão subjetiva da experiên -cia do adoecimento  15 . A formação médica, nesse cenário, também deve ser repensada, uma vez que habilidades como pensamento crítico, julgamento clínico e sensibilidade ética precisam ser preserva -das e fortalecidas, mesmo em ambiente cada vez mais orientado por dados  16 .\n\nO  descompasso  entre  a  velocidade  da  ino -vação tecnológica e a capacidade de regulação ética e jurídica impõe, portanto, a necessidade urgente  de  revisar  os  fundamentos  bioéticos sob nova perspectiva. Tais questões exigem não apenas análise técnica, mas abordagem bioética rigorosa, que considere o impacto da IA nos valo -res  fundamentais que regem a prática médica. A literatura recente reforça que princípios éticos isolados não são suficientes para garantir a inte -gridade moral das aplicações de IA: é necessário um sistema de governança robusto, transparente, participativo e que envolva múltiplos stakeholders, incluindo médicos, engenheiros, pacientes, juristas e representantes da sociedade civil 17,18 .\n\nEste artigo tem como objetivo revisar a lite -ratura  existente  sobre  os  principais  dilemas éticos  relacionados  à  aplicação  da  inteligência artificial na prática médica, resgatar os princípios hipocráticos e analisar como eles podem (ou não) ser preservados diante das transformações tec -nológicas em curso. Por meio de análise crítica e multidisciplinar, pretende-se contribuir para o debate sobre os rumos éticos da medicina contem -porânea em um cenário de crescente automação.",
-          "similaridade_cosseno": 0.29886020142581315
+          "arquivo": "twitter_algoritmo.md",
+          "indice": 3,
+          "tamanho": 224,
+          "score_similaridade": 0.4029,
+          "texto": "<!-- section_metadata: {\"section\": \"O caso Twitter/X: algoritmo, espaço público e ultraliberalismo digital\", \"subsection\": null, \"heading_path\": [\"O caso Twitter/X: algoritmo, espaço público e ultraliberalismo digital\"]} -->",
+          "metadata": {
+            "h2": "O caso Twitter/X: algoritmo, espaço público e ultraliberalismo digital"
+          }
         }
       ]
     }
   },
   {
     "query": "O que é o diário de bordo da IA?",
-    "resultados": {
+    "top_3_por_estrategia": {
       "linha": [
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 73,
-          "granularidade": "linha",
-          "texto": "Como uma fase adicional e não obrigatória, recomenda-se que o uso de IA seja permeado pela reflexão do pesquisador, notadamente para aqueles que ainda não dominam o texto acadêmico. Após cada escrita com IA, realiza-se um exercício de documentação do processo, uma espécie de 'diário de bordo da IA'. Esse documento, que geralmente não integra o trabalho final, funciona como um exercício de autoavaliação.",
-          "similaridade_cosseno": 0.5698638524109956
+          "indice": 105,
+          "tamanho": 535,
+          "score_similaridade": 0.5033,
+          "texto": "| Divulgação desne\u0002 cessária   | A IA atua em tarefas menores ou como parte de uma operação integrada que não gera conteúdo nem toma decisões de pesquisa. Para sugerir palavras ou frases que melhorem a clareza ou inteligibilidade de uma frase existente. Como parte de uma operação maior na qual a IA não está gerando ou sintetizando conteúdo nem tomando decisões de pesquisa (ex.: IA integrada a outros sistemas/máquinas). Como assistente digital (ex.: ajudar a organizar e manter ativos digitais e fluxos de trabalho de um projeto). |"
         },
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 87,
-          "granularidade": "linha",
-          "texto": "## Declaração de uso de IA",
-          "similaridade_cosseno": 0.43446909869805356
+          "indice": 117,
+          "tamanho": 26,
+          "score_similaridade": 0.5017,
+          "texto": "## Declaração de uso de IA"
         },
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 72,
-          "granularidade": "linha",
-          "texto": "## III. Refletindo sobre o processo de escrita com IA",
-          "similaridade_cosseno": 0.36511565050093353
+          "indice": 118,
+          "tamanho": 130,
+          "score_similaridade": 0.4897,
+          "texto": "<!-- section_metadata: {\"section\": \"Declaração de uso de IA\", \"subsection\": null, \"heading_path\": [\"Declaração de uso de IA\"]} -->"
         }
       ],
       "paragrafo": [
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 67,
-          "granularidade": "paragrafo",
-          "texto": "Como uma fase adicional e não obrigatória, recomenda-se que o uso de IA seja permeado pela reflexão do pesquisador, notadamente para aqueles que ainda não dominam o texto acadêmico. Após cada escrita com IA, realiza-se um exercício de documentação do processo, uma espécie de 'diário de bordo da IA'. Esse documento, que geralmente não integra o trabalho final, funciona como um exercício de autoavaliação.",
-          "similaridade_cosseno": 0.569863852809846
+          "indice": 48,
+          "tamanho": 2598,
+          "score_similaridade": 0.4696,
+          "texto": "| Categoria de divul\u0002 gação    | Uso da IA (Exemplos)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n|---|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| Divulgação desne\u0002 cessária   | A IA atua em tarefas menores ou como parte de uma operação integrada que não gera conteúdo nem toma decisões de pesquisa. Para sugerir palavras ou frases que melhorem a clareza ou inteligibilidade de uma frase existente. Como parte de uma operação maior na qual a IA não está gerando ou sintetizando conteúdo nem tomando decisões de pesquisa (ex.: IA integrada a outros sistemas/máquinas). Como assistente digital (ex.: ajudar a organizar e manter ativos digitais e fluxos de trabalho de um projeto). |\n|   | Divulgação opcional A IA foi usada como ferramenta auxiliar para aprimoramento ou suporte, mas não afetou o conteúdo central. Para editar texto existente quanto à gramática, ortografia ou organização. Para localizar e gerar exemplos para conteúdo existente. Para fazer brainstorming e sugerir formas de organizar um artigo ou o título de um artigo/seção. Para validar e/ou oferecer feedback sobre ideias, texto e código existentes.                                                                      |\n|   | Divulgação obrigatória A IA teve impacto na geração, síntese ou decisão do conteúdo central da pesquisa. Para formular perguntas, hipóteses, elaborar e conduzir experimentos. Para redigir partes do artigo, resumir, parafrasear, revisar significativamente ou sintetizar conteúdo textual. Para traduzir partes ou a totalidade do artigo.                                                                                                                                                                       |"
         },
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 77,
-          "granularidade": "paragrafo",
-          "texto": "## Declaração de uso de IA",
-          "similaridade_cosseno": 0.43446910167259195
+          "indice": 69,
+          "tamanho": 1011,
+          "score_similaridade": 0.4615,
+          "texto": "<!-- image_metadata: {\"image_id\": \"escrita_academica_ia_page014_image005\", \"document_name\": \"escrita_academica_ia.pdf\", \"page\": 14, \"section\": \"Apêndice\", \"subsection\": null, \"heading_path\": [\"Apêndice\"], \"pdf_link\": \"corpus/raw/aula02/escrita_academica_ia.pdf#page=14\", \"bbox\": {\"l\": 149.19488525390625, \"t\": 468.9864196777344, \"r\": 461.4576110839844, \"b\": 187.0950927734375}, \"image_description\": \"A imagem apresenta uma interface de edição de texto com um menu lateral de ferramentas de IA, exibindo opções como \\\"Continue writing with citations\\\" e \\\"Outline Builder\\\". O texto em português aborda a reorganização de parágrafos e técnicas de leitura, indicando um contexto de escrita acadêmica. A ferramenta provavelmente serve para apoiar a produção de artigos ou pesquisas utilizando inteligência artificial.\", \"image_description_model\": \"nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free\", \"image_description_skipped\": false, \"image_description_primary_model\": \"nvidia/nemotron-nano-12b-v2-vl:free\"} -->"
         },
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 66,
-          "granularidade": "paragrafo",
-          "texto": "## III. Refletindo sobre o processo de escrita com IA",
-          "similaridade_cosseno": 0.36511565095768517
+          "indice": 42,
+          "tamanho": 334,
+          "score_similaridade": 0.4486,
+          "texto": "<!-- page_metadata: {\"document_name\": \"escrita_academica_ia.pdf\", \"page\": 8, \"page_start\": 8, \"page_end\": 8, \"pdf_link\": \"corpus/raw/aula02/escrita_academica_ia.pdf#page=8\", \"section\": \"III. Refletindo sobre o processo de escrita com IA\", \"subsection\": null, \"heading_path\": [\"III. Refletindo sobre o processo de escrita com IA\"]} -->"
         }
       ],
       "capitulo": [
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 12,
-          "granularidade": "capitulo",
-          "texto": "## Declaração de uso de IA",
-          "similaridade_cosseno": 0.4344690983130588
+          "indice": 13,
+          "tamanho": 130,
+          "score_similaridade": 0.4897,
+          "texto": "<!-- section_metadata: {\"section\": \"Declaração de uso de IA\", \"subsection\": null, \"heading_path\": [\"Declaração de uso de IA\"]} -->",
+          "metadata": {
+            "h2": "Declaração de uso de IA"
+          }
         },
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 10,
-          "granularidade": "capitulo",
-          "texto": "## III. Refletindo sobre o processo de escrita com IA\n\nComo uma fase adicional e não obrigatória, recomenda-se que o uso de IA seja permeado pela reflexão do pesquisador, notadamente para aqueles que ainda não dominam o texto acadêmico. Após cada escrita com IA, realiza-se um exercício de documentação do processo, uma espécie de 'diário de bordo da IA'. Esse documento, que geralmente não integra o trabalho final, funciona como um exercício de autoavaliação.\n\nO pesquisador registra sistematicamente como utilizou a ferramenta, observando pontos como as etapas do trabalho em que a IA foi acionada e com quais prompts , e de que maneira a ferramenta impactou o processo em termos de eficiência, satisfação e aprendizado, por exemplo, ao sugerir novas perspectivas (Pereira et al., 2024). Também são registrados os principais obstáculos encontrados, como a geração de conteúdo genérico ou 'alucinações' que\n\nQuadro 2 - Divulgação do uso de IA em pesquisa e escrita\n\n| Categoria de divul- gação   | Uso da IA (Exemplos)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| Divulgação desne- cessária  | A IA atua em tarefas menores ou como parte de uma operação integrada que não gera conteúdo nem toma decisões de pesquisa. Para sugerir palavras ou frases que melhorem a clareza ou inteligibilidade de uma frase existente. Como parte de uma operação maior na qual a IA não está gerando ou sintetizando conteúdo nem tomando decisões de pesquisa (ex.: IA integrada a outros sistemas/máquinas). Como assistente digital (ex.: ajudar a organizar e manter ativos digitais e fluxos de trabalho de um projeto). |\n| Divulgação opcional         | A IA foi usada como ferramenta auxiliar para aprimoramento ou suporte, mas não afetou o conteúdo central. Para editar texto existente quanto à gramática, ortografia ou organização. Para localizar e gerar exemplos para conteúdo existente. Para fazer brainstorming e sugerir formas de organizar um artigo ou o título de um artigo/seção. Para validar e/ou oferecer feedback sobre ideias, texto e código existentes.                                                                                          |\n| Divulgação obrigatória      | A IA teve impacto na geração, síntese ou decisão do conteúdo central da pesquisa. Para formular perguntas, hipóteses, elaborar e conduzir experimentos. Para redigir partes do artigo, resumir, parafrasear, revisar significativamente ou sintetizar conteúdo textual. Para traduzir partes ou a totalidade do artigo.                                                                                                                                                                                              |\n\nFonte: baseado em Resnik &amp; Hosseini (2025).\n\nexigiram verificação (Trindade &amp; Oliveira, 2024). Essa análise permite identificar o que a interação revelou sobre o próprio processo de escrita.\n\nEste exercício de documentação não visa apenas à transparência, mas ao desenvolvimento de uma consciência crítica sobre a colaboração, permitindo um uso mais intencional e controlado em projetos futuros e consolidando a agência e a responsabilidade do autor humano, além de ser um exercício em si de escrita humana e reflexão.\n\nEste artigo apresentou um roteiro em cinco fases para uma interação ética, responsável e humana com a inteligência artificial generativa na escrita acadêmica, estruturado em torno de três riscos centrais: o sentimento de perda da autoria, o descarregamento cognitivo e a exposição de dados de pesquisa. As fases foram numeradas por razões didáticas e não exigem aplicação sequencial ou integral em cada atividade de escrita. Além disso, uma possível limitação é que ao seguir fielmente as fases, todo o ganho da eficiência trazido pela IA pode se perder nos processos de curadoria e reflexão. Entretanto, o objetivo principal era desenvolver um método detalhado para esse uso crítico da IA para a escrita acadêmica, garantindo que a tecnologia sirva ao aprimoramento do pensamento, e não à sua substituição. Acreditamos que com o treino, os jovens pesquisadores irão fazer as etapas de forma mais natural e poderão também sentir ganhos de produtividade.\n\nPara além do guia, recomenda-se que pesquisadores reservem uma porção do tempo de redação para a prática deliberada sem auxílio da IA, como estratégia concreta para mitigar os riscos de descarregamento cognitivo e atrofia de",
-          "similaridade_cosseno": 0.3905519952432916
+          "indice": 1,
+          "tamanho": 260,
+          "score_similaridade": 0.4471,
+          "texto": "<!-- page_metadata: {\"document_name\": \"escrita_academica_ia.pdf\", \"page\": 1, \"page_start\": 1, \"page_end\": 1, \"pdf_link\": \"corpus/raw/aula02/escrita_academica_ia.pdf#page=1\", \"section\": \"I. Introdução\", \"subsection\": null, \"heading_path\": [\"I. Introdução\"]} -->"
         },
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 14,
-          "granularidade": "capitulo",
-          "texto": "## Conflito de interesses\n\nhabilidades. A documentação dessas experiências em um diário reflexivo auxilia na construção de maturidade intelectual e tecnológica, permitindo o refinamento contínuo de diretrizes pessoais para projetos futuros.\n\nEmúltima análise, o uso ético da IA na pesquisa não se resume a seguir um conjunto de regras, mas a cultivar uma postura de vigilância intelectual e responsabilidade. Ao aderir aos princípios de rigor, transparência e reprodutibilidade, dentro dos limites do que a tecnologia permite, o pesquisador assegura a integridade de seu trabalho e contribui para uma cultura acadêmica que valoriza a inovação sem sacrificar a profundidade.\n\nDurante a preparação deste texto, o autor utilizou Claude (versão 4.5 Opus), Gemini (versões 2.5Pro, 3.0 Pro) e GLM 4.5 da Z.ai entre julho e novembro de 2025 para brainstorming , avaliação do texto e melhorias gramaticais e semânticas ao texto. Após o uso destas ferramentas, o autor revisou e editou o conteúdo em conformidade com o método científico e assume total responsabilidade pelo conteúdo da publicação.",
-          "similaridade_cosseno": 0.28877861430832497
+          "indice": 11,
+          "tamanho": 5682,
+          "score_similaridade": 0.4096,
+          "texto": "<!-- section_metadata: {\"section\": \"III. Refletindo sobre o processo de escrita com IA\", \"subsection\": null, \"heading_path\": [\"III. Refletindo sobre o processo de escrita com IA\"]} -->  \nComo uma fase adicional e não obrigatória, recomenda-se que o uso de IA seja permeado pela reflexão do pesquisador, notadamente para aqueles que ainda não dominam o texto acadêmico. Após cada escrita com IA, realiza-se um exercício de documentação do processo, uma espécie de \"diário de bordo da IA\". Esse documento, que geralmente não integra o trabalho final, funciona como um exercício de autoavaliação.  \nO pesquisador registra sistematicamente como utilizou a ferramenta, observando pontos como as etapas do trabalho em que a IA foi acionada e com quais prompts, e de que maneira a ferramenta impactou o processo em termos de eficiência, satisfação e aprendizado, por exemplo, ao sugerir novas perspectivas (Pereira et al., 2024). Também são registrados os principais obstáculos encontrados, como a geração de conteúdo genérico ou \"alucinações\" que  \n---  \n<!-- page_metadata: {\"document_name\": \"escrita_academica_ia.pdf\", \"page\": 9, \"page_start\": 9, \"page_end\": 9, \"pdf_link\": \"corpus/raw/aula02/escrita_academica_ia.pdf#page=9\", \"section\": \"IV. Conclusão\", \"subsection\": null, \"heading_path\": [\"IV. Conclusão\"]} -->  \nQuadro 2 - Divulgação do uso de IA em pesquisa e escrita  \n| Categoria de divul gação    | Uso da IA (Exemplos)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n|---|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| Divulgação desne cessária   | A IA atua em tarefas menores ou como parte de uma operação integrada que não gera conteúdo nem toma decisões de pesquisa. Para sugerir palavras ou frases que melhorem a clareza ou inteligibilidade de uma frase existente. Como parte de uma operação maior na qual a IA não está gerando ou sintetizando conteúdo nem tomando decisões de pesquisa (ex.: IA integrada a outros sistemas/máquinas). Como assistente digital (ex.: ajudar a organizar e manter ativos digitais e fluxos de trabalho de um projeto). |\n|   | Divulgação opcional A IA foi usada como ferramenta auxiliar para aprimoramento ou suporte, mas não afetou o conteúdo central. Para editar texto existente quanto à gramática, ortografia ou organização. Para localizar e gerar exemplos para conteúdo existente. Para fazer brainstorming e sugerir formas de organizar um artigo ou o título de um artigo/seção. Para validar e/ou oferecer feedback sobre ideias, texto e código existentes.                                                                      |\n|   | Divulgação obrigatória A IA teve impacto na geração, síntese ou decisão do conteúdo central da pesquisa. Para formular perguntas, hipóteses, elaborar e conduzir experimentos. Para redigir partes do artigo, resumir, parafrasear, revisar significativamente ou sintetizar conteúdo textual. Para traduzir partes ou a totalidade do artigo.                                                                                                                                                                       |  \nFonte: baseado em Resnik &amp; Hosseini (2025) .  \nexigiram verificação (Trindade &amp; Oliveira, 2024). Essa análise permite identificar o que a interação revelou sobre o próprio processo de escrita.  \nEste exercício de documentação não visa apenas à transparência, mas ao desenvolvimento de uma consciência crítica sobre a colaboração, permitindo um uso mais intencional e controlado em projetos futuros e consolidando a agência e a responsabilidade do autor humano, além de ser um exercício em si de escrita humana e reflexão.  \nEste artigo apresentou um roteiro em cinco fases para uma interação ética, responsável e humana com a inteligência artificial generativa na escrita acadêmica, estruturado em torno de três riscos centrais: o sentimento de perda da autoria, o descarregamento cognitivo e a exposição de dados de pesquisa. As fases foram numeradas por razões didáticas e não exigem aplicação sequencial ou integral em cada atividade de escrita. Além disso, uma possível limitação é que ao seguir fielmente as fases, todo o ganho da eficiência trazido pela IA pode se perder nos processos de curadoria e reflexão. Entretanto, o objetivo principal era desenvolver um método detalhado para esse uso crítico da IA para a escrita acadêmica, garantindo que a tecnologia sirva ao aprimoramento do pensamento, e não à sua substituição. Acreditamos que com o treino, os jovens pesquisadores irão fazer as etapas de forma mais natural e poderão também sentir ganhos de produtividade.  \nPara além do guia, recomenda-se que pesquisadores reservem uma porção do tempo de redação para a prática deliberada sem auxílio da IA, como estratégia concreta para mitigar os riscos de descarregamento cognitivo e atrofia de",
+          "metadata": {
+            "h2": "III. Refletindo sobre o processo de escrita com IA"
+          }
         }
       ]
     }
   },
   {
-    "query": "Como a IA afeta a escrita acadêmica?",
-    "resultados": {
+    "query": "Quais são os principais problemas éticos em modelos de linguagem?",
+    "top_3_por_estrategia": {
       "linha": [
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 1,
-          "granularidade": "linha",
-          "texto": "## Escrita acadêmica ética, responsável e humana com inteligência artificial",
-          "similaridade_cosseno": 0.6313869120224314
+          "indice": 83,
+          "tamanho": 402,
+          "score_similaridade": 0.5359,
+          "texto": "Modelos de linguagem são propensos a \"alucinações\", um fenômeno que consiste na fabricação de informações, dados e citações que parecem plausíveis, mas são falsos ou imprecisos (Trindade &amp; Oliveira, 2024; Lopes et al., 2024). Confiar cegamente nessas saídas, sem uma validação rigorosa, compromete a integridade da pesquisa, podendo configurar má conduta acadêmica e minar a credibilidade do autor."
         },
         {
-          "arquivo": "escrita_academica_ia.md",
-          "indice": 72,
-          "granularidade": "linha",
-          "texto": "## III. Refletindo sobre o processo de escrita com IA",
-          "similaridade_cosseno": 0.6032644599894158
+          "arquivo": "bioetica_e_ia.md",
+          "indice": 14,
+          "tamanho": 98,
+          "score_similaridade": 0.4685,
+          "texto": "## Entre el algoritmo y el Juramento Hipocrático: bioética en la era de la inteligencia artificial"
         },
         {
-          "arquivo": "escrita_academica_ia.md",
-          "indice": 6,
-          "granularidade": "linha",
-          "texto": "Palavras-chave: escrita acadêmica, integridade científica, Inteligência Artificial Generativa, autoria, revisão narrativa.",
-          "similaridade_cosseno": 0.5822647181050101
+          "arquivo": "bioetica_e_ia.md",
+          "indice": 15,
+          "tamanho": 274,
+          "score_similaridade": 0.4678,
+          "texto": "<!-- section_metadata: {\"section\": \"Entre el algoritmo y el Juramento Hipocrático: bioética en la era de la inteligencia artificial\", \"subsection\": null, \"heading_path\": [\"Entre el algoritmo y el Juramento Hipocrático: bioética en la era de la inteligencia artificial\"]} -->"
         }
       ],
       "paragrafo": [
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 1,
-          "granularidade": "paragrafo",
-          "texto": "## Escrita acadêmica ética, responsável e humana com inteligência artificial",
-          "similaridade_cosseno": 0.6313869125638097
+          "indice": 37,
+          "tamanho": 402,
+          "score_similaridade": 0.5359,
+          "texto": "Modelos de linguagem são propensos a \"alucinações\", um fenômeno que consiste na fabricação de informações, dados e citações que parecem plausíveis, mas são falsos ou imprecisos (Trindade &amp; Oliveira, 2024; Lopes et al., 2024). Confiar cegamente nessas saídas, sem uma validação rigorosa, compromete a integridade da pesquisa, podendo configurar má conduta acadêmica e minar a credibilidade do autor."
+        },
+        {
+          "arquivo": "bioetica_e_ia.md",
+          "indice": 12,
+          "tamanho": 692,
+          "score_similaridade": 0.448,
+          "texto": "Contudo, o advento da IA na medicina introduz novos e complexos desafios éticos que tensionam esses princípios. Entre os dilemas que emergem estão a opacidade e a não explicabilidade dos algoritmos – os chamados black boxes –, que dificultam a compreensão e a validação das decisões automatizadas por parte de médicos e pacientes, e essa falta de transparência algorítmica compromete o princípio da autonomia, pois impede o consentimento plenamente informado. Além disso, surgem questões sobre a responsabilização por erros clínicos decorrentes de decisões baseadas em IA, com dúvidas sobre se a culpa recai sobre o médico, o programador, a instituição de saúde ou o próprio algoritmo 2,5,6 ."
         },
         {
           "arquivo": "escrita_academica_ia.md",
-          "indice": 66,
-          "granularidade": "paragrafo",
-          "texto": "## III. Refletindo sobre o processo de escrita com IA",
-          "similaridade_cosseno": 0.6032644600928716
-        },
-        {
-          "arquivo": "escrita_academica_ia.md",
-          "indice": 6,
-          "granularidade": "paragrafo",
-          "texto": "Palavras-chave: escrita acadêmica, integridade científica, Inteligência Artificial Generativa, autoria, revisão narrativa.",
-          "similaridade_cosseno": 0.5822647196785491
+          "indice": 35,
+          "tamanho": 984,
+          "score_similaridade": 0.4393,
+          "texto": "Aqui, é preciso cuidado especial com o que Floridi (2025) chama de dataprint, ou seja, as marcas deixadas pelos dados de treinamento e técnicas de desenvolvimento dos grandes modelos de linguagem. Como já sabemos, as IAs foram treinadas nos dados disponíveis na internet, o que significa que reproduzem todos os vieses ali presentes, como a maior presença de textos em língua inglesa e de países do norte global.\n\nSem o cuidado devido, todos esses vieses irão diretamente para o seu texto e os \"vícios de linguagem das máquinas\" se transformarão nos seus próprios, como pode ser visto nos atuais usos abusivos de certas palavras (\"crucial\", \"essencial\"); expressões (\"insights valiosos\"); traduções incorretas, como \"rica tapeçaria\" que vem do inglês \"rich tapestry\"; marcadores de texto (\"-\") e formas de construir orações subordinadas com dois pontos \":\" e ponto e vírgula \";\"(ver Sampaio &amp; Figueiredo, 2025). Em suma, o objetivo é não deixar que a IA \"lave\" a sua escrita.\n\n---"
         }
       ],
       "capitulo": [
         {
-          "arquivo": "escrita_academica_ia.md",
-          "indice": 2,
-          "granularidade": "capitulo",
-          "texto": "## I ✉\n\nI Programa Pós-Graduação em Ciência Política, Universidade Federal do Paraná, Curitiba, PR, Brasil.\n\nPalavras-chave: escrita acadêmica, integridade científica, Inteligência Artificial Generativa, autoria, revisão narrativa.\n\nRESUMO Introdução: A rápida disseminação da inteligência artificial generativa (IAG) transformou práticas de escrita acadêmica, ampliando a eficiência, mas levantando preocupações sobre autoria, integridade, privacidade e desenvolvimento cognitivo. A literatura recente tem se concentrado em debates normativos e em políticas institucionais sobre autoria e transparência, mas oferece pouca orientação operacional sobre como utilizar a IA sem comprometer a formação intelectual, especialmente entre jovens pesquisadores(as). Este artigo busca preencher essa lacuna ao propor um método estruturado de uso ético, responsável e humano da IA. Materiais e métodos: Oestudo realiza uma revisão narrativa de literatura sobre riscos associados à escrita com IA (e.g., diluição da autoria, descarregamento cognitivo, vieses, privacidade e 'alucinações') e integra essa revisão com documentos normativos e diretrizes institucionais. A partir dessa síntese, o artigo desenvolve um guia prático composto por cinco fases metodológicas para orientar o uso crítico da tecnologia. Resultados: Oguia proposto organiza o processo de escrita em etapas: planejamento humano prévio; escrita assistida e curadoria crítica; apropriação e reescrita autoral; verificação rigorosa de fatos, fontes e lógica argumentativa; e responsabilidade final com declaração transparente do uso de IA. Cada fase fornece salvaguardas para mitigar riscos cognitivos, éticos e epistêmicos, preservando a agência autoral. Discussão: Argumenta-se que o uso ético da IA depende menos de proibições formais e mais do desenvolvimento de práticas de vigilância intelectual, documentação e reflexão contínua. Embora o processo reduza parte da eficiência oferecida pela IA, contribui para fortalecer competências cognitivas, proteger a integridade científica e equilibrar inovação tecnológica com responsabilidade humana.\n\nRecebido em 23 de Julho de 2025. Aprovado em 5 de Novembro de 2025. Aceito em 2 de Dezembro de 2025.\n\nEditor Científico: Adriano Codato\n\nEditor Associado: Adriano Codato\n\niD\n\n<!-- image -->\n\n<!-- image -->",
-          "similaridade_cosseno": 0.5183180423978075
+          "arquivo": "bioetica_e_ia.md",
+          "indice": 20,
+          "tamanho": 1870,
+          "score_similaridade": 0.3962,
+          "texto": "<!-- section_metadata: {\"section\": \"Limitações da literatura atual e lacunas para pesquisa futura\", \"subsection\": null, \"heading_path\": [\"Limitações da literatura atual e lacunas para pesquisa futura\"]} -->  \nApesar da crescente produção científica sobre ética da IA na medicina, a literatura apresenta lacunas importantes. Em primeiro lugar, há predomínio de estudos teóricos e normativos, com escassez de dados empíricos sobre a experiência de médicos e pacientes em contextos reais de uso de IA. A ausência de estudos qualitativos limita a compreensão de como os dilemas éticos se manifestam na prática cotidiana 21 .  \nEm segundo lugar, muitas pesquisas têm enfoque euro-americano e, portanto, desconsideram desigualdades digitais e especificidades culturais, legais e sociais de outros contextos, como de países da América Latina e da África. Estudos sobre justiça algorítmica precisam incorporar perspectivas pós-coloniais e de saúde global, sob risco de repetir padrões tecnocêntricos e excludentes 37 e reproduzir exclusões históricas com roupagem tecnológica.  \nAlém disso, observa-se falta de integração entre marcos legais, clínicos e éticos. Poucos modelos oferecem orientações práticas que articulem em um só framework as exigências da LGPD, da ética médica e da eficiência clínica. Nesse sentido, há demanda urgente por pesquisas interdisciplinares que dialoguem com direito, sociologia, ciência da computação e fisiologia moral, e o engajamento com pacientes e a ampliação dos fóruns de deliberação ética podem ser caminhos promissores, sem perder a inovação.  \nO avanço ético da IA na medicina exige não apenas inovação técnica, mas também comprometimento público e institucional com dignidade humana. Preservar o espírito do Juramento de Hipócrates ao adaptá-lo aos tempos digitais é o maior desafio – e a maior oportunidade – da bioética contemporânea.",
+          "metadata": {
+            "h2": "Limitações da literatura atual e lacunas para pesquisa futura"
+          }
         },
         {
-          "arquivo": "escrita_academica_ia.md",
-          "indice": 10,
-          "granularidade": "capitulo",
-          "texto": "## III. Refletindo sobre o processo de escrita com IA\n\nComo uma fase adicional e não obrigatória, recomenda-se que o uso de IA seja permeado pela reflexão do pesquisador, notadamente para aqueles que ainda não dominam o texto acadêmico. Após cada escrita com IA, realiza-se um exercício de documentação do processo, uma espécie de 'diário de bordo da IA'. Esse documento, que geralmente não integra o trabalho final, funciona como um exercício de autoavaliação.\n\nO pesquisador registra sistematicamente como utilizou a ferramenta, observando pontos como as etapas do trabalho em que a IA foi acionada e com quais prompts , e de que maneira a ferramenta impactou o processo em termos de eficiência, satisfação e aprendizado, por exemplo, ao sugerir novas perspectivas (Pereira et al., 2024). Também são registrados os principais obstáculos encontrados, como a geração de conteúdo genérico ou 'alucinações' que\n\nQuadro 2 - Divulgação do uso de IA em pesquisa e escrita\n\n| Categoria de divul- gação   | Uso da IA (Exemplos)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| Divulgação desne- cessária  | A IA atua em tarefas menores ou como parte de uma operação integrada que não gera conteúdo nem toma decisões de pesquisa. Para sugerir palavras ou frases que melhorem a clareza ou inteligibilidade de uma frase existente. Como parte de uma operação maior na qual a IA não está gerando ou sintetizando conteúdo nem tomando decisões de pesquisa (ex.: IA integrada a outros sistemas/máquinas). Como assistente digital (ex.: ajudar a organizar e manter ativos digitais e fluxos de trabalho de um projeto). |\n| Divulgação opcional         | A IA foi usada como ferramenta auxiliar para aprimoramento ou suporte, mas não afetou o conteúdo central. Para editar texto existente quanto à gramática, ortografia ou organização. Para localizar e gerar exemplos para conteúdo existente. Para fazer brainstorming e sugerir formas de organizar um artigo ou o título de um artigo/seção. Para validar e/ou oferecer feedback sobre ideias, texto e código existentes.                                                                                          |\n| Divulgação obrigatória      | A IA teve impacto na geração, síntese ou decisão do conteúdo central da pesquisa. Para formular perguntas, hipóteses, elaborar e conduzir experimentos. Para redigir partes do artigo, resumir, parafrasear, revisar significativamente ou sintetizar conteúdo textual. Para traduzir partes ou a totalidade do artigo.                                                                                                                                                                                              |\n\nFonte: baseado em Resnik &amp; Hosseini (2025).\n\nexigiram verificação (Trindade &amp; Oliveira, 2024). Essa análise permite identificar o que a interação revelou sobre o próprio processo de escrita.\n\nEste exercício de documentação não visa apenas à transparência, mas ao desenvolvimento de uma consciência crítica sobre a colaboração, permitindo um uso mais intencional e controlado em projetos futuros e consolidando a agência e a responsabilidade do autor humano, além de ser um exercício em si de escrita humana e reflexão.\n\nEste artigo apresentou um roteiro em cinco fases para uma interação ética, responsável e humana com a inteligência artificial generativa na escrita acadêmica, estruturado em torno de três riscos centrais: o sentimento de perda da autoria, o descarregamento cognitivo e a exposição de dados de pesquisa. As fases foram numeradas por razões didáticas e não exigem aplicação sequencial ou integral em cada atividade de escrita. Além disso, uma possível limitação é que ao seguir fielmente as fases, todo o ganho da eficiência trazido pela IA pode se perder nos processos de curadoria e reflexão. Entretanto, o objetivo principal era desenvolver um método detalhado para esse uso crítico da IA para a escrita acadêmica, garantindo que a tecnologia sirva ao aprimoramento do pensamento, e não à sua substituição. Acreditamos que com o treino, os jovens pesquisadores irão fazer as etapas de forma mais natural e poderão também sentir ganhos de produtividade.\n\nPara além do guia, recomenda-se que pesquisadores reservem uma porção do tempo de redação para a prática deliberada sem auxílio da IA, como estratégia concreta para mitigar os riscos de descarregamento cognitivo e atrofia de",
-          "similaridade_cosseno": 0.5161191281838119
+          "arquivo": "bioetica_e_ia.md",
+          "indice": 13,
+          "tamanho": 3326,
+          "score_similaridade": 0.3769,
+          "texto": "<!-- section_metadata: {\"section\": \"Não maleficência e danos invisíveis\", \"subsection\": null, \"heading_path\": [\"Não maleficência e danos invisíveis\"]} -->  \nA não maleficência, princípio ético expresso pela máxima \"primum non nocere\" – ou seja, \"primeiro, não causar dano\" –, exige do profissional o compromisso de evitar ou minimizar quaisquer prejuízos à saúde e ao bem-estar do paciente durante o cuidado médico. No contexto da IA, no entanto, esse entendimento deve ser ampliado para englobar riscos não intencionais, já que os danos nem sempre são visíveis, imediatos ou diretos, o que não minimiza o potencial de prejuízos significativos à saúde, à integridade ou à dignidade dos pacientes. O uso de sistemas automatizados pode acarretar consequências clínicas, psicológicas e sociais não intencionais, muitas vezes imperceptíveis no início, mas com efeitos profundos em médio e longo prazos21,23 .  \nEntre os riscos mais discutidos estão os erros diagnósticos causados por mau funcionamento do sistema, interpretação inadequada ou uso fora de escopo. Mesmo que a IA possa oferecer precisão superior em determinados contextos, ela é tão falível quanto seus dados e parâmetros. Decisões clínicas automatizadas podem ignorar singularidades do paciente e levar a condutas inadequadas em situações complexas ou atípicas 26 . Isso pode ser ainda mais problemático quando há  \n---  \n<!-- page_metadata: {\"document_name\": \"bioetica_e_ia.pdf\", \"page\": 6, \"page_start\": 6, \"page_end\": 6, \"pdf_link\": \"corpus/raw/aula02/bioetica_e_ia.pdf#page=6\", \"section\": \"Confidencialidade, LGPD e a nova ética da privacidade\", \"subsection\": null, \"heading_path\": [\"Confidencialidade, LGPD e a nova ética da privacidade\"]} -->  \nexcesso de confiança dos profissionais na recomendação algorítmica, fenômeno conhecido como automation bias (viés de automação).  \nOutro risco ético relevante é a desumanização do cuidado, uma vez que, com o avanço da tecnologia, tende-se a valorizar o que é quantificável e previsível em detrimento da subjetividade 27 . A substituição da escuta clínica pela interação com interfaces digitais pode reduzir o espaço para a expressão do sofrimento, do medo e da vulnerabilidade do paciente e resultar em desumanização do cuidado e negligência de aspectos subjetivos e afetivos essenciais à experiência do adoecer 27 . Esse esvaziamento afetivo, embora difícil de medir, constitui um tipo de dano invisível – emocional e existencial – que contraria a integralidade do cuidado hipocrático.  \nAlém disso, o uso de IA em saúde pode gerar efeitos coletivos adversos. Falhas de segurança, vazamento de dados ou decisões sistêmicas enviesadas minam a confiança da sociedade nos sistemas de saúde. A não maleficência, aqui, deve ir além da dimensão individual e considerar os impactos éticos sistêmicos e institucionais da automação.  \nA fim de mitigar esses riscos, é essencial incorporar medidas de robustez, rastreabilidade e auditoria contínua23. Transparência, capacidade de revisão e a possibilidade de \"override humano\" (capacidade de intervir ou substituir a decisão tomada pela IA por um ser humano) são componentes éticos indispensáveis para que a IA médica opere sob o princípio da não maleficência 24 . A tecnologia deve ser testada não apenas quanto a sua eficiência, mas também quanto a sua resiliência ética.",
+          "metadata": {
+            "h2": "Não maleficência e danos invisíveis"
+          }
         },
         {
-          "arquivo": "escrita_academica_ia.md",
-          "indice": 17,
-          "granularidade": "capitulo",
-          "texto": "## Referências\n\n- Bai, S., Gonda, D.E. &amp; Hew, K.F. (2024) Write-curate-verify: a case study of leveraging generative AI for scenario writing in scenario-based learning. IEEE Transactions on Learning Technologies , 17, pp. 1301-1312. DOI\n- Floridi, L. (2025) Distant writing: Literary production in the age of artificial intelligence. Minds and Machines , 35(3), 30. DOI\n- Jin, F., Sun, L. &amp; Pan, Y., et al. (2025) High heels, compass, spider-man, or drug? Metaphor analysis of generative artificial intelligence in academic writing. Computers &amp; Education , 228, 105248. DOI\n\n- Lee, H., Sarkar, A. &amp; Tankelevitch, L., et al. (2025) The impact of generative AI on critical thinking: self-reported reductions in cognitive effort and confidence effects from a survey of knowledge workers. Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems. Yokohama, Japão. DOI\n- Lopes, C., Forgas, R.C. &amp; Cerdà-Navarr, A. (2024) Tese de doutorado em educação escrita por inteligência artificial? Revista Brasileira de Educação , 29, e290065. DOI\n- Mei, P., Brewis, D. &amp; Nwaiwu, F., et al. (2025) If ChatGPT can do it, where is my creativity? Generative AI boosts performance but diminishes experience in creative writing. Computers in Human Behavior: Artificial Humans , 4, 100140. DOI\n- Mollick, E.R. &amp; Mollick, L. (2024) Instructors as innovators: a future-focused approach to new AI learning opportunities, with prompts. SSRN Electronic Journal [Preprint]. DOI\n- Pereira, R., Reis, I.W. &amp; Ulbricht, V., et al. (2024) Generative artificial intelligence and academic writing: an analysis of the perceptions of researchers in training. Management Research: Journal of the Iberoamerican Academy of Management , 22(4), pp. 429-450. DOI\n- Resnik, D. &amp; Hosseini, M. (2025) Disclosing artificial intelligence use in scientific research and publication: when should disclosure be mandatory, optional, or unnecessary? Accountability in Research , 2025, pp. 1-13. DOI\n- Sampaio, R. &amp; Figueiredo, D. (2025) Prompts (infalíveis!) para pesquisa acadêmica com inteligência artificial. Teresina: EDUFPI.\n- Sampaio, R., Sabbatini, M. &amp; Limongi, R. (2024) Diretrizes para o uso ético e responsável da inteligência artificial generativa: um guia prático para pesquisadores. São Paulo: Sociedade Brasileira de Estudos Interdisciplinares da Comunicação.\n- Schilke, O. &amp; Reimann, M. (2005) The transparency dilemma: how AI disclosure erodes trust. Organizational Behavior and Human Decision Processes , 188, 104405. DOI\n- Trindade, A. &amp; Oliveira, H. (2024) Inteligência artificial generativa e competência em informação: habilidades informacionais necessárias ao uso de ferramentas de IA generativa em demandas informacionais acadêmico-científicas. Perspectivas em Ciência da Informação , 29, e-47485. DOI\n- Winberg, C., Engel-Hills, P. &amp; Winberg, S. (2024) 'Am I in control of my own writing?' Training postgraduate candidates in the responsible use of generative artificial intelligence in academic writing. African Journal of Inter/Multidisciplinary Studies , 6(1), pp. 1-12. DOI",
-          "similaridade_cosseno": 0.512536865358439
+          "arquivo": "bioetica_e_ia.md",
+          "indice": 3,
+          "tamanho": 1276,
+          "score_similaridade": 0.3716,
+          "texto": "<!-- section_metadata: {\"section\": \"Resumo\", \"subsection\": null, \"heading_path\": [\"Resumo\"]} -->  \nO avanço da inteligência artificial tem transformado profundamente a prática médica. De sistemas de apoio à decisão clínica a algoritmos de triagem e diagnóstico, a inteligência artificial tem demonstrado potencial para diagnósticos precoces, terapias personalizadas, otimização de recursos, redução de erros e ampliação do acesso a cuidados especializados. Contudo, essa revolução tecnológica impõe desafios éticos significativos aos princípios clássicos da bioética, como beneficência, não maleficência, confidencialidade e respeito à autonomia do doente, consagrados desde o Juramento de Hipócrates. A incorporação da inteligência artificial na medicina suscita tensões entre eficiência automatizada e valores humanos. Este artigo revisa a literatura sobre os principais dilemas éticos da aplicação da inteligência artificial na prática médica e avalia em que medida os princípios hipocráticos podem ser preservados ou adaptados diante das transformações tecnológicas, a fim de contribuir para o debate sobre os rumos éticos da medicina contemporânea em um cenário de crescente automação.  \nPalavras-chave: Bioética. Inteligência artificial. Ética médica. Autonomia pessoal.",
+          "metadata": {
+            "h2": "Resumo"
+          }
         }
       ]
     }

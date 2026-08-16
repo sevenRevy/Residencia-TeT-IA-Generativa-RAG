@@ -1,25 +1,33 @@
 {
   "frase_ancora": "O cachorro correu no parque e brincou com a bola.",
-  "comparacoes": [
+  "resultados": [
     {
       "rotulo": "Similar (mesmo sentido, palavras diferentes)",
       "frase": "Um cão estava correndo no jardim e brincando com seu brinquedo.",
-      "similaridade_cosseno": 0.6417093074525723
-    },
-    {
-      "rotulo": "Oposto/Negação",
-      "frase": "Nenhum animal esteve no parque e o cão permaneceu preso em casa.",
-      "similaridade_cosseno": 0.5299081171393477
+      "distancia_euclidiana": 0.6088,
+      "similaridade_cosseno": 0.8147,
+      "distancia_cosseno": 0.1853
     },
     {
       "rotulo": "Relacionado (mesmo contexto de animais)",
       "frase": "O gato dormiu na almofada da sala durante toda a tarde.",
-      "similaridade_cosseno": 0.2449069242410103
+      "distancia_euclidiana": 1.1323,
+      "similaridade_cosseno": 0.3589,
+      "distancia_cosseno": 0.6411
     },
     {
       "rotulo": "Diferente (outro domínio - economia)",
       "frase": "A taxa de juros do banco central subiu dois pontos percentuais.",
-      "similaridade_cosseno": 0.06966588673150166
+      "distancia_euclidiana": 1.2676,
+      "similaridade_cosseno": 0.1965,
+      "distancia_cosseno": 0.8035
+    },
+    {
+      "rotulo": "Oposto/Negação",
+      "frase": "Nenhum animal esteve no parque e o cão permaneceu preso em casa.",
+      "distancia_euclidiana": 0.961,
+      "similaridade_cosseno": 0.5382,
+      "distancia_cosseno": 0.4618
     }
   ]
 }

@@ -1,0 +1,58 @@
+[
+  {
+    "query": "O que é autonomia e opacidade algorítmica?",
+    "fator_filtro": "score_similaridade >= 0.6",
+    "resultados": {
+      "fixo_200": [
+        {
+          "arquivo": "bioetica_e_ia.md",
+          "indice": 31,
+          "tamanho": 199,
+          "score_similaridade": 0.6032,
+          "texto": "s, e essa falta de transparência algorítmica compro -mete o princípio da autonomia, pois impede o con -sentimento plenamente informado. Além disso, surgem questões sobre a responsabilização por erros"
+        }
+      ],
+      "fixo_500": [],
+      "fixo_1000": [],
+      "fixo_2000": [],
+      "fixo_500_overlap_50": [],
+      "fixo_500_overlap_200": [],
+      "paragrafo": [
+        {
+          "arquivo": "bioetica_e_ia.md",
+          "indice": 21,
+          "tamanho": 749,
+          "score_similaridade": 0.6115,
+          "texto": "## Autonomia e opacidade algorítmica\n\nO princípio da autonomia é central na ética médica  moderna  e  representa  o  direito  do paciente  de  tomar  decisões  informadas  sobre seu  próprio  cuidado.  A  realização  plena  desse princípio, fundamentado na transparência da rela -ção médico-paciente, depende de comunicação clara, compreensão dos riscos e participação ativa do paciente no processo terapêutico. Contudo, a ascensão da IA, especialmente em formas de deep learning , ameaça minar essa transparência essencial. Algoritmos complexos, treinados com grandes  volumes  de  dados,  frequentemente operam como 'caixas-pretas', ou seja, são inca -pazes de explicar, de forma compreensível, como chegaram a determinada recomendação  1,2,4,22 ."
+        }
+      ],
+      "sentenca_3": [],
+      "recursivo": [
+        {
+          "arquivo": "bioetica_e_ia.md",
+          "indice": 27,
+          "tamanho": 749,
+          "score_similaridade": 0.6115,
+          "texto": "## Autonomia e opacidade algorítmica\n\nO princípio da autonomia é central na ética médica  moderna  e  representa  o  direito  do paciente  de  tomar  decisões  informadas  sobre seu  próprio  cuidado.  A  realização  plena  desse princípio, fundamentado na transparência da rela -ção médico-paciente, depende de comunicação clara, compreensão dos riscos e participação ativa do paciente no processo terapêutico. Contudo, a ascensão da IA, especialmente em formas de deep learning , ameaça minar essa transparência essencial. Algoritmos complexos, treinados com grandes  volumes  de  dados,  frequentemente operam como 'caixas-pretas', ou seja, são inca -pazes de explicar, de forma compreensível, como chegaram a determinada recomendação  1,2,4,22 ."
+        }
+      ],
+      "markdown_heading": []
+    }
+  },
+  {
+    "query": "Quais são os principais problemas éticos em modelos de linguagem?",
+    "fator_filtro": "score_similaridade >= 0.6",
+    "resultados": {
+      "fixo_200": [],
+      "fixo_500": [],
+      "fixo_1000": [],
+      "fixo_2000": [],
+      "fixo_500_overlap_50": [],
+      "fixo_500_overlap_200": [],
+      "paragrafo": [],
+      "sentenca_3": [],
+      "recursivo": [],
+      "markdown_heading": []
+    }
+  }
+]

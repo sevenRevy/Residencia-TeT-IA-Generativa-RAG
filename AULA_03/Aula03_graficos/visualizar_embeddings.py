@@ -17,6 +17,30 @@ output_folder = Path(__file__).resolve().parent
 
 output_folder.mkdir(exist_ok=True)
 
+TERMOS = [
+    "gato",
+    "felino",
+    "cachorro",
+    "carro",
+    "caminhão",
+    "moto",
+    "banana",
+    "maçã",
+    "goiaba",
+]
+
+CATEGORIAS = {
+    "gato": "animais",
+    "felino": "animais",
+    "cachorro": "animais",
+    "carro": "veículos",
+    "caminhão": "veículos",
+    "moto": "veículos",
+    "banana": "frutas",
+    "maçã": "frutas",
+    "goiaba": "frutas",
+}
+
 
 # ==========================
 # Carregar embeddings
@@ -24,9 +48,11 @@ output_folder.mkdir(exist_ok=True)
 
 termos = []
 vetores = []
+categorias = []
 
 
-for arquivo in embedding_folder.glob("*.json"):
+for termo_esperado in TERMOS:
+    arquivo = embedding_folder / f"{termo_esperado}.json"
 
     with arquivo.open("r", encoding="utf-8") as f:
         data = json.load(f)
@@ -52,6 +78,7 @@ for arquivo in embedding_folder.glob("*.json"):
 
     termos.append(termo)
     vetores.append(embedding)
+    categorias.append(CATEGORIAS[termo_esperado])
 
 
 print(f"Embeddings carregados: {len(vetores)}")
@@ -67,13 +94,28 @@ pca_2d = PCA(n_components=2)
 embeddings_2d = pca_2d.fit_transform(vetores)
 
 
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(9, 6))
 
-plt.scatter(
-    embeddings_2d[:, 0],
-    embeddings_2d[:, 1]
-)
+cores = {
+    "animais": "#1f77b4",
+    "veículos": "#2ca02c",
+    "frutas": "#ff7f0e",
+}
 
+for categoria, cor in cores.items():
+    indices = [i for i, valor in enumerate(categorias) if valor == categoria]
+    plt.scatter(
+        embeddings_2d[indices, 0],
+        embeddings_2d[indices, 1],
+        label=categoria,
+        color=cor,
+        s=70,
+    )
+
+ajustes_rotulos = {
+    "gato": (10, 0),
+    "cachorro": (-46, 2),
+}
 
 for i, termo in enumerate(termos):
 
@@ -82,13 +124,25 @@ for i, termo in enumerate(termos):
         (
             embeddings_2d[i, 0],
             embeddings_2d[i, 1]
-        )
+        ),
+        textcoords="offset points",
+        xytext=ajustes_rotulos.get(termo, (0, 0)),
     )
 
 
-plt.title("Embeddings - PCA 2D")
+variancia_2d = pca_2d.explained_variance_ratio_ * 100
+plt.title("Embeddings Qwen - PCA 2D")
 plt.xlabel("Componente Principal 1")
 plt.ylabel("Componente Principal 2")
+plt.figtext(
+    0.5,
+    -0.02,
+    f"Variância explicada: PC1 {variancia_2d[0]:.1f}% | PC2 {variancia_2d[1]:.1f}%",
+    ha="center",
+)
+plt.legend(title="Grupo")
+plt.grid(alpha=0.2)
+plt.margins(x=0.1, y=0.1)
 
 
 plt.savefig(
@@ -114,8 +168,11 @@ fig = px.scatter_3d(
     x=embeddings_3d[:, 0],
     y=embeddings_3d[:, 1],
     z=embeddings_3d[:, 2],
+    color=categorias,
     text=termos,
-    title="Embeddings - PCA 3D"
+    hover_name=termos,
+    labels={"color": "Grupo"},
+    title="Embeddings Qwen - PCA 3D"
 )
 
 fig.update_layout(
