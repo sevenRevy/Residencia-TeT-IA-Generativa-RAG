@@ -749,27 +749,133 @@ Os chunks continuam com 500–800 tokens porque precisam representar uma unidade
 
 ```mermaid
 flowchart LR
-    U[Estoquista / Supervisor / Solicitante] --> A[Interface Web]
-    A --> B[Pergunta]
-    B --> C{Roteador}
 
-    C -->|Quantidade / local / status| D[API Almoxarifado]
-    D --> E[(Banco de estoque)]
+    %% =========================
+    %% 0. PREPARAÇÃO DOCUMENTAL
+    %% =========================
+    subgraph ING["0. Preparação documental"]
+        direction TB
 
-    C -->|Manual / termo / orientação| F[Busca RAG]
-    F --> G[(Banco vetorial)]
+        H["📄 Documentos<br/>dos itens"]
+        I["🔤 Extração<br/>+ OCR"]
+        J["🧹 Limpeza<br/>+ metadados"]
+        K["✂️ Chunking"]
+        L["🔢 Embeddings"]
 
-    H[Documentos dos itens] --> I[Extração + OCR]
-    I --> J[Limpeza + metadados]
-    J --> K[Chunking]
-    K --> L[Embeddings]
+        H --> I
+        I --> J
+        J --> K
+        K --> L
+    end
+
+
+    %% =========================
+    %% 1. INTERAÇÃO
+    %% =========================
+    subgraph UI["1. Interação"]
+        direction TB
+
+        U["👤 Estoquista<br/>Supervisor<br/>Solicitante"]
+        A["💬 Interface Web"]
+        B["❓ Pergunta em<br/>linguagem natural"]
+
+        U --> A
+        A --> B
+    end
+
+
+    %% =========================
+    %% 2. ORQUESTRAÇÃO
+    %% =========================
+    subgraph ORQ["2. Orquestração"]
+        direction TB
+
+        C{"🔀 Roteador<br/>da consulta"}
+    end
+
+    B --> C
+
+
+    %% =========================
+    %% 3. RECUPERAÇÃO
+    %% =========================
+    subgraph DATA["3. Recuperação de informação"]
+        direction TB
+
+        subgraph OP["Dados operacionais"]
+            direction TB
+
+            D["⚙️ API do<br/>Almoxarifado"]
+            E[("🗄️ Banco<br/>de estoque")]
+            O["📦 Dados atuais<br/>quantidade / local / status"]
+
+            D --> E
+            E --> O
+        end
+
+
+        subgraph RAG["Conhecimento documental"]
+            direction TB
+
+            F["🔎 Busca RAG"]
+            G[("🧠 Banco<br/>vetorial")]
+            R["📑 Chunks<br/>relevantes"]
+
+            F --> G
+            G --> R
+        end
+    end
+
+    C -->|"Quantidade<br/>localização<br/>status"| D
+    C -->|"Manual<br/>termo<br/>orientação"| F
+
     L --> G
 
-    E --> M[LLM]
-    G --> M
-    B --> M
-    M --> N[Resposta + origem]
+
+    %% =========================
+    %% 4. GERAÇÃO
+    %% =========================
+    subgraph GEN["4. Geração"]
+        direction TB
+
+        M["🤖 LLM<br/>Pergunta + contexto"]
+    end
+
+    O --> M
+
+
+
+    %% =========================
+    %% 5. RESPOSTA
+    %% =========================
+    subgraph OUT["5. Resposta"]
+        direction TB
+
+        N["✅ Resposta<br/>+ origem"]
+    end
+
+    M --> N
     N --> A
+
+
+    %% =========================
+    %% ESTILO
+    %% =========================
+    classDef user fill:#f5f5f5,stroke:#555,stroke-width:1.5px
+    classDef router fill:#fff4cc,stroke:#b8860b,stroke-width:2px
+    classDef api fill:#e8f4ff,stroke:#2878b5,stroke-width:1.5px
+    classDef rag fill:#eee8ff,stroke:#6842a8,stroke-width:1.5px
+    classDef ingest fill:#eaf8ee,stroke:#37854a,stroke-width:1.5px
+    classDef llm fill:#fff0e6,stroke:#c55a11,stroke-width:2px
+    classDef output fill:#e8f8f1,stroke:#25865a,stroke-width:2px
+
+    class U,A,B user
+    class C router
+    class D,E,O api
+    class F,G,R rag
+    class H,I,J,K,L ingest
+    class M llm
+    class N output
 ```
 
 ## Tabela de decisões
