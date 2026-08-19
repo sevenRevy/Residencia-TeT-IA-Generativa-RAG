@@ -669,25 +669,115 @@ Os dois fluxos usam o mesmo modelo de embedding. Isso mantém documentos e pergu
 
 ```mermaid
 flowchart LR
-    A[PDF / DOCX / HTML] --> B[Extração e OCR]
-    B --> C[Limpeza + metadados]
-    C --> D[Chunking]
-    D --> E[Embedding em batch]
-    E --> F[(Banco vetorial)]
 
-    U[Aluno / Professor / Secretaria] --> G[Interface Web]
-    G --> H[Pergunta]
-    H --> I[Embedding síncrono da pergunta]
-    I --> J[Busca vetorial + filtros]
+    %% =========================
+    %% 0. PREPARAÇÃO DOCUMENTAL
+    %% =========================
+    subgraph ING["0. Preparação documental"]
+        direction TB
 
-    AC[Permissão / curso / vigência] --> J
+        A["📄 PDF / DOCX / HTML"]
+        B["🔤 Extração<br/>+ OCR"]
+        C["🧹 Limpeza<br/>+ metadados"]
+        D["✂️ Chunking"]
+        E["🔢 Embeddings<br/>em batch"]
+        F[("🧠 Banco<br/>vetorial")]
 
-    J --> F
-    F --> K[Chunks permitidos e relevantes]
-    K --> L[LLM local ou API autorizada]
-    H --> L
-    L --> M[Resposta + fonte]
+        A --> B
+        B --> C
+        C --> D
+        D --> E
+        E --> F
+    end
+
+
+    %% =========================
+    %% 1. INTERAÇÃO
+    %% =========================
+    subgraph UI["1. Interação"]
+        direction TB
+
+        U["👤 Aluno<br/>Professor<br/>Secretaria"]
+        G["💬 Interface Web"]
+        H["❓ Pergunta em<br/>linguagem natural"]
+
+        U --> G
+        G --> H
+    end
+
+
+    %% =========================
+    %% 2. PREPARAÇÃO DA CONSULTA
+    %% =========================
+    subgraph QUERY["2. Preparação da consulta"]
+        direction TB
+
+        I["🔢 Embedding <br/>da pergunta"]
+        AC["🔐 Contexto da consulta<br/>permissão / curso / vigência"]
+
+        H --> I
+    end
+
+
+    %% =========================
+    %% 3. RECUPERAÇÃO
+    %% =========================
+    subgraph RET["3. Recuperação documental"]
+        direction TB
+
+        J["🔎 Busca vetorial<br/>+ filtros"]
+        K["📑 Chunks permitidos<br/>e relevantes"]
+
+        J --> K
+    end
+
+    AC --> J
+    F --> J
+
+
+    %% =========================
+    %% 4. GERAÇÃO
+    %% =========================
+    subgraph GEN["4. Geração"]
+        direction TB
+
+        L["🤖 LLM local<br/>ou API autorizada"]
+    end
+
+    K -->|"Contexto recuperado"| L
+
+
+    %% =========================
+    %% 5. RESPOSTA
+    %% =========================
+    subgraph OUT["5. Resposta"]
+        direction TB
+
+        M["✅ Resposta<br/>+ fonte"]
+    end
+
+    L --> M
     M --> G
+
+
+    %% =========================
+    %% ESTILO
+    %% =========================
+    classDef user fill:#f5f5f5,stroke:#555,stroke-width:1.5px
+    classDef query fill:#fff4cc,stroke:#b8860b,stroke-width:1.5px
+    classDef rag fill:#eee8ff,stroke:#6842a8,stroke-width:1.5px
+    classDef ingest fill:#eaf8ee,stroke:#37854a,stroke-width:1.5px
+    classDef security fill:#ffecec,stroke:#b84a4a,stroke-width:1.5px
+    classDef llm fill:#fff0e6,stroke:#c55a11,stroke-width:2px
+    classDef output fill:#e8f8f1,stroke:#25865a,stroke-width:2px
+
+    class U,G,H user
+    class I query
+    class AC security
+    class J,F,K rag
+    class A,B,C,D,E ingest
+    class L llm
+    class M output
 ```
 
 ## Tabela de decisões
