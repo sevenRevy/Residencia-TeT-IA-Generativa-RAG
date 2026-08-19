@@ -11,6 +11,7 @@
 | `AULA_03/` | Embeddings, distâncias e busca semântica manual | Scripts de embeddings com Qwen local, distâncias, busca semântica manual e gráficos. | [Ler README](AULA_03/README.md) |
 | `AULA_04/` | Chunking com LangChain e embeddings | Script de conversão com Docling e 120 experimentos de chunking com embeddings Qwen. | [Ler README](AULA_04/README.md) |
 | `AULA_05/` | Documents com LangChain | Exemplos de `Document` com metadados a partir dos dados reais da Aula 04. | [Ler README](AULA_05/README.md) |
+| `AULA_06/` | Casos de uso e arquitetura RAG | Cenário educacional e cenário de almoxarifado com decisões de RAG, metadados, chunking, embeddings e comparação entre abordagens. | — |
 
 ## Organização do Corpus
 
