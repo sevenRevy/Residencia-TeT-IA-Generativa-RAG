@@ -31,7 +31,7 @@ Confirmar cadastro?
 
 A operação só é enviada após a confirmação. O erro humano continua possível, mas o fluxo reduz campos digitados sem contexto e permite validação antes do `POST`.
 
-No modo de consulta, o roteador decide entre API, RAG ou as duas fontes. Quantidade, localização e status vêm do sistema operacional. Manuais, procedimentos e termos entram pela busca documental.
+No modo de consulta, o LLM atua como roteador e, por meio de tool calling, pode solicitar uma consulta à API, ao RAG ou às duas fontes. A execução das ferramentas permanece sob controle do backend.
 
 ### Quem utilizaria a aplicação?
 
@@ -98,6 +98,12 @@ A interface conversa com:
 - o serviço de busca RAG.
 
 No modo consulta, nenhuma informação é alterada: o chat apenas pesquisa a API e os documentos.
+
+A comunicação entre o LLM e essas fontes é realizada por tool calling. O modelo não acessa diretamente o banco de dados nem recebe credenciais da API. O backend disponibiliza um conjunto limitado de ferramentas, como consultar_item(), consultar_estoque() e buscar_documentos(). Ao interpretar a pergunta, o LLM pode solicitar a execução de uma dessas ferramentas, informando argumentos estruturados.
+
+No MVP, esse mecanismo pode ser implementado utilizando o suporte a tool calling do modelo acessado pelo OpenRouter, por meio de uma interface compatível com o OpenAI SDK. A aplicação Python recebe a solicitação do modelo, valida os argumentos, executa a função correspondente e devolve o resultado ao LLM. Dessa forma, é o backend — e não o modelo — que efetivamente realiza a chamada HTTP para a API ou a consulta ao banco vetorial.
+
+Por exemplo, para a pergunta “Tem projetor disponível?”, o modelo pode solicitar consultar_estoque(categoria="projetor"). Para “Como transportar esse projetor?”, pode solicitar buscar_documentos(query="transporte", item_code="PROJ-X200").
 
 No modo cadastro ou movimentação, o LLM não grava diretamente no banco. Ele interpreta a solicitação, monta um objeto estruturado, valida os campos na API e mostra uma prévia ao funcionário. Somente depois da confirmação uma operação de escrita é enviada.
 
@@ -250,9 +256,13 @@ Pergunta:
 
 Pode exigir:
 
-1. API para disponibilidade e localização
-2. RAG para recuperar a orientação do manual
-3. LLM apenas para consolidar a resposta.
+1. O LLM identifica que a pergunta exige dados operacionais e documentais.
+2. Por tool calling, solicita consultar_estoque() ou consultar_item().
+3. O backend consulta a API e retorna item_code, patrimônio, disponibilidade e localização.
+4. O item_code retornado é usado como filtro em buscar_documentos().
+5. A ferramenta RAG gera o embedding da pergunta e recupera os chunks do manual correspondente.
+6. Os resultados das ferramentas retornam ao LLM.
+7. O LLM consolida a resposta e apresenta a origem de cada informação.
 
 ### E se for preciso contar, somar ou ordenar muitos documentos?
 
@@ -744,30 +754,50 @@ O modelo aceita até 32K tokens, mas isso não torna chunks de 32K desejáveis.
 
 Os chunks continuam com 500–800 tokens porque precisam representar uma unidade técnica coerente. O contexto grande é uma margem de segurança e pode ser útil em casos especiais, não um alvo de chunking.
 
+# Parte 7 - Orquestração e Tool Calling
+
+E explicaria quatro coisas bem curtas:
+
+Como funciona
+
+    O LLM atua também como roteador da consulta. Em vez de acessar diretamente sistemas externos, ele recebe a descrição das ferramentas disponíveis e pode solicitar sua execução conforme a intenção identificada.
+
+## Ferramentas do MVP
+
+```
+consultar_item(item_code | patrimony_id)  → consulta dados atuais na API
+
+consultar_estoque(category, status, location) → consulta disponibilidade e localização
+
+buscar_documentos(query, item_code, patrimony_id) → executa a recuperação RAG
+
+validar_movimentacao(...) → valida dados antes de uma possível escrita
+```
+
+## Ciclo de execução
+
+```
+Pergunta
+   ↓
+LLM
+   ↓
+Tool call + argumentos
+   ↓
+Backend valida
+   ↓
+API ou RAG
+   ↓
+Resultado da ferramenta
+   ↓
+LLM
+   ↓
+Resposta
+```
 
 # Arquitetura final
 
 ```mermaid
 flowchart LR
-
-    %% =========================
-    %% 0. PREPARAÇÃO DOCUMENTAL
-    %% =========================
-    subgraph ING["0. Preparação documental"]
-        direction TB
-
-        H["📄 Documentos<br/>dos itens"]
-        I["🔤 Extração<br/>+ OCR"]
-        J["🧹 Limpeza<br/>+ metadados"]
-        K["✂️ Chunking"]
-        L["🔢 Embeddings"]
-
-        H --> I
-        I --> J
-        J --> K
-        K --> L
-    end
-
 
     %% =========================
     %% 1. INTERAÇÃO
@@ -790,7 +820,11 @@ flowchart LR
     subgraph ORQ["2. Orquestração"]
         direction TB
 
-        C{"🔀 Roteador<br/>da consulta"}
+        C["🤖 LLM / Roteador<br/>interpreta a intenção"]
+
+        T["🛠️ Tool Calling<br/>OpenRouter / OpenAI SDK"]
+
+        C -->|"Solicita ferramenta"| T
     end
 
     B --> C
@@ -800,8 +834,11 @@ flowchart LR
     %% 3. RECUPERAÇÃO
     %% =========================
     subgraph DATA["3. Recuperação de informação"]
-        direction TB
+        direction LR
 
+        %% -------------------------
+        %% DADOS OPERACIONAIS
+        %% -------------------------
         subgraph OP["Dados operacionais"]
             direction TB
 
@@ -814,22 +851,33 @@ flowchart LR
         end
 
 
+        %% -------------------------
+        %% CONHECIMENTO DOCUMENTAL
+        %% -------------------------
         subgraph RAG["Conhecimento documental"]
             direction TB
 
-            F["🔎 Busca RAG"]
+            F["🔎 Ferramenta<br/>buscar_documentos()"]
+            Q["🔢 Embedding síncrono<br/>da pergunta"]
             G[("🧠 Banco<br/>vetorial")]
             R["📑 Chunks<br/>relevantes"]
 
-            F --> G
+            F --> Q
+            Q --> G
             G --> R
         end
     end
 
-    C -->|"Quantidade<br/>localização<br/>status"| D
-    C -->|"Manual<br/>termo<br/>orientação"| F
 
-    L --> G
+    %% Tool Calling
+    T -->|"consultar_item()<br/>consultar_estoque()"| D
+
+    T -->|"buscar_documentos()"| F
+
+
+    %% Resultado operacional pode restringir
+    %% posteriormente a busca documental
+    O -->|"item_code / patrimônio<br/>como filtro"| F
 
 
     %% =========================
@@ -838,11 +886,11 @@ flowchart LR
     subgraph GEN["4. Geração"]
         direction TB
 
-        M["🤖 LLM<br/>Pergunta + contexto"]
+        M["🤖 LLM<br/>Pergunta + resultados<br/>das ferramentas"]
     end
 
-    O --> M
-
+    O -->|"Dados operacionais"| M
+    R -->|"Contexto documental"| M
 
 
     %% =========================
@@ -851,11 +899,32 @@ flowchart LR
     subgraph OUT["5. Resposta"]
         direction TB
 
-        N["✅ Resposta<br/>+ origem"]
+        N["✅ Resposta + origem<br/>exibida na interface"]
     end
 
     M --> N
-    N --> A
+
+
+    %% =========================
+    %% 0. PREPARAÇÃO DOCUMENTAL
+    %% Processo offline
+    %% =========================
+    subgraph ING["0. Preparação documental · offline"]
+        direction TB
+
+        H["📄 Documentos<br/>dos itens"]
+        I["🔤 Extração<br/>+ OCR"]
+        J["🧹 Limpeza<br/>+ metadados"]
+        K["✂️ Chunking"]
+        L["🔢 Embeddings"]
+
+        H --> I
+        I --> J
+        J --> K
+        K --> L
+    end
+
+    L -->|"Indexação"| G
 
 
     %% =========================
@@ -863,6 +932,7 @@ flowchart LR
     %% =========================
     classDef user fill:#f5f5f5,stroke:#555,stroke-width:1.5px
     classDef router fill:#fff4cc,stroke:#b8860b,stroke-width:2px
+    classDef tool fill:#fff8dc,stroke:#c09000,stroke-width:2px
     classDef api fill:#e8f4ff,stroke:#2878b5,stroke-width:1.5px
     classDef rag fill:#eee8ff,stroke:#6842a8,stroke-width:1.5px
     classDef ingest fill:#eaf8ee,stroke:#37854a,stroke-width:1.5px
@@ -871,8 +941,9 @@ flowchart LR
 
     class U,A,B user
     class C router
+    class T tool
     class D,E,O api
-    class F,G,R rag
+    class F,Q,G,R rag
     class H,I,J,K,L ingest
     class M llm
     class N output
@@ -948,4 +1019,13 @@ As características do `Qwen3-Embedding-0.6B` foram verificadas no material ofic
 
 3. OpenAI. Vector embeddings.  
    https://developers.openai.com/api/docs/guides/embeddings
+
+4. OpenRouter. Tool & Function Calling.  
+   https://openrouter.ai/docs/guides/features/tool-calling
+
+5. OpenAI. Function Calling.  
+   https://developers.openai.com/api/docs/guides/function-calling
+
+6. OpenAI. Using Tools.  
+   https://developers.openai.com/api/docs/guides/tools
 

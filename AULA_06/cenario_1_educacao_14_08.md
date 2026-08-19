@@ -458,7 +458,9 @@ Se o hash mudou, o documento é novamente extraído, dividido e indexado. Não h
 | `source_url` | Permite abrir a fonte original |
 | `updated_at` | Ajuda a controlar atualização e reprocessamento |
 
-`access_level` pode assumir valores como `public`, `institutional` e `restricted`. A autorização do usuário deve ser verificada antes da recuperação dos chunks.
+`access_level` pode assumir valores como `public`, `institutional` e `restricted`. 
+
+A permissão não é determinada pelo LLM. Ela vem do login ou da sessão do usuário, que pode fornecer informações como perfil, curso e nível de acesso. Antes da busca vetorial, o backend combina esse contexto do usuário com os metadados dos documentos e elimina os chunks que ele não pode consultar.
 
 ## 4.2 Schema do chunk
 
@@ -472,57 +474,137 @@ Se o hash mudou, o documento é novamente extraído, dividido e indexado. Não h
   "course": "Engenharia de Software",
   "status": "active",
   "effective_from": "2026-01-01",
+  "effective_until": null,
   "access_level": "institutional",
   "text": "O trancamento..."
 }
 ```
 
-| Metadado | Por que é útil? |
-|---|---|
-| `document_id` | Volta do chunk para o documento original |
-| `chunk_id` | Identifica exatamente o trecho indexado |
-| `page` | Permite citar a página |
-| `section` | Mantém contexto e melhora a citação |
-| `document_type` | Permite filtrar a busca |
-| `course` | Evita mistura entre cursos |
-| `status` | Impede recuperação normal de conteúdo arquivado |
-| `effective_from` | Ajuda a respeitar vigência |
-| `text` | É o conteúdo enviado para embedding e posteriormente ao LLM |
+| Metadado          | Por que é útil?                                                           |
+| ----------------- | ------------------------------------------------------------------------- |
+| `document_id`     | Volta do chunk para o documento original                                  |
+| `chunk_id`        | Identifica exatamente o trecho indexado                                   |
+| `page`            | Permite citar a página                                                    |
+| `section`         | Mantém contexto e melhora a citação                                       |
+| `document_type`   | Permite filtrar a busca                                                   |
+| `course`          | Evita mistura entre cursos                                                |
+| `status`          | Impede recuperação normal de conteúdo arquivado                           |
+| `effective_from`  | Indica a partir de quando o conteúdo está vigente                         |
+| `effective_until` | Permite excluir conteúdos cuja vigência já terminou                       |
+| `access_level`    | Impede que chunks restritos sejam recuperados para usuários sem permissão |
+| `text`            | É o conteúdo enviado para embedding e posteriormente ao LLM               |
 
 ### Metadados usados como filtro
 
-Exemplo:
+Os filtros são aplicados pelo backend antes da recuperação dos chunks. Eles combinam informações da sessão do usuário com os metadados armazenados nos documentos e chunks.
+
+Após o login, por exemplo, a sessão pode conter:
+
+```json
+{
+  "role": "student",
+  "course": "Engenharia de Software",
+  "access_level": "institutional"
+}
+```
+
+Essas informações não precisam ser determinadas pelo LLM. Elas podem vir diretamente do sistema de autenticação, do cadastro institucional ou do sistema acadêmico.
+
+Para uma consulta atual, o backend pode montar filtros equivalentes a:
+
+```text
+course = Engenharia de Software
+status = active
+access_level compatível com a permissão do usuário
+effective_from <= data da consulta
+effective_until >= data da consulta OU null
+```
+
+Assim, antes de calcular quais chunks são semanticamente mais próximos da pergunta, o sistema restringe o conjunto de candidatos aos documentos que pertencem ao contexto correto, estão vigentes e podem ser acessados pelo usuário.
+
+Por exemplo:
 
 > "Qual é a carga de atividades complementares de Engenharia de Software?"
 
-O filtro `course = Engenharia de Software` é útil. Uma busca puramente semântica poderia recuperar um regulamento muito semelhante de outro curso.
+Se o usuário estiver autenticado como aluno de Engenharia de Software, o sistema já pode obter `course = Engenharia de Software` a partir da sessão. O filtro evita que uma busca puramente semântica recupere um regulamento semelhante de outro curso.
 
-Também são filtros úteis:
+A recuperação passa, de forma simplificada, a responder:
 
-- `status = active`
-- `document_type`
-- período de vigência.
+```text
+Entre os chunks que este usuário pode consultar,
+do curso correto e vigentes para esta data,
+quais são semanticamente mais próximos da pergunta?
+```
+
+O LLM não deve decidir permissões, nível de acesso ou qual documento está vigente. Essas decisões são feitas pelo backend a partir das regras da aplicação e dos metadados.
+
+O LLM pode auxiliar apenas na interpretação de informações presentes na pergunta. Por exemplo:
+
+> "Como era a regra de TCC em 2024?"
+
+Nesse caso, a aplicação pode identificar que o usuário está solicitando um período histórico e alterar o filtro temporal para procurar documentos cuja vigência inclua 2024, em vez de limitar a busca aos documentos atualmente ativos.
+
+Mesmo nesse caso, a autorização continua sendo validada pelo backend.
+
+Também podem ser usados como filtros:
+
+* `document_type`
+* `course`
+* `status`
+* `access_level`
+* `effective_from`
+* `effective_until`
 
 ### Metadados usados para citação
 
-Na tela apareceria algo como:
+Alguns metadados não servem apenas para filtrar a recuperação. Eles também permitem mostrar claramente de onde a informação foi obtida.
+
+Na interface poderia aparecer:
 
 > Fonte: Regulamento de TCC 2026 - Art. 14 - p. 12
 
-Com um link para `source_url`.
+O sistema pode construir essa referência utilizando:
+
+* `document_id`
+* título do documento
+* `section`
+* `page`
+* `source_url`
+
+O `source_url` pode apontar para o documento original no portal institucional, permitindo que o usuário confira diretamente a fonte utilizada na resposta.
 
 ### Qual metadado seria caro de acrescentar depois?
 
-`section` ou uma hierarquia como `section_path` seria caro porque depende da estrutura interna de cada documento e de cada chunk. Acrescentá-lo tarde pode exigir reabrir, reprocessar e até refazer o chunking de toda a base.
+`section` ou uma hierarquia como `section_path` seria relativamente cara de acrescentar depois porque depende da estrutura interna de cada documento e de cada chunk.
+
+Por exemplo:
+
+```text
+Regulamento de Graduação
+└── Capítulo IV
+    └── Seção II
+        └── Art. 14 - Trancamento
+```
+
+Se essa estrutura não for preservada durante a extração e o chunking, adicioná-la posteriormente pode exigir reabrir os documentos originais, executar novamente a extração e até refazer o chunking e a indexação.
+
+Por isso, informações estruturais como página, seção e relação com o documento original devem ser preservadas desde a ingestão.
 
 ### Como extrair os metadados?
 
-- `document_id`, origem e URL: definidos no momento da ingestão
-- título, curso, versão e vigência: extraídos do documento e validados
-- seção e página: obtidos pelo parser durante a extração
-- tipo do documento: pode vir da pasta e ser confirmado pelo conteúdo
-- `access_level` vem da política da instituição, não deve ser decidido pelo LLM
-- em campos mais difíceis, um LLM com saída estruturada pode sugerir valores, mas campos críticos como vigência devem ser validados.
+Os metadados podem vir de fontes diferentes:
+
+* `document_id`, origem e URL: definidos no momento da ingestão
+* título, curso, versão e vigência: extraídos do documento e posteriormente validados
+* `section` e `page`: obtidos pelo parser durante a extração
+* `document_type`: pode ser definido pela origem ou pasta e confirmado pelo conteúdo
+* `status`: definido pelo controle documental da aplicação
+* `access_level` do documento: vem da política de acesso da instituição
+* perfil, curso e permissão do usuário: vêm do login, sessão ou sistema acadêmico
+* data da consulta: fornecida pelo próprio backend
+* campos mais difíceis podem receber sugestões de um LLM com saída estruturada, mas informações críticas como autorização, status e vigência devem ser validadas pela aplicação.
+
+A separação é importante porque o LLM pode auxiliar na interpretação da consulta e na extração de informações, mas não deve ser a autoridade responsável por conceder acesso a documentos. A autorização acontece antes da recuperação dos chunks e, consequentemente, antes de qualquer conteúdo ser enviado ao LLM.
 
 
 
@@ -713,7 +795,8 @@ flowchart LR
         direction TB
 
         I["🔢 Embedding <br/>da pergunta"]
-        AC["🔐 Contexto da consulta<br/>permissão / curso / vigência"]
+        AC["🔐 Contexto da sessão<br/>perfil / curso / permissões"]
+        V["📅 Contexto documental<br/>status / vigência"]
 
         H --> I
     end
@@ -773,7 +856,7 @@ flowchart LR
 
     class U,G,H user
     class I query
-    class AC security
+    class AC,V security
     class J,F,K rag
     class A,B,C,D,E ingest
     class L llm
@@ -787,7 +870,7 @@ flowchart LR
 | Extração   | Usar parser de PDF e acionar OCR somente quando o documento for digitalizado ou não tiver texto pesquisável.                                                                                 | A maior parte dos regulamentos e editais pode ser processada diretamente. O OCR fica reservado aos documentos escaneados, evitando processamento desnecessário.                            |
 | Limpeza    | Retirar cabeçalhos repetidos, rodapés, números isolados e outros ruídos, preservando artigos, títulos, datas, numeração e referências internas.                                              | Esses elementos ajudam a localizar a origem da resposta. Uma limpeza excessiva poderia apagar justamente os dados usados para explicar uma regra ou prazo.                                 |
 | Chunking   | Dividir preferencialmente por seção, artigo ou tópico do documento. Usar aproximadamente 600 a 900 tokens, com overlap entre 80 e 120 tokens quando a divisão estrutural não for suficiente. | Regulamentos e editais já têm divisões que carregam significado. Manter artigos e seções próximos reduz a chance de recuperar uma regra sem sua condição, exceção ou prazo correspondente. |
-| Metadados  | Registrar curso, tipo de documento, vigência, versão, página, seção e arquivo de origem.                                                                                                     | Os metadados permitem restringir a busca e distinguir documentos semelhantes. Também ajudam a mostrar ao usuário de onde veio a informação mostrada pelo assistente.                    |
+| Metadados | Registrar curso, tipo de documento, vigência, versão, nível de acesso, página, seção e arquivo de origem. Combinar esses dados com perfil, curso e permissões obtidos da sessão do usuário. | Os metadados permitem restringir a busca antes da recuperação sem depender do LLM para autorização. Também evitam mistura entre cursos e versões e permitem apresentar a origem da informação ao usuário. |
 | Embeddings | Usar `text-embedding-3-large` para representar os trechos e as perguntas no mesmo espaço vetorial.                                                                                           | A busca semântica permite recuperar trechos relacionados ao sentido da pergunta mesmo quando o aluno usa palavras diferentes das existentes no regulamento.                                |
 
 
@@ -801,6 +884,7 @@ flowchart LR
 - documentos muito parecidos de cursos diferentes exigem bons metadados
 - indisponibilidade da API de embedding impede novas consultas que precisem gerar vetor
 - usar uma API externa pode não ser permitido para conteúdo interno sensível.
+- configuração incorreta de permissões ou metadados de acesso pode permitir a recuperação de documentos indevidos; por isso, autorização deve ser validada pelo backend antes da busca vetorial
 
 
 # Comparação resumida com o Cenário 2
@@ -836,7 +920,6 @@ A IA foi utilizada para:
 
 3. Qwen. Qwen3 Embedding: Advancing Text Embedding and Reranking Through Foundation Models.  
    https://qwenlm.github.io/blog/qwen3-embedding/
-
 
 4. IBGE. PNAD Contínua TIC 2024.  
    https://agenciadenoticias.ibge.gov.br/agencia-noticias/2012-agencia-de-noticias/noticias/44033-pela-primeira-vez-mais-da-metade-da-populacao-acessa-a-internet-pela-tv
